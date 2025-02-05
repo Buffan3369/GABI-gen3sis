@@ -1,0 +1,29 @@
+---
+title: "Palaeoclimate constraints on the Great American Biotic Interchange"
+author:  
+  - Lucas Buffan¹, Adrián Castro Insua², Fabien L. Condamine¹, Sara Varela²
+format:
+  docx:
+      number-sections: false
+      reference-doc: template.docx
+editor: visual
+bibliography: references.bib
+csl: journal-of-biogeography.csl
+---
+
+Affiliations:\
+¹ Institut des Sciences de l’Evolution de Montpellier, Université de Montpellier, CNRS, IRD, Place Eugène Bataillon, 34095 Montpellier cedex 5, France.\
+² Centro de Investigación Mariña, Departamento de Ecoloxía e Bioloxía Animal, Universidade de Vigo, Campus Lagoas-Marcosende, 36310 Vigo, Spain
+
+# Materials and methods
+
+## Palaeoclimate data
+
+We used the spatio-temporal terrestrial palaeoclimate series from the PALEO-PGEM atmosphere-ocean general circulation model @holden2019, covering the last 5 Myrs with a 1 \times 1 ° spatial resolution @barreto2023. For the scope of this work, we used two bioclimatic variables: mean annual temperature (MAT, BIO1) and mean annual precipitation (MAP, BIO12). 
+
+\newpage
+
+# References
+
+::: {#refs}
+:::
