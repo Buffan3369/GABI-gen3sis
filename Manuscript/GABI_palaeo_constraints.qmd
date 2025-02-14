@@ -17,16 +17,19 @@ Affiliations:\
 
 # Materials and methods
 
+What we want to compare:
+- Proportion of successful exchanges when starting from North v.s. South
+- Is there any change in diversification rates after crossing Panama's isthmus? Do crossers from the North experience faster radiation than in the other way round? 
+
 ## Palaeoclimate data
 
 We used the spatio-temporal terrestrial palaeoclimate series from the PALEO-PGEM atmosphere-ocean general circulation model @holden2019, covering the last 5 Myrs with a 1 \times 1 ° spatial resolution @barreto2023. For the scope of this work, we used two bioclimatic variables: mean annual temperature (MAT, BIO1) and mean annual precipitation (MAP, BIO12).
 
 ## Simulation model and modelling schemes
 
-We performed our simulations using the General Engine for Eco-Evolutionary SImulationS, gen3sis, v1.5.11 @hagen2021. Simulations, moving forward-in-time with a 1ky time step, tracked the diversification of ancestral lineages either originating in North, South America or both, throughout the last 5 Myr. 
+We performed our simulations using the General Engine for Eco-Evolutionary SImulationS, gen3sis, v1.5.11 @hagen2021. Simulations, moving forward-in-time with a 1ky time step, tracked the diversification of ancestral lineages either originating in North, South America or both, throughout the last 5 Myr.
 
 Importantly, since the palaeoclimate reconstructions that we used ignored tectonic plate motion − a fairly reasonable assumption for a 5-Myr time frame − continental position in our landscapes was held constant across simulations. Therefore, in this framework, changes connectivity between North and South America could only arise from environmental changes.
-
 
 \newpage
 
