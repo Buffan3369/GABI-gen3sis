@@ -36,8 +36,8 @@ for(i in 1:n_sim){
     # Precise the final diversity, the total number of speciation and extinction events
     params$initial_nb_species[i] <- phylo_sum$alive[1]
     params$final_nb_species[i] <- phylo_sum$alive[nrow(phylo_sum)]
-    params$sp_events[i] <- phylo_sum$speciations[nrow(phylo_sum)]
-    params$ex_events[i] <- phylo_sum$extinctions[nrow(phylo_sum)]
+    params$sp_events[i] <- sum(phylo_sum$speciations)
+    params$ex_events[i] <- sum(phylo_sum$extinctions)
   }
 }
 
