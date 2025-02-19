@@ -17,9 +17,7 @@ Affiliations:\
 
 # Materials and methods
 
-What we want to compare:
-- Proportion of successful exchanges when starting from North v.s. South
-- Is there any change in diversification rates after crossing Panama's isthmus? Do crossers from the North experience faster radiation than in the other way round? 
+What we want to compare: - Proportion of successful exchanges when starting from North v.s. South - Is there any change in diversification rates after crossing Panama's isthmus? Do crossers from the North experience faster radiation than in the other way round?
 
 ## Palaeoclimate data
 
@@ -27,9 +25,11 @@ We used the spatio-temporal terrestrial palaeoclimate series from the PALEO-PGEM
 
 ## Simulation model and modelling schemes
 
-We performed our simulations using the General Engine for Eco-Evolutionary SImulationS, gen3sis, v1.5.11 @hagen2021. Simulations, moving forward-in-time with a 1ky time step, tracked the diversification of ancestral lineages either originating in North, South America or both, throughout the last 5 Myr.
+We performed our spatially-explicit simulations of biodiversity using the General Engine for Eco-Evolutionary SImulationS, *gen3sis*, v1.5.11 @hagen2021. Simulations, moving forward-in-time with a 10ky time step, tracked the dispersion and diversification of ancestral lineages either originating in North, South America or both, throughout the last 5 Myr.
 
-Importantly, since the palaeoclimate reconstructions that we used ignored tectonic plate motion − a fairly reasonable assumption for a 5-Myr time frame − continental position in our landscapes was held constant across simulations. Therefore, in this framework, changes connectivity between North and South America could only arise from environmental changes.
+The ancestral range of a starting lineage was randomly selected within the desired ancestral area (*i*.*e*., North, South America or both). To avoid oversampling high latitudes, we merged the ancestral landscape with the centroids of an equal-area grid (\~100km spacing) generated using the R package *h3jsr* @obrien2023. We then sampled a centroid at random and retrieved the corresponding cell in our landscape.
+
+Importantly, since the palaeoclimate reconstructions that we used ignored tectonic plate motion − a fairly reasonable assumption for a 5-Myr time frame − continental position in our landscapes was held constant across simulations. Therefore, in this framework, changes in connectivity between North and South America could only arise from the environment.
 
 \newpage
 
