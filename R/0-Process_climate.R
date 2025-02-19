@@ -12,8 +12,7 @@ library(future.apply) # for parallel processing
 ## Function that will crop each climate raster based on the mask ---------------
 process_raster <- function(time, mask, climate_dataset){
   # Extract corresponding raster and convert to stars object
-  r <- rasterFromXYZ(climate_dataset[,c(1,2,time)])
-  crs(r) <- crs(mask)
+  r <- rasterFromXYZ(climate_dataset[,c(1,2,time)], crs = crs(mask))
   # Extract values contained in the vector mask
   clim_am <- extract(r, mask, cellnumbers = TRUE, df = TRUE)
   # Retrieve coordinates of the corresponding cells
