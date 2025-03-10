@@ -8,7 +8,9 @@
 library(raster)
 
 ## Function that will crop each climate raster based on the mask ---------------
-process_raster <- function(time, mask, climate_dataset, as_terra = FALSE){
+process_raster <- function(time, # /!\ [3,4,...,5002] (what has to be given) <=> [5000,4999,...,1] (what it actually corresponds to) /!\
+                           mask, climate_dataset, month,
+                           what = c("temperature", "precipitation")){
   # Extract corresponding raster and convert to stars object
   r <- rasterFromXYZ(climate_dataset[,c(1,2,time)], crs = crs(mask))
   # Extract values contained in the vector mask
@@ -18,10 +20,13 @@ process_raster <- function(time, mask, climate_dataset, as_terra = FALSE){
   # Construct xyz file and create a raster out of it
   xyz_extracted <- data.frame(cbind(xy_extracted, clim_am[,3]))
   raster_extracted <- rasterFromXYZ(xyz = xyz_extracted, crs = crs(mask))
-  if(as_terra){
-    # Convert to SpatRaster object
-    raster_extracted <- as(raster_extracted, Class = "SpatRaster")
+  # Save it as an .RDS file in the corresponding directory
+  if(month < 10){
+    month <- paste0("0", month)
   }
-  return(raster_extracted)
+  true_time <- 5001 - (time-2)
+  out_dir <- paste0("../../Data/PALEO_PGEM-bioclim/monthly_mean_rasters/mean_",
+                    what, "_", true_time, "k_", month, "M_Americas.RDS")
+  saveRDS(raster_extracted, out_dir)
 }
 

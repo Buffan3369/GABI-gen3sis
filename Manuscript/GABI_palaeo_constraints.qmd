@@ -8,28 +8,48 @@ format:
       reference-doc: template.docx
 editor: visual
 bibliography: references.bib
-csl: journal-of-biogeography.csl
+csl: global-ecology-and-biogeography.csl
 ---
 
 Affiliations:\
 ¹ Institut des Sciences de l’Evolution de Montpellier, Université de Montpellier, CNRS, IRD, Place Eugène Bataillon, 34095 Montpellier cedex 5, France.\
 ² Centro de Investigación Mariña, Departamento de Ecoloxía e Bioloxía Animal, Universidade de Vigo, Campus Lagoas-Marcosende, 36310 Vigo, Spain
 
+# Potential journals
+
+Global ecology & Biogeography? Journal of Biogeography?
+
+# Introduction
+
+### Paragraph 1. Biotic interchanges, how they shaped the history ofGABI broad description
+
+Half of living South American mammal genera have a North American ancestry [@marshall1988]. Colonisation and establishment of Amazonian taxa in 'tropical North America' (*i*.*e*., Central America) =\> Neotropics.
+
+### Paragraph 2. GABI =\> asymmetry! Drivers? History and state-of-the-art
+
+Species pool proved relevant in the case of the interchange along the Wallacea [@skeels2023]. But here, we expect to find more species in South America, encompassing one of earth's major and long-standing biodiversity hotspot − Amazonia [@antonelli2018] − than in North America. Therefore, what drove the notable asymmetry of the GABI? Naturally, this question has been viewed through the lens of biotic interactions. Competition involving clades of similar ecologies (*e*.*g*., artio/perissodactyls v.s. South American native ungulates; carinvorans v.s. sparassodonts) appeared as a likely first-order explanation [@simpson1980]. This hypothesis mostly relied on striking morphological convergences between the clades assumed to have competed (*e*.*g*., sabertooth among predators, high-crowned and ever-growing cheek teeth among herbivores). However, several analyses of the fossil record provided no evidence for competition between native South American mammals and their northern counterparts [*e*.*g*., @prevosti2013; @tarquini2022]. Thus, this hypothesis has been increasingly questioned.
+
+### Paragraph 3. Mechanistic eco-evo modelling
+
+Possibility to run natural experiments and draw casual links between biodiversity patterns and (a)biotic patterns. Proved efficient in a wide range of questions.
+
 # Materials and methods
 
-What we want to compare: - Proportion of successful exchanges when starting from North v.s. South - Is there any change in diversification rates after crossing Panama's isthmus? Do crossers from the North experience faster radiation than in the other way round?
+What we want to compare: - Proportion of successful exchanges when starting from North v.s. South - Is there any change in diversification rates after crossing Panama's isthmus? Do crossers from the North experience enhanced diversification than in the other way round?
 
 ## Palaeoclimate data
 
-We used the spatio-temporal terrestrial palaeoclimate series from the PALEO-PGEM atmosphere-ocean general circulation model @holden2019, covering the last 5 Myrs with a 1 \times 1 ° spatial resolution @barreto2023. For the scope of this work, we used two bioclimatic variables: mean annual temperature (MAT, BIO1) and mean annual precipitation (MAP, BIO12).
+We used the spatio-temporal terrestrial palaeoclimate series from the PALEO-PGEM atmosphere-ocean general circulation model [@holden2019], covering the last 5 Myrs with a 1 \times 1 ° spatial resolution [@barreto2023]. For the scope of this work, we used two bioclimatic variables: mean annual temperature (MAT, BIO1) and mean annual precipitation (MAP, BIO12).
 
 ## Simulation model and modelling schemes
 
-We performed our spatially-explicit simulations of biodiversity using the General Engine for Eco-Evolutionary SImulationS, *gen3sis*, v1.5.11 @hagen2021. Simulations, moving forward-in-time with a 10ky time step, tracked the dispersion and diversification of ancestral lineages either originating in North, South America or both, throughout the last 5 Myr.
+We performed our spatially-explicit simulations of biodiversity using the General Engine for Eco-Evolutionary SImulationS, *gen3sis*, v1.5.11 [@hagen2021]. Simulations, moving forward-in-time with a 10ky time step, tracked the dispersion and diversification of ancestral lineages either originating in North, South America or both, throughout the last 5 Myr.
 
-The ancestral range of a starting lineage was randomly selected within the desired ancestral area (*i*.*e*., North, South America or both). To avoid oversampling high latitudes, we merged the ancestral landscape with the centroids of an equal-area grid (\~100km spacing) generated using the R package *h3jsr* @obrien2023. We then sampled a centroid at random and retrieved the corresponding cell in our landscape.
+The ancestral range of a starting lineage was randomly selected within the desired ancestral area (*i*.*e*., North, South America or both). To avoid oversampling high latitudes, we merged the ancestral landscape with the centroids of an equal-area grid (\~100km spacing) generated using the R package *h3jsr* [@obrien2023]. We then sampled a centroid at random and retrieved the corresponding cell in our landscape.
 
 Importantly, since the palaeoclimate reconstructions that we used ignored tectonic plate motion − a fairly reasonable assumption for a 5-Myr time frame − continental position in our landscapes was held constant across simulations. Therefore, in this framework, changes in connectivity between North and South America could only arise from the environment.
+
+Spatial threshold between North and South America: middle of Panamá (try several?)
 
 \newpage
 
