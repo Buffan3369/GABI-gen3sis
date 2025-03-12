@@ -11,10 +11,10 @@ library(raster)
 process_raster <- function(time, # /!\ [3,4,...,5002] (what has to be given) <=> [5000,4999,...,1] (what it actually corresponds to) /!\
                            mask, climate_dataset, month,
                            what = c("temperature", "precipitation")){
-  # Extract corresponding raster and convert to stars object
+  # Corresponding raster
   r <- rasterFromXYZ(climate_dataset[,c(1,2,time)], crs = crs(mask))
   # Extract values contained in the vector mask
-  clim_am <- extract(r, mask, cellnumbers = TRUE, df = TRUE)
+  clim_am <- raster::extract(r, mask, cellnumbers = TRUE, df = TRUE)
   # Retrieve coordinates of the corresponding cells
   xy_extracted <- coordinates(r)[clim_am$cell,]
   # Construct xyz file and create a raster out of it

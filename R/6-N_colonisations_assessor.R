@@ -54,45 +54,25 @@ transfert <- function(i,  # returns 1 if run i resulted in a successful transfer
 }
 
 ## SOUTH -> NORTH --------------------------------------------------------------
-param_tbl_south <- read.table("../Data/param_tables/M1_equal_area/North_America_parameters_EXTENDED_TABLE.txt",
+param_tbl_south <- read.table("../Data/param_tables/M1_equal_area/South_America_parameters_EXTENDED_TABLE.txt",
                               header = T)
 param_tbl_south$exchanged <- sapply(X = 1:500,
                                     FUN = transfert,
                                     from = "South")
 
-# for(i in 1:500){
-#   dir <- paste0("../Outputs/M1_eq_area/South_America_start/config_M1_South_America_run_", i, "/pa_matrices")
-#   if(dir.exists(dir)){
-#     print(i)
-#     # Retrieve the indices of the cells corresponding to North America
-#     t_end <- 500 - length(list.files(paste0(dir)))
-#     # Open the presence/absence matrix of the last time step and ratserise it (1 ancestor => perfect xyz table)
-#     pa_last <- readRDS(paste0(dir, "/pa_t_", t_end, ".rds"))
-#     print(ncol(pa_last))
-#     r_last <- rasterFromXYZ(pa_last[,1:3])
-#     # Open shapefile mask for North America
-#     Nth_am_mask <- shapefile("../Data/Shapefile_masks/North_America_cut.shp")
-#     # Extract coordinates of the cells falling within the mask
-#     Nth_am_extracted <- extract(r_last, Nth_am_mask, df = TRUE, cellnumbers = TRUE)
-#     xy_NA <- xyFromCell(r_last, Nth_am_extracted$cell)
-#     # Merge
-#     merged_final <- merge(pa_last, xy_NA, by = c("x", "y"))
-#     # Detect for S->N exchange
-#     if(ncol(merged_final) > 3){
-#       colons <- apply(X = merged_final[,3:ncol(merged_final)],
-#                       FUN = ones,
-#                       MARGIN = 2)
-#     }
-#     if(ncol(merged_final) == 3){
-#       colons <- ones(merged_final[,3])
-#     }
-#     if(TRUE %in% colons){
-#       param_tbl_south$exchanged[i] <- 1
-#     }
-#   }
-# }
 write.tbl.std(param_tbl_south,
-                  "../Data/param_tables/M1_equal_area/South_America_parameters_EXTENDED_TABLE_EXCH.txt")
+              "../Data/param_tables/M1_equal_area/South_America_parameters_EXTENDED_TABLE_EXCH.txt")
+
+## NORTH -> SOUTH --------------------------------------------------------------
+param_tbl_north <- read.table("../Data/param_tables/M1_equal_area/North_America_parameters_EXTENDED_TABLE.txt",
+                        header = T)
+param_tbl_north$exchanged <- sapply(X = 1:500,
+                                    FUN = transfert,
+                                    from = "North")
+write.tbl.std(param_tbl_north,
+              "../Data/param_tables/M1_equal_area/North_America_parameters_EXTENDED_TABLE_EXCH.txt")
+
+
 
 
 #### NUMBER OF SUCCESSFUL COLONISATIONS (TO BE IMPROVED) ####
@@ -133,43 +113,3 @@ write.tbl.std(param_tbl_south,
 #   }
 #   colons_prev <- colons
 # }
-
-
-## NORTH -> SOUTH --------------------------------------------------------------
-param_tbl_north <- read.table("../Data/param_tables/M1_equal_area/North_America_parameters_EXTENDED_TABLE.txt",
-                        header = T)
-param_tbl_north$exchanged <- sapply(X = 1:500,
-                                    FUN = transfert,
-                                    from = "North")
-# for(i in 1:500){
-#   dir <- paste0("../Outputs/M1_eq_area/North_America_start/config_M1_North_America_run_", i)
-#   if(dir.exists(dir)){
-#     # Retrieve the indices of the cells corresponding to North America
-#     t_end <- 500 - length(list.files(paste0(dir, "/pa_matrices/")))
-#     # Open the presence/absence matrix of the last time step and ratserise it (1 ancestor => perfect xyz table)
-#     pa_last <- readRDS(paste0(dir, "/pa_t_", t_end, ".rds"))
-#     r_last <- rasterFromXYZ(pa_last[,1:3])
-#     # Open shapefile mask for North America
-#     Sth_am_mask <- shapefile("../Data/Shapefile_masks/South_America_cut.shp")
-#     # Extract coordinates of the cells falling within the mask
-#     Sth_am_extracted <- extract(r_last, Sth_am_mask, df = TRUE, cellnumbers = TRUE)
-#     xy_SA <- xyFromCell(r_last, Sth_am_extracted$cell)
-#     # Merge
-#     merged_final <- merge(pa_last, xy_SA, by = c("x", "y"))
-#     # Detect for S->N exchange
-#     if(ncol(merged_final) > 3){
-#       colons <- apply(X = merged_final[,3:ncol(merged_final)],
-#                       FUN = ones,
-#                       MARGIN = 2)
-#     }
-#     if(ncol(merged_final) == 3){
-#       colons <- ones(merged_final[,3])
-#     }
-#     if(TRUE %in% colons){
-#       param_tbl_north$exchanged[i] <- 1
-#     }
-#   }
-# }
-
-write.tbl.std(param_tbl_north,
-                  "../Data/param_tables/M1_equal_area/North_America_parameters_EXTENDED_TABLE_EXCH.txt")
