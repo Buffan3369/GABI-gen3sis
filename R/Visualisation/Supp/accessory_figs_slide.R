@@ -68,8 +68,14 @@ eq_area_plot <- function(landscape, region){
     geom_tile(data = plot.df, aes(x = x, y = y, fill = Region_environment)) +
     scale_fill_continuous(low = fill_c, high = fill_c) +
     geom_point(data = xy_filtered, aes(x = lng, y = lat), size = psz) +
-    theme_minimal() +
-    theme(legend.position = "none")
+    theme(legend.position = "none",
+          axis.ticks = element_blank(),
+          axis.line = element_blank(),
+          axis.text = element_blank(),
+          axis.title = element_blank(),
+          panel.grid.major = element_blank(),
+          panel.background = element_blank(),
+          panel.grid.minor = element_blank())
   return(eq_area_plot)
 }
 
@@ -142,7 +148,7 @@ plot_biome <- df_1k %>%
   ggplot(aes(x = Long, y = Lat, fill = Biome)) +
   geom_tile() +
   scale_fill_distiller(palette = "Paired")
-ggsave("../Presentations/GABI/p_clim/biomes_1000_am.pdf", plot = plot_biome, height = 100, width = 150, units = "mm")
+ggsave("../Presentations/GABI/p_clim/biomes_1000_am.pdf", plot = plot_biome, height = 100, width = 120, units = "mm")
 
 ## Isolated continents ---------------------------------------------------------
 # North America
@@ -150,7 +156,8 @@ NthA <- sf::st_read("./Data/Shapefile_masks/clean_representations/Nth_Am.shp")
 NA_sil <- NthA %>% ggplot() +
   geom_sf(fill = "#fb6a4a", linewidth = 0.1) +
   theme(panel.grid = element_blank(),
-        panel.background = element_blank(),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background = element_rect(fill = "transparent", colour = NA),
         axis.title = element_blank(),
         axis.text = element_blank(),
         axis.ticks = element_blank())
@@ -160,8 +167,44 @@ SthA <- sf::st_read("./Data/Shapefile_masks/clean_representations/Sth_Am.shp")
 SA_sil <- SthA %>% ggplot() +
   geom_sf(fill = "#66c2a4", linewidth = 0.1) +
   theme(panel.grid = element_blank(),
-        panel.background = element_blank(),
+        panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background = element_rect(fill = "transparent", colour = NA),
         axis.title = element_blank(),
         axis.text = element_blank(),
         axis.ticks = element_blank())
 ggsave("../Presentations/GABI/South_America.png", plot = SA_sil, dpi = 600, height = 50, width = 70, units = "mm")
+
+## Gaussian --------------------------------------------------------------------
+x <- seq(-5, 5, 0.001)
+y <- sapply(x, FUN = function(x){1/(sqrt(2*pi))*exp((-x**2)/2)})
+plt_df <- data.frame(x, y)
+
+p <- plt_df %>%
+  ggplot(aes(x = x, y = y)) +
+  geom_line() +
+  geom_ribbon(aes(ymax = y, ymin = 0), fill = "#00D455") +
+  scale_y_continuous(expand = c(0,0), limits = c(0,0.6)) +
+  scale_x_continuous(limits = c(-3,6)) +
+  theme(axis.line.x = element_line(colour = "black"),
+        axis.ticks = element_blank(),
+        axis.line.y = element_blank(),
+        axis.text = element_blank(),
+        axis.title = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.minor = element_blank())
+
+ggsave("../Presentations/GABI/gaussian.pdf", plot = p, height = 30, width = 80, units = "mm")
+
+## Sobol' sequences ------------------------------------------------------------
+library(randtoolbox)
+df_unif <- data.frame(x = runif(n = 600, min = 0, max = 1),
+                      y = runif(n = 600, min = 0, max = 1))
+
+df_sobol <- data.frame(sobol(n = 600, dim = 2))
+
+pdf("../Presentations/GABI/param_space_sobol_unif.pdf", height = 7, width = 14)
+par(mfrow = c(1,2))
+plot(df_unif$x, df_unif$y, main = "Uniform", xlab = "x", ylab = "y")
+plot(df_sobol$X1, df_sobol$X2, main = "Sobol'", xlab = "x", ylab = "y")
+dev.off()
