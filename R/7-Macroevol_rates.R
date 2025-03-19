@@ -5,8 +5,6 @@
 # Goal: Extract speciation and rates from simulations
 ################################################################################
 
-library(tidyverse)
-
 ## Assess rate of speciation and extinction within a time bin ------------------
 rate_per_bin <- function(ps_bin, bin_size, what = c("sp", "ext"), na.rm = T){ #bin_size has to be in number of iterations
   if(what == "sp"){
@@ -36,12 +34,12 @@ bin_size <- 100 # in nb of iterations => 1Myr here, as one step equals 10ky
 maxT <- 500
 n_bins <- as.integer(maxT/bin_size)
 
-SP <- c()
-EXT <- c()
-Time <- c()
-Run <- c()
-
 for(loc in c("North", "South")){
+  SP <- c()
+  EXT <- c()
+  Time <- c()
+  Bin <- c()
+  Run <- c()
   for(run in 1:500){
     file <- paste0("./Results/M1_eq_area/", loc, "_America_start/recap_tbls/sgen3sis_run_", run, ".rds")
     if(file.exists(file)){
@@ -58,22 +56,26 @@ for(loc in c("North", "South")){
       # Assess Speciation and Extinction through time
       sp <- c()
       ext <- c()
+      bin <- c()
       for(i in 0:(n_bins-1)){
         idx <- seq(from = i*bin_size+1, to = (i+1)*bin_size, by = 1)
         tmp_ps <- ps[idx, ]
         sp <- c(sp, rate_per_bin(tmp_ps, bin_size, what = "sp"))
         ext <- c(ext, rate_per_bin(tmp_ps, bin_size, what = "ext"))
+        bin <- c(bin, rep((i+1), bin_size))
       }
       SP <- c(SP, sp)
       EXT <- c(EXT, ext)
       Time <- c(Time, seq(maxT, 1, -1))
+      Bin <- c(Bin, bin)
       Run <- c(Run, rep(run, 500))
     }
   }
   div_rates <- data.frame(sp_rate = SP,
                           ex_rate = EXT,
                           Time = Time,
+                          Bin = Bin,
                           Run = Run)
   saveRDS(div_rates, paste0("./Results/M1_eq_area/", loc, "_America_start/", loc, 
-          "_America_div_rates_bin_ ", bin_size, ".RDS"))
+          "_America_div_rates_bin_", bin_size, ".RDS"))
 }
