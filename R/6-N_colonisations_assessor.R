@@ -2,7 +2,7 @@
 # Name: 5-N_col_assessor.R
 # Author: Lucas Buffan
 # E-mail: lucas.l.buffan@gmail.com
-# Goal: This scripts whether a simulation led to successful interchange.
+# Goal: This scripts assesses whether a simulation led to successful interchange.
 #       Meant to be run on bm10.
 ################################################################################
 
@@ -24,9 +24,8 @@ transfert <- function(i,  # returns 1 if run i resulted in a successful transfer
   # Define directory
   dir <- paste0("../Outputs/M1_eq_area/", from, "_America_start/config_M1_", from, "_America_run_", i, "/pa_matrices")
   if(dir.exists(dir)){
-    # Retrieve the indices of the cells corresponding to North America
-    t_end <- 500 - length(list.files(paste0(dir)))
     # Open the presence/absence matrix of the last time step and ratserise it (1 ancestor => perfect xyz table)
+    t_end <- 500 - length(list.files(paste0(dir)))
     pa_last <- readRDS(paste0(dir, "/pa_t_", t_end, ".rds"))
     r_last <- rasterFromXYZ(pa_last[,1:3])
     # Extract coordinates of the cells falling within the mask

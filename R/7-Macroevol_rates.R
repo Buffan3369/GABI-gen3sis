@@ -53,7 +53,7 @@ for(loc in c("North", "South")){
         ps[nrow(ps):maxT, ] <- NA
         ps$time <- seq(maxT, 1, -1)
       }
-      # Assess Speciation and Extinction through time
+      # Assess Speciation and Extinction rates through time
       sp <- c()
       ext <- c()
       bin <- c()
@@ -79,3 +79,16 @@ for(loc in c("North", "South")){
   saveRDS(div_rates, paste0("./Results/M1_eq_area/", loc, "_America_start/", loc, 
           "_America_div_rates_bin_", bin_size, ".RDS"))
 }
+
+
+## Accessory function ----------------------------------------------------------
+is.zero <- function(vect){
+  a <- unique(vect)
+  if(length(a) == 1 && a[1] == 0){
+    return(TRUE)
+  }
+  else{
+    return(FALSE)
+  }
+}
+
