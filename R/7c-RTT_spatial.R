@@ -24,22 +24,24 @@ phylo_sum_NS <- function(run,
                          where = c("North", "South")){ # region where we want to assess number of originations and extinctions
   # Number of simulation steps for the run i
   
-  # pa_dir <- paste0("../Outputs/M1_eq_area/", from, "_America_start/config_M1_",
-  #                  from, "_America_run_", run, "/pa_matrices")
-  pa_dir <- paste0("./Results/M1_eq_area/", from, "_America_start/config_M1_South_America_run_", run, "/pa_matrices/")
+  pa_dir <- paste0("../Outputs/M1_eq_area/", from, "_America_start/config_M1_",
+                   from, "_America_run_", run, "/pa_matrices")
+  # pa_dir <- paste0("./Results/M1_eq_area/", from, "_America_start/config_M1_South_America_run_", run, "/pa_matrices/")
   
   n_iter <- length(list.files(pa_dir))
   # Coordinates of the cells falling in the region of interest
   
-#  xy_region <- readRDS(paste0("../Data/pa_cells_North_South/xy_", where, "_Am.RDS"))
-  xy_region <- readRDS(paste0("./Data/pa_cells_North_South/xy_", where, "_Am.RDS"))
+  xy_region <- readRDS(paste0("../Data/pa_cells_North_South/xy_", where, "_Am.RDS"))
+#  xy_region <- readRDS(paste0("./Data/pa_cells_North_South/xy_", where, "_Am.RDS"))
   
     # Loop
   sp_prev <- c() # will contain the species present at the previous time step
   speciations <- rep(0, n_iter) # Store speciation events at every time step
   extinctions <- rep(0, n_iter) # Store extinction events at every time step
+  time <- c()
   for(i in 1:n_iter){
     t <- 500 - i
+    time <- c(time, t)
     pa_t <- readRDS(paste0(pa_dir, "/pa_t_", t, ".rds"))
     # Subset region of interest
     pa_t_region <- merge(pa_t, xy_region, by = c("x", "y"))
@@ -56,21 +58,25 @@ phylo_sum_NS <- function(run,
     if(length(extinct) >= 1){extinctions[i] <- length(extinct)}
     # Speciation
     new_species <- which(sp %in% sp_prev == FALSE) # which species appeared at this time step?
-    if(length(new_species) >= 1){speciations[i] <- length(sp) - length(sp_prev)}
+    if(length(new_species) >= 1){speciations[i] <- length(new_species)}
+    # Update previous species
+    sp_prev <- sp
   }
-  final_df <- data.frame(time = seq(499:(499-n_iter+1)),
+  final_df <- data.frame(time = time,
                          speciations = speciations,
                          extinctions = extinctions)
+  # saveRDS(object = final_df,
+  #         file = paste0("~/Bureau/phylo_sum-RUN_", 
+  #                       run, "-", from, "_America_START-", where, "_America.RDS"))
   saveRDS(object = final_df,
-          file = paste0("~/Bureau/phylo_sum-RUN_", 
+          file = paste0("../Outputs/M1_eq_area/", from, "_America_start/Phylo_Summaries/phylo_sum-RUN_", 
                         run, "-", from, "_America_START-", where, "_America.RDS"))
 }
 
-
-phylo_sum_NS(run = 265,
-             from = "South",
-             where = "North")
-
-phylo_sum_NS(run = 265,
-             from = "South",
-             where = "South")
+## Execute ---------------------------------------------------------------------
+  # Ancestral area: North America
+sapply(X = 3:500, FUN = phylo_sum_NS, from = "North", where = "North")
+sapply(X = 3:500, FUN = phylo_sum_NS, from = "North", where = "South")
+  # Ancestral area: South America
+sapply(X = 1:500, FUN = phylo_sum_NS, from = "South", where = "North")
+sapply(X = 1:500, FUN = phylo_sum_NS, from = "South", where = "South")
