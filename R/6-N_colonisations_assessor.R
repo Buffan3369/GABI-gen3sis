@@ -40,16 +40,22 @@ transfert <- function(i,  # returns 1 if run i resulted in a successful transfer
                       MARGIN = 2)
     }
     if(ncol(merged_final) == 3){
-      # if simulation aborpted 
-      if(unique(pa_last[,3]) == 0){
-        colons <- FALSE
-        E <- -1
+      if(length(unique(pa_last[,3])) == 1){
+          # if simulation aborpted 
+          if(unique(pa_last[,3]) == 0){
+            colons <- FALSE
+            E <- -1
+          }
+          # if only one remaining species, we test if it crossed the isthmus or not
+          else{
+            colons <- ones(merged_final[,3])
+          }
       }
-      # if only one remaining species, we test if it crossed the isthmus or not
       else{
         colons <- ones(merged_final[,3])
       }
     }
+    # Detect if successful exchange
     if(TRUE %in% colons){
       E <- 1
     }
