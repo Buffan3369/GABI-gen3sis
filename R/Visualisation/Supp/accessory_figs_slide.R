@@ -80,10 +80,10 @@ eq_area_plot <- function(landscape, region){
 }
 
 NA_eq_area <- eq_area_plot(landscape, region = "North")
-ggsave("../Presentations/GABI/NA_equal_area.pdf", plot = NA_eq_area, height = 100, width = 100, units = "mm")
+ggsave("../Presentations/GABI/meeting_25-03/NA_equal_area.pdf", plot = NA_eq_area, height = 100, width = 100, units = "mm")
 
 SA_eq_area <- eq_area_plot(landscape, region = "South")
-ggsave("../Presentations/GABI/SA_equal_area.pdf", plot = SA_eq_area, height = 150, width = 100, units = "mm")
+ggsave("../Presentations/GABI/meeting_25-03/SA_equal_area.pdf", plot = SA_eq_area, height = 150, width = 100, units = "mm")
 
 ## Climate processing ----------------------------------------------------------
   # Global plots
@@ -94,7 +94,7 @@ t_plot <- temp_1k %>% ggplot(aes(x = Long, y = Lat, fill = T_1003)) +
   scale_fill_distiller(palette = "RdYlBu") +
   labs(fill = "Temperature (°C)")
 rm(MAT)
-ggsave("../Presentations/GABI/p_clim/temp_1003.pdf", plot = t_plot, height = 100, width = 200, units = "mm")
+ggsave("../Presentations/GABI/meeting_25-03/p_clim/temp_1003.pdf", plot = t_plot, height = 100, width = 200, units = "mm")
 
 MAP <- read.table("./Data/PALEO_PGEM-bioclim/bio12_mean.txt", header = T)
 prec_1k <- MAP[,c(1,2,4000)]
@@ -103,7 +103,7 @@ p_plot <- prec_1k %>% ggplot(aes(x = Long, y = Lat, fill = T_1003)) +
   scale_fill_distiller(palette = "BrBG", trans = "reverse") +
   labs(fill = "Precipitations (mm/y)")
 rm(MAP)
-ggsave("../Presentations/GABI/p_clim/prec_1003.pdf", plot = p_plot, height = 100, width = 200, units = "mm")
+ggsave("../Presentations/GABI/meeting_25-03/p_clim/prec_1003.pdf", plot = p_plot, height = 100, width = 200, units = "mm")
 
   # Regionally-subsampled ones
 subsample <- function(xyz){
@@ -127,7 +127,7 @@ p_plot_am <- prec_1k_am %>%
   geom_tile() +
   scale_fill_distiller(palette = "BrBG", trans = "reverse") +
   labs(fill = "Precipitations (mm/y)")
-ggsave("../Presentations/GABI/p_clim/prec_1003_am.pdf", plot = p_plot_am, height = 100, width = 150, units = "mm")
+ggsave("../Presentations/GABI/meeting_25-03/p_clim/prec_1003_am.pdf", plot = p_plot_am, height = 100, width = 150, units = "mm")
     # Temp
 temp_1k_am <- subsample(temp_1k)
 colnames(temp_1k_am) <- colnames(temp_1k)
@@ -137,7 +137,7 @@ t_plot_am <- temp_1k_am %>%
   geom_tile() +
   scale_fill_distiller(palette = "RdYlBu") +
   labs(fill = "Temperature (°C)")
-ggsave("../Presentations/GABI/p_clim/temp_1003_am.pdf", plot = t_plot_am, height = 100, width = 150, units = "mm")
+ggsave("../Presentations/GABI/meeting_25-03/p_clim/temp_1003_am.pdf", plot = t_plot_am, height = 100, width = 150, units = "mm")
 
 ## Biome map -------------------------------------------------------------------
 kg <- readRDS("./Data/PALEO_PGEM-bioclim/KG_biomes/KG_biome_maps.RDS")
@@ -148,7 +148,7 @@ plot_biome <- df_1k %>%
   ggplot(aes(x = Long, y = Lat, fill = Biome)) +
   geom_tile() +
   scale_fill_distiller(palette = "Paired")
-ggsave("../Presentations/GABI/p_clim/biomes_1000_am.pdf", plot = plot_biome, height = 100, width = 120, units = "mm")
+ggsave("../Presentations/GABI/meeting_25-03/p_clim/biomes_1000_am.pdf", plot = plot_biome, height = 100, width = 120, units = "mm")
 
 ## Isolated continents ---------------------------------------------------------
 # North America
@@ -161,7 +161,7 @@ NA_sil <- NthA %>% ggplot() +
         axis.title = element_blank(),
         axis.text = element_blank(),
         axis.ticks = element_blank())
-ggsave("../Presentations/GABI/North_America.png", plot = NA_sil, dpi = 600, height = 50, width = 70, units = "mm")
+ggsave("../Presentations/GABI/meeting_25-03/North_America.png", plot = NA_sil, dpi = 600, height = 50, width = 70, units = "mm")
 # South America
 SthA <- sf::st_read("./Data/Shapefile_masks/clean_representations/Sth_Am.shp")
 SA_sil <- SthA %>% ggplot() +
@@ -172,7 +172,7 @@ SA_sil <- SthA %>% ggplot() +
         axis.title = element_blank(),
         axis.text = element_blank(),
         axis.ticks = element_blank())
-ggsave("../Presentations/GABI/South_America.png", plot = SA_sil, dpi = 600, height = 50, width = 70, units = "mm")
+ggsave("../Presentations/GABI/meeting_25-03/South_America.png", plot = SA_sil, dpi = 600, height = 50, width = 70, units = "mm")
 
 ## Gaussian --------------------------------------------------------------------
 x <- seq(-5, 5, 0.001)
@@ -194,7 +194,7 @@ p <- plt_df %>%
         panel.background = element_blank(),
         panel.grid.minor = element_blank())
 
-ggsave("../Presentations/GABI/gaussian.pdf", plot = p, height = 30, width = 80, units = "mm")
+ggsave("../Presentations/GABI/meeting_25-03/gaussian.pdf", plot = p, height = 30, width = 80, units = "mm")
 
 ## Sobol' sequences ------------------------------------------------------------
 library(randtoolbox)
@@ -203,7 +203,7 @@ df_unif <- data.frame(x = runif(n = 600, min = 0, max = 1),
 
 df_sobol <- data.frame(sobol(n = 600, dim = 2))
 
-pdf("../Presentations/GABI/param_space_sobol_unif.pdf", height = 7, width = 14)
+pdf("../Presentations/GABI/meeting_25-03/param_space_sobol_unif.pdf", height = 7, width = 14)
 par(mfrow = c(1,2))
 plot(df_unif$x, df_unif$y, main = "Uniform", xlab = "x", ylab = "y")
 plot(df_sobol$X1, df_sobol$X2, main = "Sobol'", xlab = "x", ylab = "y")

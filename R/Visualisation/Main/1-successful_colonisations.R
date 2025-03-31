@@ -17,6 +17,10 @@ NA_recap_tbl$exchanged <- sapply(X = NA_recap_tbl$exchanged, FUN = as.numeric)
 SA_recap_tbl <- read.table("./Data/Gen3sis_parameter_tables/M1_equal_area/South_America_parameters_EXTENDED_TABLE_EXCH.txt",
                            header = T, sep = "\t")
 
+## Filter out simulations that crashed -----------------------------------------
+NA_recap_tbl <- NA_recap_tbl %>% filter(!(exchanged == -1))
+SA_recap_tbl <- SA_recap_tbl %>% filter(!(exchanged == -1))
+
 ## Compute success proportions -------------------------------------------------
 na_success <- sum(NA_recap_tbl$exchanged) / nrow(NA_recap_tbl)
 sa_success <- sum(SA_recap_tbl$exchanged) / nrow(SA_recap_tbl)
@@ -35,4 +39,4 @@ prop_plot <- plot_df %>% ggplot(aes(x = Ori, y = Prop_success)) +
         axis.line = element_line(linewidth = 0.3, color = "black"),
         panel.background = element_blank())
 
-ggsave("./Figures/prop_successful_exch/M1_equal_area.pdf", plot = prop_plot, height = 70, width = 50, units = "mm")
+ggsave("./Figures/prop_successful_exch/M1_equal_area_NoCrash.pdf", plot = prop_plot, height = 70, width = 50, units = "mm")

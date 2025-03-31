@@ -49,7 +49,10 @@ The ancestral range of a starting lineage was randomly selected within the desir
 
 Importantly, since the palaeoclimate reconstructions that we used ignored tectonic plate motion − a fairly reasonable assumption for a 5-Myr time frame − continental position in our landscapes was held constant across simulations. Therefore, in this framework, changes in connectivity between North and South America could only arise from the environment.
 
-Spatial threshold between North and South America: middle of Panamá (try several?)
+Spatial threshold between North and South America: middle of Panamá.
+
+Divergence threshold vs. divergence factor.
+
 
 \newpage
 
