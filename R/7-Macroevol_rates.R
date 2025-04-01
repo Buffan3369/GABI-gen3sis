@@ -6,7 +6,11 @@
 ################################################################################
 
 ## Assess rate of speciation and extinction within a time bin ------------------
-rate_per_bin <- function(ps_bin, bin_size, what = c("sp", "ext"), na.rm = T){ #bin_size has to be in number of iterations
+rate_per_bin <- function(ps_bin, 
+                         bin_size, #bin_size has to be in number of iterations
+                         what = c("sp", "ext"), # whether we're interested in speciation or extinction rate
+                         per_step = FALSE, # if set to TRUE, returns the average rate per time step across a time bin of length `bin_size`
+                         na.rm = T){
   if(what == "sp"){
     s <- ps_bin$speciations
     if(length(unique(s)) == 1 && is.na(unique(s))){
@@ -14,7 +18,10 @@ rate_per_bin <- function(ps_bin, bin_size, what = c("sp", "ext"), na.rm = T){ #b
     }
     else{
       n_spec <- sum(s, na.rm = T)
-      return(rep(n_spec/bin_size, bin_size))
+      if(per_step){
+        n_spec <- n_spec/bin_size
+      }
+      return(rep(n_spec, bin_size))
     }
   }
   if(what == "ext"){
@@ -24,7 +31,10 @@ rate_per_bin <- function(ps_bin, bin_size, what = c("sp", "ext"), na.rm = T){ #b
     }
     else{
       n_ext <- sum(e, na.rm = T)
-      return(rep(n_ext/bin_size, bin_size))
+      if(per_step){
+        n_ext <- n_ext/bin_size
+      }
+      return(rep(n_ext, bin_size))
     }
   }
 }

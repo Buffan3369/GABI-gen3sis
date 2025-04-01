@@ -44,7 +44,6 @@ sp_north_plot <- div_rates_North %>%
 ex_north_plot <- div_rates_North %>% 
   ggplot(aes(x = Time, y = ex_rate, group = Run)) +
   scale_x_reverse() +
-  scale_y_continuous(limits = c(0, 3)) +
   geom_step(colour = "#fc9272", linewidth = 0.25) +
   geom_step(aes(y = mean_ex), colour = "#a50f15", linewidth = 1) +
   labs(x = "Time (Ma)", y = NULL, title = "Extinction") +
