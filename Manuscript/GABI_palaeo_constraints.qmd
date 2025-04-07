@@ -17,7 +17,7 @@ Affiliations:\
 
 # Potential journals
 
-Global ecology & Biogeography? Journal of Biogeography?
+Global ecology & Biogeography? Journal of Biogeography? Proceedings B?
 
 # Introduction
 
@@ -52,7 +52,6 @@ Importantly, since the palaeoclimate reconstructions that we used ignored tecton
 Spatial threshold between North and South America: middle of Panamá.
 
 Divergence threshold vs. divergence factor.
-
 
 \newpage
 
