@@ -8,13 +8,13 @@
 library(tidyverse)
 
 #### M1 equal area ####
-NA_recap_tbl <- read.table("./Data/Gen3sis_parameter_tables/M1_equal_area/North_America_parameters_EXTENDED_TABLE_EXCH.txt",
+NA_recap_tbl <- read.table("./Data/Gen3sis_parameter_tables/M1/North_America_parameters_EXTENDED_EXCH.txt",
                            header = T, sep = "\t")
-# Slight adjustments to fix a mistake
-NA_recap_tbl <- NA_recap_tbl[9:nrow(NA_recap_tbl),]
-NA_recap_tbl$exchanged <- sapply(X = NA_recap_tbl$exchanged, FUN = as.numeric)
+# # Slight adjustments to fix a mistake
+# NA_recap_tbl <- NA_recap_tbl[9:nrow(NA_recap_tbl),]
+# NA_recap_tbl$exchanged <- sapply(X = NA_recap_tbl$exchanged, FUN = as.numeric)
 
-SA_recap_tbl <- read.table("./Data/Gen3sis_parameter_tables/M1_equal_area/South_America_parameters_EXTENDED_TABLE_EXCH.txt",
+SA_recap_tbl <- read.table("./Data/Gen3sis_parameter_tables/M1/South_America_parameters_EXTENDED_EXCH.txt",
                            header = T, sep = "\t")
 
 ## Filter out simulations that crashed -----------------------------------------
@@ -39,4 +39,4 @@ prop_plot <- plot_df %>% ggplot(aes(x = Ori, y = Prop_success)) +
         axis.line = element_line(linewidth = 0.3, color = "black"),
         panel.background = element_blank())
 
-ggsave("./Figures/prop_successful_exch/M1_equal_area_NoCrash.pdf", plot = prop_plot, height = 70, width = 50, units = "mm")
+ggsave("./Figures/prop_successful_exch/M1_NoCrash.pdf", plot = prop_plot, height = 70, width = 50, units = "mm")
