@@ -28,7 +28,8 @@ for(mdl in c("M0", "M1")){
   sa_success <- sum(SA_recap_tbl$exchanged) / nrow(SA_recap_tbl)
   
   ## Plot ------------------------------------------------------------------------
-  plot_df <- data.frame(Ori = c("North America", "South America"),
+  plot_df <- data.frame(Ori = c(paste0("North America \n(", nrow(NA_recap_tbl), " simulations)"), 
+                                paste0("South America \n(", nrow(SA_recap_tbl), " simulations)")),
                         Prop_success = c(na_success, sa_success))
   
   prop_plot <- plot_df %>% ggplot(aes(x = Ori, y = Prop_success)) +
@@ -36,11 +37,13 @@ for(mdl in c("M0", "M1")){
     geom_hline(yintercept = 0.5, linetype = "dashed", color = "red") +
     scale_y_continuous(expand = c(0, 0), limits = c(0, 1.02)) +
     labs(x = "Region of orgin", y = "Prop. successful exchange") +
+    annotate(geom = "text", x = 1, y = na_success+0.05, label = round(na_success, digits = 2)) +
+    annotate(geom = "text", x = 2, y = sa_success+0.05, label = round(sa_success, digits = 2)) +
     theme(axis.title = element_text(size = 7.5),
           axis.text = element_text(size = 6),
           axis.line = element_line(linewidth = 0.3, color = "black"),
           panel.background = element_blank())
   
-  ggsave(paste0("./Figures/prop_successful_exch/", mdl, "_NoCrash.pdf"), plot = prop_plot, height = 70, width = 50, units = "mm")
+  ggsave(paste0("./Figures/prop_successful_exch/", mdl, "_NoCrash.pdf"), plot = prop_plot, height = 70, width = 60, units = "mm")
   
 }
