@@ -20,7 +20,7 @@ for(mdl in c("M0", "M1")){
   ## Filter out simulations that crashed -----------------------------------------
   cat("Number of simulations that crashed for ", mdl, " with North American ancestor: ", length(which(NA_recap_tbl$exchanged == -1)), "\n")
   NA_recap_tbl <- NA_recap_tbl %>% filter(!(exchanged == -1))
-  cat("Number of simulations that crashed for ", mdl, " with South American ancestor: ", length(which(SA_recap_tbl$exchanged == -1)))
+  cat("Number of simulations that crashed for ", mdl, " with South American ancestor: ", length(which(SA_recap_tbl$exchanged == -1)), "\n")
   SA_recap_tbl <- SA_recap_tbl %>% filter(!(exchanged == -1))
   
   ## Compute success proportions -------------------------------------------------
@@ -37,12 +37,13 @@ for(mdl in c("M0", "M1")){
     geom_hline(yintercept = 0.5, linetype = "dashed", color = "red") +
     scale_y_continuous(expand = c(0, 0), limits = c(0, 1.02)) +
     labs(x = "Region of orgin", y = "Prop. successful exchange") +
-    annotate(geom = "text", x = 1, y = na_success+0.05, label = round(na_success, digits = 2)) +
-    annotate(geom = "text", x = 2, y = sa_success+0.05, label = round(sa_success, digits = 2)) +
+    annotate(geom = "text", x = 1, y = na_success-0.03, label = round(na_success, digits = 2), size = 2.3, color = "white") +
+    annotate(geom = "text", x = 2, y = sa_success-0.03, label = round(sa_success, digits = 2), size = 2.3, color = "white") +
     theme(axis.title = element_text(size = 7.5),
           axis.text = element_text(size = 6),
           axis.line = element_line(linewidth = 0.3, color = "black"),
-          panel.background = element_blank())
+          panel.background = element_blank(),
+          plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"))
   
   ggsave(paste0("./Figures/prop_successful_exch/", mdl, "_NoCrash.pdf"), plot = prop_plot, height = 70, width = 60, units = "mm")
   
