@@ -20,3 +20,13 @@ ones <- function(vect){
   if(length(u_vect) == 2){return(TRUE)} # c(0, 1)
   else{return(FALSE)}
 }
+
+## Function mapping Sobol' sequences to a desired parameter range linearly -----
+#   (adapted from Hagen et al. (2021), Skeels et al. (2023a,b), ...)
+linMap <- function(x, from, to, rnd = F, dgts) {
+  rescaled <- (x - min(x)) / max(x - min(x)) * (to - from) + from
+  if(rnd){
+    rescaled <- round(rescaled, digits = dgts)
+  }
+  return(rescaled)
+}

@@ -10,16 +10,6 @@ source("./R/useful/helper_functions.R")
 ## Number of replicates --------------------------------------------------------
 n <- 500
 
-## Function mapping Sobol' sequences to a desired parameter range linearly -----
-#   (adapted from Hagen et al. (2021), Skeels et al. (2023a,b), ...)
-linMap <- function(x, from, to, rnd = F, dgts) {
-  rescaled <- (x - min(x)) / max(x - min(x)) * (to - from) + from
-  if(rnd){
-    rescaled <- round(rescaled, digits = dgts)
-  }
-  return(rescaled)
-}
-
 for(start_region in c("North_America", "South_America")){
   ## Initialise 5-dim Sobol' sequence --------------------------------------------
   param_df <- data.frame(cbind(paste0("Simulation_", 1:n), sobol(n = n, dim = 6)))
