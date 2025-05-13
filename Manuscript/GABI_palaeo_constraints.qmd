@@ -8,7 +8,7 @@ format:
       reference-doc: template.docx
 editor: visual
 bibliography: references.bib
-csl: global-ecology-and-biogeography.csl
+csl: biology-letters.csl
 ---
 
 Affiliations:\
@@ -17,17 +17,23 @@ Affiliations:\
 
 # Potential journals
 
-Global ecology & Biogeography? Journal of Biogeography? Proceedings B?
+Biology Letters? Proceedings B? Global ecology & Biogeography? Journal of Biogeography?
 
 # Introduction
 
-### Paragraph 1. Biotic interchanges, how they shaped the history ofGABI broad description
+### Paragraph 1. Geodispersals + GABI broad description. Towards asymmetry
 
-Half of living South American mammal genera have a North American ancestry [@marshall1988]. Colonisation and establishment of Amazonian taxa in 'tropical North America' (*i*.*e*., Central America) =\> Neotropics.
+Throughout its evolutionary history, the biosphere has been repeatedly marked by the occurrence of geodispersal events, that is, dispersal of large species pools across landmasses [*e*.*g*., @couvreur2011]. When focusing on land mammals, a famous example of geodispersal is the late Cenozoic faunal exchange between the Americas, catalysed by the establishment of a physical connection between both continents (isthmus of Panama), termed Great American Biotic Interchange (GABI) [@marshall1982]. Though the exact timing of the closure of isthmus is still debated [@montes2015], the fossil record and molecular phylogenies both agree with a late Miocene (*c.* 6 million years ago, Ma) onset of land mammal exchange between the Americas, though the vast majority of effective crossings occurred *c.* 3.5 Ma [@verzi2008; @bacon2015; @bacon2016]. Although being one of the most classical examples of geodispersal, a puzzling feature of the GABI is that it impacted both continent's mammalian faunas very differently. Evidence from the fossil record indicates that reciprocal exchanges occurred across both sides of the isthmus in the early stages of the GABI [@webb1976]. However, only two species inhabiting North America at present have a South American ancestry, whereas it is estimated that half of living South American mammal genera have a North American ancestry [@marshall1988]. It therefore results that this intercontinental faunal exchange has been highly asymmetric.
 
-### Paragraph 2. GABI =\> asymmetry! Drivers? History and state-of-the-art
+Colonisation and establishment of Amazonian taxa in 'tropical North America' (*i*.*e*., Central America) =\> Neotropics.
 
-Species pool proved relevant in the case of the interchange along the Wallacea [@skeels2023]. But here, we expect to find more species in South America, encompassing one of earth's major and long-standing biodiversity hotspot − Amazonia [@antonelli2018] − than in North America. Therefore, what drove the notable asymmetry of the GABI? Naturally, this question has been viewed through the lens of biotic interactions. Competition involving clades of similar ecologies (*e*.*g*., artio/perissodactyls v.s. South American native ungulates; carinvorans v.s. sparassodonts) appeared as a likely first-order explanation [@simpson1980]. This hypothesis mostly relied on striking morphological convergences between the clades assumed to have competed (*e*.*g*., sabertooth among predators, high-crowned and ever-growing cheek teeth among herbivores). However, several analyses of the fossil record provided no evidence for competition between native South American mammals and their northern counterparts [*e*.*g*., @prevosti2013; @tarquini2022]. Thus, this hypothesis has been increasingly questioned.
+### Paragraph 2. Asymmetry: Drivers? History and state-of-the-art
+
+Many hypotheses have been proposed to explain this asymmetry. Naturally, the question has been primarily viewed through the lens of biotic interactions. Competition involving clades of similar ecology appeared as a likely first-order explanation to the recent demise of South American endemic mammal clades such as native ungulates [@croft2020] or sparassodonts (metatherian predators, [@pino2022; @tarquini2022]) that followed the establishment of northern lineages [@simpson1980]. This hypothesis mostly relied on striking morphological convergences between the clades assumed to have competed (*e*.*g*., sabertooth among predators, high-crowned and ever-growing cheek teeth among herbivores). However, several analyses of the fossil record provided no evidence for competition between native South American mammals and their northern counterparts [@prevosti2013; @tarquini2022]. That being said, using phylogenetic regressions, Faurby et al. [@faurby2016] found support for another biotic interaction as a likely driver behind GABI's asymmetry: predation. They found higher prevalence of traits increasing prey susceptibility among the endemic south american mammals
+
+(*e*.*g*., artio/perissodactyls v.s. South American native ungulates; carinvorans v.s. sparassodonts)
+
+Species pool proved relevant in the case of the interchange along the Wallacea [@skeels2023]. But here, we expect to find more species in South America, encompassing one of earth's major and long-standing biodiversity hotspot -- Amazonia [@antonelli2018] -- than in North America. Therefore, what drove the notable asymmetry of the GABI? Thus, this hypothesis has been increasingly questioned. Fortuitous experiment?
 
 ### Paragraph 3. Mechanistic eco-evo modelling
 
@@ -35,7 +41,12 @@ Possibility to run natural experiments and draw casual links between biodiversit
 
 # Materials and methods
 
-What we want to compare: - Proportion of successful exchanges when starting from North v.s. South - Is there any change in diversification rates after crossing Panama's isthmus? Do crossers from the North experience enhanced diversification than in the other way round?
+What we want to compare:
+
+-   Proportion of successful exchanges when starting from North v.s. South\
+-   Is there any change in diversification rates after crossing Panama's isthmus? Do crossers from the North experience enhanced diversification than in the other way round?
+
+Here, we term "North America" North + Central America
 
 ## Palaeoclimate data
 
