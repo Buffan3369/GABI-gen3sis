@@ -7,13 +7,10 @@
 
 library(tidyverse)
 
-for(mdl in c("M0", "M1")){
+for(mdl in c("M0", "M1", "M2")){
   NA_recap_tbl <- read.table(paste0("./Data/Gen3sis_parameter_tables/", mdl, "/North_America_parameters_EXTENDED_EXCH.txt"),
                              header = T, sep = "\t")
-  # # Slight adjustments to fix a mistake
-  # NA_recap_tbl <- NA_recap_tbl[9:nrow(NA_recap_tbl),]
-  # NA_recap_tbl$exchanged <- sapply(X = NA_recap_tbl$exchanged, FUN = as.numeric)
-  
+
   SA_recap_tbl <- read.table(paste0("./Data/Gen3sis_parameter_tables/", mdl, "/South_America_parameters_EXTENDED_EXCH.txt"),
                              header = T, sep = "\t")
   
