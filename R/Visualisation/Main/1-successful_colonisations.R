@@ -7,7 +7,7 @@
 
 library(tidyverse)
 
-for(mdl in c("M0", "M1", "M2", "M3")){
+for(mdl in c("M0", "M0_loco", "M1", "M2", "M3")){
   NA_recap_tbl <- read.table(paste0("./Data/Gen3sis_parameter_tables/", mdl, "/North_America_parameters_EXTENDED_EXCH.txt"),
                              header = T, sep = "\t")
 
@@ -36,9 +36,11 @@ for(mdl in c("M0", "M1", "M2", "M3")){
     labs(x = "Region of orgin", y = "Prop. successful exchange") +
     annotate(geom = "text", x = 1, y = na_success-0.03, label = round(na_success, digits = 2), size = 2.3, color = "white") +
     annotate(geom = "text", x = 2, y = sa_success-0.03, label = round(sa_success, digits = 2), size = 2.3, color = "white") +
+    ggtitle(mdl) +
     theme(axis.title = element_text(size = 7.5),
           axis.text = element_text(size = 6),
           axis.line = element_line(linewidth = 0.3, color = "black"),
+          plot.title = element_text(hjust = 0.5),
           panel.background = element_blank(),
           plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"))
   
