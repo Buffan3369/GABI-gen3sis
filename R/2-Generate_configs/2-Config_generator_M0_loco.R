@@ -1,5 +1,5 @@
 ################################################################################
-# Goal: Generate configs for the M0 scenario (fully-connected landscape, 
+# Goal: Generate configs for the M0_loco scenario (fully-connected landscape, 
 #   species distribution, ecology and evolution only mediated by climated 
 #   constraints, i.e. prec + temp)
 ################################################################################
@@ -40,11 +40,11 @@ for(start_region in c("North_America", "South_America")){
   param_df$grid_cell_distance <- 111  # grid cell distance (1x1° lat in km at the equator)
 
 ## Save parameter table --------------------------------------------------------
-  if(!dir.exists("./Data/Gen3sis_parameter_tables/M0")){dir.create("./Data/Gen3sis_parameter_tables/M0")}
+  if(!dir.exists("./Data/Gen3sis_parameter_tables/M0_loco")){dir.create("./Data/Gen3sis_parameter_tables/M0_loco")}
   write.tbl.std(param_df, 
-              paste0("./Data/Gen3sis_parameter_tables/M0/", start_region, "_parameters.txt"))
+              paste0("./Data/Gen3sis_parameter_tables/M0_loco/", start_region, "_parameters.txt"))
 ## Generate config files -------------------------------------------------------
-  out <- paste0("./Data/Gen3sis_configs/M0/", start_region, "_start")
+  out <- paste0("./Data/Gen3sis_configs/M0_loco/", start_region, "_start")
   for(i in 1:n){
     # Select settings for simulation i
     params <- param_df[i, ]
@@ -52,7 +52,7 @@ for(start_region in c("North_America", "South_America")){
     out_dir <- paste0(out, "/Config_", i)
     dir.create(out_dir)
     # Edit config template
-    config_i <- readLines(paste0("./Data/Gen3sis_configs/M0/config_M0_", start_region, "_template.R"))
+    config_i <- readLines(paste0("./Data/Gen3sis_configs/M0_loco/config_M0_loco_", start_region, "_template.R"))
     config_i <- gsub("params\\$S", params$S, config_i)
     config_i <- gsub("params\\$divergence_factor", params$divergence_factor, config_i)
     config_i <- gsub("params\\$omega_T", params$omega_T, config_i)
@@ -67,6 +67,6 @@ for(start_region in c("North_America", "South_America")){
     config_i <- gsub("params\\$init_ab", params$init_ab, config_i)
     config_i <- gsub("params\\$grid_cell_distance", params$grid_cell_distance, config_i)
     # Write config for run i
-    writeLines(config_i, paste0(out_dir, "/config_M0_", start_region, "_run_", i, ".R"))
+    writeLines(config_i, paste0(out_dir, "/config_M0_loco_", start_region, "_run_", i, ".R"))
   }  
 }
