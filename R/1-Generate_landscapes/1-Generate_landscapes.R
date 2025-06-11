@@ -1,9 +1,8 @@
 ################################################################################
-# Name: 1-Generate_landscapes-sc0.R
+# Name: 1-Generate_landscapes.R
 # Author: Lucas Buffan
 # E-mail: lucas.l.buffan@gmail.com
-# Goal: Genrate landscapes for scenario 0: fully-connected terrestrial
-#   landscape.
+# Goal: Genrate landscape based on MAT and MAP layers throughout the last 5Myrs
 ################################################################################
 
 library(gen3sis)
