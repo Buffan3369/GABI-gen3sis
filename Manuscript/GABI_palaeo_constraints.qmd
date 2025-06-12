@@ -52,6 +52,11 @@ What we want to compare:
 
 Here, we term "North America" North + Central America
 
+Quantify:\
+-   Distrib° of occupied area\
+-   Diversity (nb of species) in the colonised area\
+-   (?)Reachability: how long does it take to reach the other area? (surely related to distance to exchange point)
+
 ## Palaeoclimate data
 
 We used the spatio-temporal terrestrial palaeoclimate series from the PALEO-PGEM atmosphere-ocean general circulation model [@holden2019], covering the last 5 Myrs with a 1 \times 1 ° spatial resolution [@barreto2023]. For the scope of this work, we used two bioclimatic variables: mean annual temperature (MAT, BIO1) and mean annual precipitation (MAP, BIO12).
@@ -77,6 +82,12 @@ Divergence threshold vs. divergence factor.
 Smoothing asymmetry =\> echo to birds [@weir2009], flying behaviour relaxing constraints applied to land mammals ?
 
 Species pool proved relevant in the case of the interchange along the Wallacea [@skeels2023]. But here, we expect to find more species in South America, encompassing one of earth's major and long-standing biodiversity hotspot -- Amazonia [@antonelli2018] -- than in North America.
+
+Is it just about **reaching** or more about **reaching & surviving**? 
+
+
+
+# Thrash
 
 Competition involving clades of similar ecology appeared as a likely first-order explanation to the recent demise of South American endemic mammal clades such as native ungulates [@croft2020] or sparassodonts (metatherian predators, [@pino2022; @tarquini2022]) that followed the establishment of northern lineages [@simpson1980]. This hypothesis mostly relied on striking morphological convergences between the clades assumed to have competed (*e*.*g*., sabertooth among predators, high-crowned and ever-growing cheek teeth among herbivores). However, several analyses of the fossil record provided no evidence for competition between native South American mammals and their northern counterparts [@prevosti2013; @tarquini2022]. That being said, using phylogenetic regressions, Faurby et al. [@faurby2016] found support for another biotic interaction as a likely driver behind GABI's asymmetry: predation. They indeed characterised a higher prevalence of traits increasing prey susceptibility among the endemic south american mammals. + larger niches of competitors [@domingo2020]
 

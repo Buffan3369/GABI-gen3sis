@@ -1,0 +1,97 @@
+################################################################################
+# Name: 8-Area_and_div.R
+# Author: Lucas Buffan
+# E-mail: lucas.l.buffan@gmail.com
+# Goal: Quantify the proportion of colonised area occupied by a species and the 
+#       total diversity present in this area => run on BIGMEM
+################################################################################
+
+library(terra)
+source("helper_functions.R")
+
+# Function assessing whether a species occupies a grid from a gridded landscape
+species_occupies <- function(col, df){ # df is the clipped occupancy dataframe
+  ifelse(length(unique(as.numeric(df[,col]))) == 2, TRUE, FALSE)
+}
+# Function assessing whether a grid cell of a landscape coded in binary presence/absence is occupied or not
+cell_occupied <- function(row, df){ # df is the clipped occupancy dataframe
+  ifelse(length(unique(as.numeric(df[row,]))) == 2, TRUE, FALSE)
+}
+
+# Function to retrieve either of the two target metrics
+get_area_div <- function(run, 
+                         model,
+                         what = c("area", "diversity"),
+                         ancestral_area = c("North", "South")){ # where the ancestral species started (either North or South America)
+  # -----------------
+  # if `what` = "area", returns the proportion of colonised area occupied
+  # if `what` = "diversity", returns the number of species in the colonised area
+  # -----------------
+  if(ancestral_area == "North"){
+    mask <- vect("./Data/Shapefile_masks/South_America_cut.shp")
+  }
+  if(ancestral_area == "South"){
+    mask <- vect("./Data/Shapefile_masks/North_America_cut.shp")
+  }
+  # Open gridded pa mat as an sf object
+  of <- readRDS(paste0("../Outputs/", model, "/"))
+  of <- data.frame(of)
+  grid_vect <- vect(of, geom = c("x", "y"), crs = crs(mask))
+  # Intersect with mask
+  grid_clipped <- grid_vect[mask, ]
+  grid_clipped_df <- as.data.frame(grid_clipped)
+  # Diversity in colonised area
+  if(what == "diversity"){
+    sp_occ <- sapply(1:ncol(grid_clipped_df), FUN = species_occupies, df = grid_clipped_df)
+    div <- ncol(grid_clipped_df[, sp_occ])
+    return(div)
+  } 
+  # Proportion of area colonised (in pixels)
+  if(what == "area"){
+    avail_area <- nrow(grid_clipped_df)
+    cell_occ <- sapply(1:nrow(grid_clipped_df), FUN = cell_occupied, df = grid_clipped_df)
+    grid_clipped_df_occ <- grid_clipped_df[cell_occ, ]
+    occ_area <- nrow(grid_clipped_df_occ)
+    prop_col_area <- occ_area / avail_area
+    return(prop_col_area)
+  }
+}
+
+# Execute
+for(model in c("M0", "M1", "M2", "M3")){
+  for(start in c("North", "South")){
+    # Open the corresponding param table
+    ptbl <- read.table(paste0("../Data/param_table/", model, "/", start, "_America_parameters_EXTENDED_EXCH.txt"),
+                       header = T)
+    # Select runs that resulted in a successful exchange (i.e., flagged 1 in the `exchanged` column)
+    success_runs <- c(1:nrow(ptbl))[which(ptbl$exchanged == 1)]
+    # Add target metric columns and fill them
+      # Proportion of colonised area
+    ptbl$prop_col_area <- -1
+    ptbl$prop_col_area[success_runs] <- sapply(X = success_runs, 
+                                               FUN = get_area_div, 
+                                               what = "area", 
+                                               ancestral_area = start)
+      # Diversity in the colonised area
+    ptbl$div_col <- -1
+    ptbl$prop_col_area[success_runs] <- sapply(X = success_runs, 
+                                               FUN = get_area_div, 
+                                               what = "area", 
+                                               ancestral_area = start)
+    # Save
+    write.tbl.std(ptbl, 
+                  paste0("../Data/param_table/", model, "/", start, "_America_parameters_EXTENDED_EXCH_AREA_DIV.txt"))
+   }
+}
+
+
+
+ptbl <- read.table("./Data/Gen3sis_parameter_tables/M0/North_America_parameters_EXTENDED_EXCH.txt", header = T)
+
+
+
+
+
+
+
+

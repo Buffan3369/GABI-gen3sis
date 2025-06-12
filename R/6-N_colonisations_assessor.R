@@ -1,5 +1,5 @@
 ################################################################################
-# Name: 5-N_col_assessor.R
+# Name: 6-N_colonisations_assessor.R
 # Author: Lucas Buffan
 # E-mail: lucas.l.buffan@gmail.com
 # Goal: This scripts assesses whether a simulation led to successful interchange.
@@ -9,6 +9,9 @@
 library(raster)
 library(dplyr)
 source("helper_functions.R")
+
+args <- commandArgs(trailingOnly=T)
+# args[1] : model (M0, M1, ...)
 
 ## Define transfert function ---------------------------------------------------
 transfert <- function(i,  # returns 1 if run i resulted in a successful transfert
@@ -22,7 +25,7 @@ transfert <- function(i,  # returns 1 if run i resulted in a successful transfer
     mask <- shapefile("../Data/Shapefile_masks/North_America_cut.shp")
   }
   # Define directory
-  dir <- paste0("../Outputs/M1_eq_area/", from, "_America_start/config_M1_", from, "_America_run_", i, "/pa_matrices")
+  dir <- paste0("../Outputs/", args[1], "/", from, "_America_start/config_", args[1], "_", from, "_America_run_", i, "/pa_matrices")
   if(dir.exists(dir)){
     # Open the presence/absence matrix of the last time step and ratserise it (1 ancestor => perfect xyz table)
     t_end <- 500 - length(list.files(paste0(dir)))
@@ -55,7 +58,7 @@ transfert <- function(i,  # returns 1 if run i resulted in a successful transfer
         colons <- ones(merged_final[,3])
       }
     }
-    # Detect if successful exchange
+    # Detect if successful exchanged
     if(TRUE %in% colons){
       E <- 1
     }
@@ -67,23 +70,23 @@ transfert <- function(i,  # returns 1 if run i resulted in a successful transfer
 }
 
 ## SOUTH -> NORTH --------------------------------------------------------------
-param_tbl_south <- read.table("../Data/param_tables/M1_equal_area/South_America_parameters_EXTENDED_TABLE.txt",
+param_tbl_south <- read.table(paste0("../Data/param_tables/", args[1], "/South_America_parameters_EXTENDED.txt"),
                               header = T)
 param_tbl_south$exchanged <- sapply(X = 1:500,
                                     FUN = transfert,
                                     from = "South")
 
 write.tbl.std(param_tbl_south,
-              "../Data/param_tables/M1_equal_area/South_America_parameters_EXTENDED_TABLE_EXCH.txt")
+              paste0("../Data/param_tables/", args[1], "/South_America_parameters_EXTENDED_EXCH.txt"))
 
 ## NORTH -> SOUTH --------------------------------------------------------------
-param_tbl_north <- read.table("../Data/param_tables/M1_equal_area/North_America_parameters_EXTENDED_TABLE.txt",
+param_tbl_north <- read.table(paste0("../Data/param_tables/", args[1], "/North_America_parameters_EXTENDED.txt"),
                         header = T)
 param_tbl_north$exchanged <- sapply(X = 1:500,
                                     FUN = transfert,
                                     from = "North")
 write.tbl.std(param_tbl_north,
-              "../Data/param_tables/M1_equal_area/North_America_parameters_EXTENDED_TABLE_EXCH.txt")
+              paste0("../Data/param_tables/", args[1], "/North_America_parameters_EXTENDED_EXCH.txt"))
 
 
 
@@ -96,7 +99,7 @@ write.tbl.std(param_tbl_north,
 
 ## Loop across species P/A matrices through time to get the final number of colonisations
 # n_col <- 0
-# dir <- "./Results/M1_eq_area/South_America_start/config_M1_South_America_run_1/pa_matrices/"
+# dir <- "./Results/M1/South_America_start/config_M1_South_America_run_1/pa_matrices/"
 # # list of S->N colons
 # colons_prev <- c(FALSE) # at t-1
 # colons <- c(FALSE) # at t
