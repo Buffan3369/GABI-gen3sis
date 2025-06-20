@@ -15,11 +15,11 @@ start <- as.character(args[2]) # North or South
 
 # Function assessing whether a species occupies a grid from a gridded landscape
 species_occupies <- function(col, df){ # df is the clipped occupancy dataframe
-  ifelse(length(unique(as.numeric(df[,col]))) == 2, TRUE, FALSE)
+  ifelse( (1 %in% unique(as.numeric(df[,col]))) , TRUE, FALSE)
 }
 # Function assessing whether a grid cell of a landscape coded in binary presence/absence is occupied or not
 cell_occupied <- function(row, df){ # df is the clipped occupancy dataframe
-  ifelse(length(unique(as.numeric(df[row,]))) == 2, TRUE, FALSE)
+  ifelse( (1 %in% unique(as.numeric(df[row,]))) , TRUE, FALSE)
 }
 
 # Function to retrieve either of the two target metrics
@@ -70,29 +70,26 @@ ptbl <- read.table(paste0("../Data/param_tables/", mdl, "/", start, "_America_pa
 # Select runs that resulted in a successful exchange (i.e., flagged 1 in the `exchanged` column)
 success_runs <- c(1:nrow(ptbl))[which(ptbl$exchanged == 1)]
 # Add target metric columns and fill them
-  # Proportion of colonised area
 ptbl$prop_col_area <- -1
-prop_col_area_vect <- c()
-for(sr in success_runs){
-  prop_col_area_vect <- c(prop_col_area_vect, get_area_div(run = sr,
-                                                           model = mdl,
-                                                           what = "area",
-                                                           last_step = ptbl$final_timestep[sr],
-                                                           ancestral_area = start))
-}
-ptbl$prop_col_area[success_runs] <- prop_col_area_vect
-  # Diversity in the colonised area
 ptbl$div_col <- -1    
-div_col_area_vect <- c()
 for(sr in success_runs){
-  div_col_area_vect <- c(div_col_area_vect, get_area_div(run = sr,
-                                                         model = mdl,
-                                                         what = "diversity",
-                                                         last_step = ptbl$final_timestep[sr],
-                                                         ancestral_area = start))
+  print(sr)
+  # Proportion of colonised area
+  area <- get_area_div(run = sr,
+                       model = mdl,
+                       what = "area",
+                       last_step = ptbl$final_timestep[sr],
+                       ancestral_area = start)
+  ptbl$prop_col_area[sr] <- ifelse(length(area) == 0, -1, area)
+  # Diversity in the colonised area
+  div <- get_area_div(run = sr,
+                      model = mdl,
+                      what = "diversity",
+                      last_step = ptbl$final_timestep[sr],
+                      ancestral_area = start)
+  ptbl$div_col[sr] <- ifelse(length(div) == 0, -1, div)
 }
-ptbl$diversity_col_area[success_runs] <- div_col_area_vect
 # Save
 write.tbl.std(ptbl, 
-              paste0("../Data/param_table/", mdl, "/", start, "_America_parameters_EXTENDED_EXCH_AREA_DIV.txt"))
+              paste0("../Data/param_tables/", mdl, "/", start, "_America_parameters_EXTENDED_EXCH_AREA_DIV.txt"))
 

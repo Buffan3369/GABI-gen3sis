@@ -31,7 +31,6 @@ for(mdl in c("M0", "M0_loco", "M1", "M2", "M3")){
   
   prop_plot <- plot_df %>% ggplot(aes(x = Ori, y = Prop_success)) +
     geom_col(lwd = 0.2, colour = "black", fill = c("#fb6a4a", "#66c2a4")) +
-    geom_hline(yintercept = 0.5, linetype = "dashed", color = "red") +
     scale_y_continuous(expand = c(0, 0), limits = c(0, 1.02)) +
     labs(x = "Region of orgin", y = "Prop. successful exchange") +
     annotate(geom = "text", x = 1, y = na_success-0.03, label = round(na_success, digits = 2), size = 2.3, color = "white") +

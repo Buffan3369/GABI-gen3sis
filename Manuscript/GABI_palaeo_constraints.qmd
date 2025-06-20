@@ -53,9 +53,9 @@ What we want to compare:
 Here, we term "North America" North + Central America
 
 Quantify:\
--   Distrib° of occupied area\
--   Diversity (nb of species) in the colonised area\
--   (?)Reachability: how long does it take to reach the other area? (surely related to distance to exchange point)
+- Distrib° of occupied area\
+- Diversity (nb of species) in the colonised area\
+- (?)Reachability: how long does it take to reach the other area? (surely related to distance to exchange point)
 
 ## Palaeoclimate data
 
@@ -83,9 +83,7 @@ Smoothing asymmetry =\> echo to birds [@weir2009], flying behaviour relaxing con
 
 Species pool proved relevant in the case of the interchange along the Wallacea [@skeels2023]. But here, we expect to find more species in South America, encompassing one of earth's major and long-standing biodiversity hotspot -- Amazonia [@antonelli2018] -- than in North America.
 
-Is it just about **reaching** or more about **reaching & surviving**? 
-
-
+Is it just about **reaching** or more about **reaching & surviving**?
 
 # Thrash
 
