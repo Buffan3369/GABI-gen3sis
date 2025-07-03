@@ -1,3 +1,11 @@
+################################################################################
+# Name: 3-Area_Div_colonised.R
+# Author: Lucas Buffan
+# E-mail: lucas.l.buffan@gmail.com
+# Goal: Violin plots for proportion of colonised area and diversity in the
+#       colonised area.
+################################################################################
+
 library(tidyverse)
 
 for(model in c("M0", "M1", "M2", "M3")){
