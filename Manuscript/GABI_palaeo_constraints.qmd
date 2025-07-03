@@ -29,7 +29,7 @@ Proceedings B? Global ecology & Biogeography? Journal of Biogeography? Current B
 
 ### Paragraph 1. Geodispersals + GABI broad description. Towards asymmetry
 
-Throughout its evolutionary history, the biosphere has been repeatedly marked by the occurrence of geodispersal events, that is, exchanges of large species pools across landmasses [*e*.*g*., @couvreur2011]. When focusing on land mammals, a famous example of geodispersal is the late Cenozoic faunal exchange between the Americas, catalysed by the establishment of a physical connection between both continents (isthmus of Panama), termed Great American Biotic Interchange (GABI) [@marshall1982]. Though the exact timing of the closure of isthmus is still debated [@montes2015; @jaramillo2018; @odea2016], the fossil record and molecular phylogenies both agree with a late Miocene onset of land mammal exchange between the Americas, with most effective crossings occurring from *c.* 3.5 Ma onwards [@verzi2008; @bacon2015; @bacon2016]. Despite its textbook nature, a puzzling feature of the GABI is that it impacted both continent's mammalian faunas very differently. In fact, evidence from the fossil record indicates that the early phases of the GABI were marked by reciprocal mammal exchanges between the Americas, but that the Pleistocene times witnessed an increasing proportion of North American mammals establishing southwards [@webb1976; @marshall1982]. At present, only around 10% of the land mammal genera inhabiting North and Central America have a South American ancestry (number reduced to two single species when considering North America above Mexico), whereas it is estimated that half of living South American mammal genera descend from a North American lineage [@marshall1988]. Therefore, this intercontinental faunal exchange has been highly asymmetric.
+Throughout its evolutionary history, the biosphere has been repeatedly marked by the occurrence of geodispersal events, that is, exchanges of large species pools across landmasses [*e*.*g*., @couvreur2011]. When focusing on land mammals, a famous example of geodispersal is the late Cenozoic faunal exchange between the Americas, catalysed by the establishment of a physical connection between both continents (isthmus of Panama), termed Great American Biotic Interchange (GABI) [@marshall1982]. Though the exact timing of the closure of isthmus is still debated [@montes2015; @jaramillo2018; @odea2016], the fossil record and molecular phylogenies both agree with a late Miocene onset of land mammal exchange between the Americas, with most effective crossings occurring from *c.* 3.5 Ma onwards [@verzi2008; @woodburne2010; @bacon2015; @bacon2016]. Despite its textbook nature, a puzzling feature of the GABI is that it impacted both continent's mammalian faunas very differently. In fact, evidence from the fossil record indicates that the early phases of the GABI were marked by reciprocal mammal exchanges between the Americas, but that the Pleistocene times witnessed an increasing proportion of North American mammals establishing southwards [@webb1976; @marshall1982]. At present, only around 10% of the land mammal genera inhabiting North and Central America have a South American ancestry (number reduced to two single species when considering North America above Mexico), whereas it is estimated that half of living South American mammal genera descend from a North American lineage [@marshall1988]. Therefore, this intercontinental faunal exchange has been highly asymmetric.
 
 ### Paragraph 2. Asymmetry: Drivers? History and state-of-the-art
 
@@ -39,7 +39,7 @@ Higher extinction rates of endemic South American taxa in South America during t
 
 Recent improvements in process-explicit modelling have marked a turning point in the study of biodiversity patterns from a causal perspective [@pilowsky2022]. In particular, mechanistic eco-evolutionary models ... [@hagen2021]
 
-Possibility to run computer experiments and draw casual links between biodiversity patterns and (a)biotic factors Proved efficient in a wide range of questions.
+Possibility to run computer experiments and draw causal links between biodiversity patterns and (a)biotic factors Proved efficient in a wide range of questions.
 
 Here, using a mechanistic biodiversity simulator, we explore the extent to which palaeoclimate dynamics throughout the last 5 My can explain the observed asymmetry in the land mammal exchange that occurred across the Americas.
 
@@ -84,6 +84,10 @@ Smoothing asymmetry =\> echo to birds [@weir2009], flying behaviour relaxing con
 Species pool proved relevant in the case of the interchange along the Wallacea [@skeels2023]. But here, we expect to find more species in South America, encompassing one of earth's major and long-standing biodiversity hotspot -- Amazonia [@antonelli2018] -- than in North America.
 
 Is it just about **reaching** or more about **reaching & surviving**?
+
+## Limitations & perspectives
+
+Maybe one of the most obvious caveats of our study stems from the assumption of fixed palaeogeography, particularly near the isthmus, wheras we know that this region changed across our study.
 
 # Thrash
 
