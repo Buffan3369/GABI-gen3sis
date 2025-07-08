@@ -14,11 +14,8 @@ library(tidyverse)
 P_tbl <- read.table(paste0("./Data/Gen3sis_parameter_tables/M0/North_America_parameters_EXTENDED_EXCH_AREA_DIV_DIST.txt"),
                     header = T)
 P_tbl <- P_tbl %>% 
-  # remove aberrant distances
-  filter(dist_to_isthmus <= 80000) %>%
   # convert to km
   mutate(exchanged = as.factor(exchanged),
-         dist_to_isthmus = sapply(dist_to_isthmus, function(x){x/10}),
          model = "M0",
          start_region = "North America")
 
@@ -32,11 +29,7 @@ for(mdl in c("M0", "M1", "M2", "M3")){
                             header = T)
     
     param_tbl <- param_tbl %>% 
-      # remove aberrant distances
-      filter(dist_to_isthmus <= 80000) %>%
-      # convert to km
       mutate(exchanged = as.factor(exchanged),
-             dist_to_isthmus = sapply(dist_to_isthmus, function(x){x/10}),
              model = mdl,
              start_region = paste0(start, " America"))
     # Adjust in case one of the two climatic breadths are missing (M2 or M3)
