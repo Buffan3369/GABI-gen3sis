@@ -153,7 +153,7 @@ comp_plot_successful <- P_tbl %>%
   geom_violin(adjust = .75, draw_quantiles = c(0.5), scale = "width", linewidth = 0.2, aes(fill = factor(start_region))) +
   geom_point(shape = ".") +
   scale_fill_manual(values = c("#fcbba1", "#ccece6")) +
-  labs(x = "Ancestral regtion", y = "Distance to isthmus (km)") +
+  labs(x = "Ancestral region", y = "Distance to isthmus (km)") +
   theme(legend.position = "none",
         axis.title = element_text(size = 7.5),
         axis.text = element_text(size = 6),
@@ -177,7 +177,7 @@ comp_plot_unsuccessful <- P_tbl %>%
   geom_violin(adjust = .75, draw_quantiles = c(0.5), scale = "width", linewidth = 0.2, aes(fill = factor(start_region))) +
   geom_point(shape = ".") +
   scale_fill_manual(values = c("#fcbba1", "#ccece6")) +
-  labs(x = "Ancestral regtion", y = "Distance to isthmus (km)") +
+  labs(x = "Ancestral region", y = "Distance to isthmus (km)") +
   theme(legend.position = "none",
         axis.title = element_text(size = 7.5),
         axis.text = element_text(size = 6),
