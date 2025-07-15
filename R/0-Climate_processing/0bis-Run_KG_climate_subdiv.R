@@ -6,12 +6,17 @@
 #       DONNOT RUN IN RSTUDIO
 ################################################################################
 
-library(future.apply)
+#library(future.apply)
 
 source("0bis-Process_climate_KG.R")
 
+# Broad classification for t=5Myrs
+biome_5M <- reclass_rasters(t = 0, type = "broadclass")
+saveRDS(biome_5M, "../../Data/PALEO_PGEM-bioclim/KG_biomes/KG_5Ma_broadclass.RDS")
+
+# Original classes proposed by Köppen-Geiger
 plan(multicore, workers = 10)
-biome_maps <- future_lapply(X = 1370:1379,
+biome_maps <- future_lapply(X = 0:5000,
                             FUN = reclass_rasters,
                             future.seed = TRUE) # avoids issue when `future` generates random numbers
 

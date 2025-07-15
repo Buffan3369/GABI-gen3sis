@@ -11,7 +11,7 @@ library(terra)
 source("~/Documents/KoppenGeiger_inR/kg_reclass_raster.R")
 
 get_mothly_clim_at_t <- function(month, # labelled from 1 to 12
-                                 t, # t goes forward, from 1 (5Ma) to 5000 (present) 
+                                 t, # t goes forward, from 0 (5Ma) to 5000 (present) 
                                  what = c("temperature", "precipitation")){
   if(month < 10){
     month <- paste0("0", month)

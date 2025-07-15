@@ -6,12 +6,14 @@
 #         1. Proportion of colonised area
 #         2. Diversity in the colonised area
 #         3. Distance between simulation starting point and isthmus
+#
+#       Additionally, barplot for starting biomes.
 ################################################################################
 
 library(tidyverse)
 
 ## Assemble large dataset ------------------------------------------------------
-P_tbl <- read.table(paste0("./Data/Gen3sis_parameter_tables/M0/North_America_parameters_EXTENDED_EXCH_AREA_DIV_DIST.txt"),
+P_tbl <- read.table(paste0("./Data/Gen3sis_parameter_tables/M0/North_America_parameters_EXTENDED_EXCH_AREA_DIV_DIST_biome.txt"),
                     header = T)
 P_tbl <- P_tbl %>% 
   # convert to km
@@ -25,7 +27,7 @@ for(mdl in c("M0", "M1", "M2", "M3")){
       next
     }
     param_tbl <- read.table(paste0("./Data/Gen3sis_parameter_tables/", mdl,
-                                   "/", start, "_America_parameters_EXTENDED_EXCH_AREA_DIV_DIST.txt"),
+                                   "/", start, "_America_parameters_EXTENDED_EXCH_AREA_DIV_DIST_biome.txt"),
                             header = T)
     
     param_tbl <- param_tbl %>% 
@@ -193,3 +195,59 @@ comp_plot_unsuccessful <- P_tbl %>%
 ggsave(paste0("./Figures/dist_to_isthm/comparative_distances_UNSUCCESSFUL.pdf"), 
        plot = comp_plot_unsuccessful, height = 80, width = 170, units = "mm")
 
+
+## Starting biomes -------------------------------------------------------------
+  # All simulations
+
+P_tbl <- P_tbl %>% 
+  mutate(start_biome = as.factor(start_biome))
+
+start_biome_all <- P_tbl %>% 
+  # all initial conditions are the same as each simulation batch share the same seed
+  filter(model == "M1" & !(is.na(start_biome))) %>%
+  ggplot(aes(x = start_biome)) +
+  geom_bar(aes(fill = start_biome), colour = "black", linewidth = 0.3) +
+  scale_fill_manual(values = c("1" = "#f9d14a", "2" = "#ab3329", "3" = "#ed968c", "4" = "#7c4b73", "5" = "#88a0dc")) +
+  labs(x = "Ancestral biome", y = "Nb. simulations") +
+  scale_x_discrete(labels = c("1" = "Tropical", "2" = "Arid", "3" = "Temperate", "4" = "Cold", "5" = "Polar")) +
+  facet_grid(.~start_region) +
+  theme(axis.text = element_text(size = 7),
+        axis.title = element_text(size = 10),
+        axis.line = element_line(linewidth = 0.3, color = "black"),
+        legend.position = "none",
+        strip.background = element_rect(fill = "#DDE6F5"),
+        strip.text = element_text(size = 10),
+        panel.background = element_rect(fill = "grey85"),
+        panel.grid.major = element_line(linewidth = 0.25),
+        panel.grid.minor = element_line(linewidth = 0.25),
+        plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"))
+
+ggsave(paste0("./Figures/starting_biome/starting_biome_ALL.pdf"), 
+       plot = start_biome_all, height = 80, width = 140, units = "mm")
+
+
+start_biome_success <- P_tbl %>% 
+  # all initial conditions are the same as each simulation batch share the same seed
+  filter(model == "M1" & !(is.na(start_biome)) & exchanged == 1) %>%
+  ggplot(aes(x = start_biome)) +
+  geom_bar(aes(fill = start_biome), colour = "black", linewidth = 0.3) +
+  scale_fill_manual(values = c("1" = "#f9d14a", "2" = "#ab3329", "3" = "#ed968c", "4" = "#7c4b73", "5" = "#88a0dc")) +
+  labs(x = "Ancestral biome", y = "Nb. simulations") +
+  scale_x_discrete(labels = c("1" = "Tropical", "2" = "Arid", "3" = "Temperate", "4" = "Cold", "5" = "Polar")) +
+  facet_grid(.~start_region) +
+  theme(axis.text = element_text(size = 7),
+        axis.title = element_text(size = 10),
+        axis.line = element_line(linewidth = 0.3, color = "black"),
+        legend.position = "none",
+        strip.background = element_rect(fill = "#DDE6F5"),
+        strip.text = element_text(size = 10),
+        panel.background = element_rect(fill = "grey85"),
+        panel.grid.major = element_line(linewidth = 0.25),
+        panel.grid.minor = element_line(linewidth = 0.25),
+        plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"))
+
+ggsave(paste0("./Figures/starting_biome/starting_biome_EXCH.pdf"), 
+       plot = start_biome_success, height = 80, width = 140, units = "mm")
+
+
+## NEED TO QUANTIFY THE PROPORTION OF REALISED EXCHANGE PER BIOME (e.g. n_trop_exch / n_trop_init)
