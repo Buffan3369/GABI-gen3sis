@@ -92,41 +92,45 @@ for(i in 1:4){
   }
   
   prop_plot <- plot_df %>% ggplot(aes(x = Ori, y = Prop_success)) +
-    geom_col(lwd = 0.2, colour = "black", fill = c("#fb6a4a", "#66c2a4")) +
-    scale_y_continuous(expand = c(0, 0), limits = c(0, 1.06)) +
+    geom_col(lwd = 0.2, colour = "black", fill = c("#fcbba1", "#ccece6")) +
+    scale_y_continuous(expand = c(0, 0), limits = c(0, 1.12), breaks = c(0, 0.25, 0.5, 0.75, 1)) +
     labs(x = NULL, y = NULL) +
-    annotate(geom = "text", x = 1, y = na_success-0.03, label = round(na_success, digits = 2), size = 2.3, color = "white") +
-    annotate(geom = "text", x = 2, y = sa_success-0.03, label = round(sa_success, digits = 2), size = 2.3, color = "white") +
-    annotate(geom = "rect", ymin = 1.02, ymax = 1.06, xmin = -Inf, xmax = Inf, colour = "red") +
-    ggtitle(mdl)
+    annotate(geom = "text", x = 1, y = na_success-0.03, label = round(na_success, digits = 2), size = 1.85, color = "black") +
+    annotate(geom = "text", x = 2, y = sa_success-0.03, label = round(sa_success, digits = 2), size = 1.85, color = "black") +
+    annotate(geom = "rect", ymin = 1.02, ymax = 1.12, xmin = -Inf, xmax = Inf, fill = "#DDE6F5") +
+    annotate(geom = "text", y = 1.07, x = 1.5, label = mdl, size = 3, color = "black")
   if(i == 1){
     prop_plot <- prop_plot + 
-      theme(axis.title = element_text(size = 7.5),
-            axis.text = element_text(size = 6),
+      theme(axis.text = element_text(size = 4.5),
             axis.line = element_line(linewidth = 0.3, color = "black"),
-            plot.title = element_text(hjust = 0.5),
-            panel.background = element_blank(),
-            plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"))
+            panel.background = element_rect(fill = "grey85"),
+            panel.grid.major = element_line(linewidth = 0.25),
+            panel.grid.minor = element_line(linewidth = 0.25),
+            plot.margin = unit(c(1, 0.05, 0, 0.2), "cm")) # c(top, right, bottom, left)
   }
   else{
     prop_plot <- prop_plot + 
-      theme(axis.text.x = element_text(size = 6),
+      theme(axis.text.x = element_text(size = 4.5),
             axis.line.x = element_line(linewidth = 0.3, color = "black"),
             axis.line.y = element_blank(),
             axis.text.y = element_blank(),
             axis.ticks.y = element_blank(),
-            plot.title = element_text(hjust = 0.5),
-            panel.background = element_blank(),
-            plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"))
+            panel.background = element_rect(fill = "grey85"),
+            panel.grid.major = element_line(linewidth = 0.25),
+            panel.grid.minor = element_line(linewidth = 0.25),
+            plot.margin = unit(c(1, 0.075, 0, 0.075), "cm"))
   }
   
   plotlist[[i]] <- prop_plot
 }
 
-p <- ggarrange(plotlist = plotlist, ncol = 4, label.x = "Region of orgin", label.y = "Prop. successful exchange")
+p <- ggarrange(plotlist = plotlist, ncol = 4, widths = c(1, 0.95, 0.95, 0.95))
 
-p
+# Add x and y labels
+p <- annotate_figure(p, 
+                     left = text_grob("Prop. successful exchange", rot = 90, vjust = 1, size = 8),
+                     bottom = text_grob("Region of orgin", size = 8))
 
-annotate_figure(p, left = textGrob("Prop. successful exchange", rot = 90, vjust = 1, gp = gpar(cex = 1.3)),
-                bottom = textGrob("Region of orgin", gp = gpar(cex = 1.3)))
-
+# Save
+ggsave("./Figures/prop_successful_exch/succ_exch_panel.pdf",
+       plot = p, height = 80, width = 170, units = "mm")
