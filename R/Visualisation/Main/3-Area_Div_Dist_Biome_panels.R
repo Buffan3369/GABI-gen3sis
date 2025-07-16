@@ -121,7 +121,10 @@ plot_crash <- P_tbl %>%
         axis.title = element_text(size = 7.5),
         axis.text = element_text(size = 6),
         axis.line = element_line(linewidth = 0.3, color = "black"),
-        panel.background = element_blank(),
+        strip.background = element_rect(fill = "#DDE6F5"),
+        panel.background = element_rect(fill = "grey85"),
+        panel.grid.major = element_line(linewidth = 0.25),
+        panel.grid.minor = element_line(linewidth = 0.25),
         plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"))
 
 ggsave(paste0("./Figures/dist_to_isthm/distance_violin_panel_CRASH.pdf"), 
@@ -140,7 +143,10 @@ plot_NoCrash <- P_tbl %>%
         axis.title = element_text(size = 7.5),
         axis.text = element_text(size = 6),
         axis.line = element_line(linewidth = 0.3, color = "black"),
-        panel.background = element_blank(),
+        strip.background = element_rect(fill = "#DDE6F5"),
+        panel.background = element_rect(fill = "grey85"),
+        panel.grid.major = element_line(linewidth = 0.25),
+        panel.grid.minor = element_line(linewidth = 0.25),
         plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"))
 
 ggsave(paste0("./Figures/dist_to_isthm/distance_violin_panel_NoCRASH.pdf"), 
@@ -228,13 +234,13 @@ ggsave(paste0("./Figures/starting_biome/starting_biome_ALL.pdf"),
 
 start_biome_success <- P_tbl %>% 
   # all initial conditions are the same as each simulation batch share the same seed
-  filter(model == "M1" & !(is.na(start_biome)) & exchanged == 1) %>%
+  filter(!(is.na(start_biome)) & exchanged == 1) %>%
   ggplot(aes(x = start_biome)) +
   geom_bar(aes(fill = start_biome), colour = "black", linewidth = 0.3) +
   scale_fill_manual(values = c("1" = "#f9d14a", "2" = "#ab3329", "3" = "#ed968c", "4" = "#7c4b73", "5" = "#88a0dc")) +
-  labs(x = "Ancestral biome", y = "Nb. simulations") +
+  labs(x = "Ancestral biome", y = "Nb. successful simulations") +
   scale_x_discrete(labels = c("1" = "Tropical", "2" = "Arid", "3" = "Temperate", "4" = "Cold", "5" = "Polar")) +
-  facet_grid(.~start_region) +
+  facet_grid(model~start_region) +
   theme(axis.text = element_text(size = 7),
         axis.title = element_text(size = 10),
         axis.line = element_line(linewidth = 0.3, color = "black"),
@@ -247,7 +253,46 @@ start_biome_success <- P_tbl %>%
         plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"))
 
 ggsave(paste0("./Figures/starting_biome/starting_biome_EXCH.pdf"), 
-       plot = start_biome_success, height = 80, width = 140, units = "mm")
+       plot = start_biome_success, height = 170, width = 170, units = "mm")
 
+# PROPORTION OF REALISED EXCHANGE PER BIOME (e.g. n_trop_exch / n_trop_init)
+  # Nb of starting species per biome
+per_biome_df <- P_tbl %>% 
+  filter(!(is.na(start_biome))) %>% 
+  count(start_biome, model, start_region)
+  # Same but only for exchanged species
+per_biome_exch_df <- P_tbl %>% 
+  filter(!(is.na(start_biome)) & exchanged == 1) %>% 
+  count(start_biome, model, start_region)
+    ## No cold species exchanged from NA in M0, from SA in M0 & M1; polar species from NA in M0 : add them
+per_biome_exch_df <- per_biome_exch_df %>% 
+  add_row(start_biome = "5", model = "M0", start_region = "North America", n = 0, .before = 30) %>% 
+  add_row(start_biome = "4", model = "M1", start_region = "South America", n = 0, .before = 26) %>% 
+  add_row(start_biome = "4", model = "M0", start_region = "South America", n = 0, .before = 25) %>% 
+  add_row(start_biome = "4", model = "M0", start_region = "North America", n = 0, .before = 25)
+  # Assess proportion
+per_biome_exch_df <- per_biome_exch_df %>% 
+  mutate(n_init = per_biome_df$n) %>% 
+  mutate(prop_exch = n / per_biome_df$n)
+  # Plot
+prop_biome_success_plot <- per_biome_exch_df %>% 
+  ggplot(aes(x = start_biome, y = prop_exch)) +
+  geom_col(aes(fill = start_biome), linewidth = 0.3, colour = "black") +
+  geom_text(aes(label = sapply(prop_exch, round, digits = 2)), inherit.aes = TRUE, nudge_y = 0.05, size = 2.5) +
+  scale_fill_manual(values = c("1" = "#f9d14a", "2" = "#ab3329", "3" = "#ed968c", "4" = "#7c4b73", "5" = "#88a0dc")) +
+  scale_x_discrete(labels = c("1" = "Tropical", "2" = "Arid", "3" = "Temperate", "4" = "Cold", "5" = "Polar")) +
+  labs(x = "Ancestral biome", y = "Prop. success") +
+  facet_grid(model~start_region) +
+  theme(axis.text = element_text(size = 7),
+        axis.title = element_text(size = 10),
+        axis.line = element_line(linewidth = 0.3, color = "black"),
+        legend.position = "none",
+        strip.background = element_rect(fill = "#DDE6F5"),
+        strip.text = element_text(size = 10),
+        panel.background = element_rect(fill = "grey85"),
+        panel.grid.major = element_line(linewidth = 0.25),
+        panel.grid.minor = element_line(linewidth = 0.25),
+        plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"))
 
-## NEED TO QUANTIFY THE PROPORTION OF REALISED EXCHANGE PER BIOME (e.g. n_trop_exch / n_trop_init)
+ggsave(paste0("./Figures/starting_biome/prop_biome_success.pdf"), 
+       plot = prop_biome_success_plot, height = 170, width = 170, units = "mm")
