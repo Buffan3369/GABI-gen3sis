@@ -59,7 +59,7 @@ prop_plot <- P_tbl %>%
   geom_point(shape = ".") +
   scale_y_continuous(limits = c(0, 1)) +
   scale_fill_manual(values = c("#fcbba1", "#ccece6")) +
-  labs(x = "Ancestral regtion", y = "Prop. area colonised") +
+  labs(x = "Ancestral region", y = "Prop. area colonised") +
   theme(legend.position = "none",
         axis.title = element_text(size = 7.5),
         axis.text = element_text(size = 6),
@@ -89,7 +89,7 @@ div_plot <-  P_tbl %>%
   geom_violin(adjust = .75, draw_quantiles = c(0.5), scale = "width", linewidth = 0.2, aes(fill = factor(start_region))) +
   geom_point(shape = ".") +
   scale_fill_manual(values = c("#fcbba1", "#ccece6")) +
-  labs(x = "Ancestral regtion", y = "Log(Diversity in colonised region)") +
+  labs(x = "Ancestral region", y = "Log(Diversity in colonised region)") +
   theme(legend.position = "none",
         axis.title = element_text(size = 7.5),
         axis.text = element_text(size = 6),

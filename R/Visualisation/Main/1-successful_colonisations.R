@@ -48,16 +48,10 @@ for(mdl in c("M0", "M0_loco", "M1", "M2", "M3")){
 }
 
 
-## WORKAROUND FOR DIY PANEL
-
 ################################################################################
-# Author: Lucas Buffan
-# E-mail: lucas.l.buffan@gmail.com
-# Aim: Assess and represent the proportion of successful colonisations depending
-#     on the ancestral area.
+# DIY Panel
 ################################################################################
 
-library(tidyverse)
 library(ggpubr)
 library(grid)
 
@@ -129,7 +123,7 @@ p <- ggarrange(plotlist = plotlist, ncol = 4, widths = c(1, 0.95, 0.95, 0.95))
 # Add x and y labels
 p <- annotate_figure(p, 
                      left = text_grob("Prop. successful exchange", rot = 90, vjust = 1, size = 8),
-                     bottom = text_grob("Region of orgin", size = 8))
+                     bottom = text_grob("Ancestral region", size = 8))
 
 # Save
 ggsave("./Figures/prop_successful_exch/succ_exch_panel.pdf",
