@@ -74,6 +74,9 @@ prop_plot <- P_tbl %>%
 ggsave("./Figures/prop_col_area/PANEL_prop_col_area.pdf", 
        plot = prop_plot, height = 80, width = 170, units = "mm")
 
+ggsave("./Figures/prop_col_area/PANEL_prop_col_area.png", 
+       plot = prop_plot, height = 80, width = 170, dpi = 600, units = "mm")
+
 
 ################################################################################
 ##################### 2. DIVERSITY IN THE COLONISED AREA #######################
@@ -104,6 +107,9 @@ div_plot <-  P_tbl %>%
 ggsave("./Figures/div_col_area/PANEL_div_col_area.pdf", 
        plot = div_plot, height = 80, width = 170, units = "mm")
 
+ggsave("./Figures/div_col_area/PANEL_div_col_area.png", 
+       plot = div_plot, height = 80, width = 170, dpi = 600, units = "mm")
+
 
 ################################################################################
 ############################ 3. DISTANCE TO ISTHMUS ############################
@@ -130,6 +136,9 @@ plot_crash <- P_tbl %>%
 ggsave(paste0("./Figures/dist_to_isthm/distance_violin_panel_CRASH.pdf"), 
        plot = plot_crash, height = 120, width = 200, units = "mm")
 
+ggsave(paste0("./Figures/dist_to_isthm/distance_violin_panel_CRASH.png"), 
+       plot = plot_crash, height = 120, width = 200, dpi = 600, units = "mm")
+
 ## Plot without simulations that crashed ---------------------------------------
 plot_NoCrash <- P_tbl %>% 
   filter(exchanged != -1) %>% 
@@ -151,6 +160,10 @@ plot_NoCrash <- P_tbl %>%
 
 ggsave(paste0("./Figures/dist_to_isthm/distance_violin_panel_NoCRASH.pdf"), 
        plot = plot_NoCrash, height = 120, width = 170, units = "mm")
+
+ggsave(paste0("./Figures/dist_to_isthm/distance_violin_panel_NoCRASH.png"), 
+       plot = plot_NoCrash, dpi = 600, height = 120, width = 170, units = "mm")
+
 
 ## North-South Panel -----------------------------------------------------------
   # Successful exchange
@@ -177,6 +190,9 @@ comp_plot_successful <- P_tbl %>%
 ggsave(paste0("./Figures/dist_to_isthm/comparative_distances_SUCCESSFUL.pdf"), 
        plot = comp_plot_successful, height = 80, width = 170, units = "mm")
 
+ggsave(paste0("./Figures/dist_to_isthm/comparative_distances_SUCCESSFUL.png"), 
+       plot = comp_plot_successful, height = 80, width = 170, dpi = 600, units = "mm")
+
   # Unsuccessful exchange
 comp_plot_unsuccessful <- P_tbl %>% 
   filter(exchanged == 0) %>% 
@@ -200,6 +216,9 @@ comp_plot_unsuccessful <- P_tbl %>%
 
 ggsave(paste0("./Figures/dist_to_isthm/comparative_distances_UNSUCCESSFUL.pdf"), 
        plot = comp_plot_unsuccessful, height = 80, width = 170, units = "mm")
+
+ggsave(paste0("./Figures/dist_to_isthm/comparative_distances_UNSUCCESSFUL.png"), 
+       plot = comp_plot_unsuccessful, height = 80, width = 170, dpi = 600, units = "mm")
 
 
 ## Starting biomes -------------------------------------------------------------
@@ -255,6 +274,9 @@ start_biome_success <- P_tbl %>%
 ggsave(paste0("./Figures/starting_biome/starting_biome_EXCH.pdf"), 
        plot = start_biome_success, height = 170, width = 170, units = "mm")
 
+ggsave(paste0("./Figures/starting_biome/starting_biome_EXCH.png"), 
+       plot = start_biome_success, height = 170, width = 170, dpi = 600, units = "mm")
+
 # PROPORTION OF REALISED EXCHANGE PER BIOME (e.g. n_trop_exch / n_trop_init)
   # Nb of starting species per biome
 per_biome_df <- P_tbl %>% 
@@ -296,3 +318,6 @@ prop_biome_success_plot <- per_biome_exch_df %>%
 
 ggsave(paste0("./Figures/starting_biome/prop_biome_success.pdf"), 
        plot = prop_biome_success_plot, height = 170, width = 170, units = "mm")
+
+ggsave(paste0("./Figures/starting_biome/prop_biome_success.png"), 
+       plot = prop_biome_success_plot, height = 170, width = 170, dpi = 600, units = "mm")

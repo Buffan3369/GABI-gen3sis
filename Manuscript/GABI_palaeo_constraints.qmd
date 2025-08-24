@@ -79,13 +79,13 @@ blabla
 
 ## Climate makes it easier to reach North America from South America than the other way round
 
-Unexpetedly, our simulation-based framework suggests that the proportion of simulations successfully reaching the other continent is always higher when starting from South America than from South America (Fig 1). This imbalance, strikingly going against our expectations, is maintained whether we allowed species climatic niche to evolve following climatic change (XX%, model M1) or not (XX% vs YY%, model M0, Figure 1)
+Unexpectedly, our simulation-based framework suggests that the proportion of simulations successfully reaching the other continent is always higher when starting from South America than from North America (Fig 1). This imbalance, strikingly going against our expectations, is maintained whether we allowed species climatic niche to evolve following climatic change (44% vs. 87%, model M1) or not (29% vs 59%, model M0, Figure 1)
 
 
 ```{r, echo=FALSE}
 #| label: fig1
 #| fig-cap: Proportion of successful exchange to the other continent, either starting from North (red) or South (blue) America.
-knitr::include_graphics("../Figures/prop_successful_exch/succ_exch_panel.pdf")
+knitr::include_graphics("../Figures/prop_successful_exch/succ_exch_panel.png")
 ```
 
 # Discussion

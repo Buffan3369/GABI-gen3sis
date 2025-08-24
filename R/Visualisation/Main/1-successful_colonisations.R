@@ -128,3 +128,6 @@ p <- annotate_figure(p,
 # Save
 ggsave("./Figures/prop_successful_exch/succ_exch_panel.pdf",
        plot = p, height = 80, width = 170, units = "mm")
+
+ggsave("./Figures/prop_successful_exch/succ_exch_panel.png",
+       plot = p, dpi = 600, height = 80, width = 170, units = "mm")
