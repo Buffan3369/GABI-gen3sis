@@ -35,15 +35,11 @@ Proceedings B? Global ecology & Biogeography? Journal of Biogeography?
 
 # Abstract
 
-The Great American Biotic Interchange (GABI) characterises the admixture of the North and South American faunas that occurred in the aftermath of the closure of the isthmus of Panama, in the Pliocene. Among land mammals, it witnessed a greater ability of North American lineages to establish southwards meanwhile many South American lineages went extinct. For these reasons, this massive interchange is considered as asymmetric. Here, coupling a mechanistic eco-evolutionary simulator with high-resolution palaeoclimatic reconstructions for the last 5 million years, we explore the extent to which palaeoclimate may have shaped the asymmetry of the GABI. Interestingly, our results indicate that, when climatic variables are the only constraints to virtual species' ecology, successful interchange is more frequently achieved when simulations start from South America than from North America. In addition, our models fail at explaining the higher representation of temperate-adapted mammals in the fossil record of successfully exchanged mammals, particularly from North America.
-This study offers valuable mechanistic highlights into the onset of one of the most puzzling macroecological enigma, suggesting that abiotic factors were probably not the only underlying drivers behind the asymmetry of the GABI.
-
-
-Understanding how climate shapes large-scale biodiversity patterns is of paramount importance at a time when climate changes at an unprecedented rate. Here, coupling a mechanistic eco-evolutionary simulator with high-resolution palaeoclimatic reconstructions, we explore the extent to which palaeoclimate may have shaped the asymmetry of the Great American Biotic Interchange (GABI), one of the largest intercontinental faunal exchanges in the history of modern ecosystems, involving the admixture of North and South American faunas and, upon land mammals, witnessed a higher ability of North American lineages establishing southwards meanwhile many South American lineages went extinct
+The Great American Biotic Interchange (GABI) refers to the admixture of North and South American faunas promoted by the Mio-Pliocene closure of the isthmus of Panama. Among mammals, this faunal exchange was asymmetric because it witnessed a greater ability of North American lineages to establish southwards, meanwhile many South Americans went extinct. Here, coupling a mechanistic eco-evolutionary simulator with high-resolution palaeoclimatic reconstructions for the last 5 million years, we explore the extent to which palaeoclimate may have shaped such a biogeographic asymmetry. When climatic variables are the only constraints to virtual species' ecology, our results indicate that successful interchanges are more frequently achieved when simulations start from South America than from North America, contrasting with empirical observations. In addition, our models fail at explaining the higher representation of temperate-adapted mammals in the fossil record of successfully exchanged mammals, particularly of North American origin, but suggest that successful colonisers from North America occupy larger areas in South America than the other way around. This study offers valuable insights into the processes behind one of the most puzzling macroecological enigmas, suggesting that palaeoclimatic history is not sufficient to explain the imbalanced success of North American migrants in South America following the GABI.
 
 
 # Keywords
-Eco-evolutionary simulations; Palaeoclimate; Macroecology; South American Mammals
+Eco-evolutionary simulations; Mammals; Macroecology; Palaeoclimate
 
 \newpage
 
@@ -65,9 +61,9 @@ Here, we term "North America" North + Central America. The delimitation between 
 
 **figure 1: plot spatial average of palaeoclimate data used here, indicating marked climatic events across the last 5Myr. Relate to Vrba's cooling?**
 
-We used the spatio-temporal terrestrial palaeoclimate series from the PALEO-PGEM atmosphere-ocean general circulation model [@holden2019], covering the last 5 Myrs with a 1 \times 1 ° spatial resolution [@barreto2023]. For the scope of this work, we used two bioclimatic variables: mean annual temperature (MAT, BIO1) and mean annual precipitation (MAP, BIO12).
+We used the spatio-temporal terrestrial palaeoclimate series from the PALEO-PGEM atmosphere-ocean general circulation model [@holden2019], covering the last 5 Myrs with a 1 \times 1 ° spatial resolution [@barreto2023]. For the scope of this work, we used two bioclimatic variables: mean annual temperature (MAT, BIO1) and mean annual precipitation (MAP, BIO12). To avoid reaching an overkillingly-high number of simulation steps, we reduced the temporal resolution of the climate simulations from a 1000 years-time step to a 10,000 years time-step.
 
-We further reclassified these monthly palaeoclimate layers across the last five million years according to Köppen-Geiger broad climate types [@galván2023]. This classification divides the world into five broad climatic regions: Polar, Cold, Temperate, Arid and Tropical.
+In order to discriminate simulation on the basis of the biome the initial species starts in, we reclassified monthly palaeoclimate layers for our starting time (at $t=5$ Myrs) according to Köppen-Geiger broad climate types [@galván2023]. This classification divides the world into five broad climatic regions: Polar, Cold, Temperate, Arid and Tropical.
 
 ## Simulation model and modelling schemes
 
