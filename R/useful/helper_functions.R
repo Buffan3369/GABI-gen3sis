@@ -14,6 +14,16 @@ write.tbl.std <- function(...){
               ...)
 }
 
+## Standardised theme for plots ------------------------------------------------
+theme_lucas <- function(...){
+  theme(panel.background = element_blank(),
+        panel.border = element_rect(linewidth = .75, colour = "black", fill = NA),
+        axis.text = element_text(size = 8),
+        axis.title = element_text(size = 9),
+        plot.title = element_text(size = 12, hjust = 0.5),
+        ...)
+}
+
 ## Assess whether a binary vector contains ones --------------------------------
 ones <- function(vect){
   u_vect <- unique(vect)
