@@ -27,7 +27,7 @@ for(start_region in c("North_America", "South_America")){
   
   param_df$S <-          linMap(as.numeric(param_df$S), from = 1, to = 3, rnd = T, dgts = 3)
   param_df$omega_T <-    linMap(as.numeric(param_df$omega_T), from = 0.01, to = 0.1, rnd = T, dgts = 3)
-  param_df$omega_P <-    linMap(as.numeric(param_df$omega_T), from = 0.05, to = 0.3, rnd = T, dgts = 3)
+  param_df$omega_P <-    linMap(as.numeric(param_df$omega_P), from = 0.05, to = 0.3, rnd = T, dgts = 3)
   param_df$sigma_e <-    linMap(as.numeric(param_df$sigma_e), from = 0.005, to = 0.15, rnd = T, dgts = 3)
   param_df$disp_shape <- linMap(as.numeric(param_df$disp_shape), from = 0.5, to = 3, rnd = T, dgts = 3)
   param_df$disp_scale <- linMap(as.numeric(param_df$disp_scale), from = 0.1, to = 1, rnd = T, dgts = 3)
