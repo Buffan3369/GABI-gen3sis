@@ -54,13 +54,13 @@ Here, we explore the implication of palaeoclimate change in the asymmetry of the
 
 # Materials and methods
 
-Here, we term "North America" North + Central America. The delimitation between both continents was arbitrarily set in the middle of Panama (coordinates) (@fig-1).
+Beforehand, it has to be noticed that, across the entire study, "North America" actually refers to the current North and Central American continents. The delimitation between North and South America was represented as a straight line connecting two points located along the eastern and western coasts of present Panama ($-82.882°$lon, $7.138°$lat and $-81.369°$lon and $9.008°$lat) (@fig-1).
 
 ## Palaeoclimate data
 
 ```{r, echo=FALSE}
 #| label: fig-1
-#| fig-cap: Palaeoclimate histories within our studied landmasses (North America−in red, and South America−in green). Spatially-averaged climate variables (Annual Temperature and Precipitations) are taken from the PALEO-PGEM palaeoclimate emulator @holden2019. The empirically-derived asymmetry of the transcontinental land mammal exchange is represented by the thickness of the two arrows.
+#| fig-cap: Palaeoclimate histories within our studied landmasses (North America−in red, and South America−in green). Spatially-averaged climate variables (Annual Temperature and Precipitations) are taken from the PALEO-PGEM palaeoclimate emulator @holden2019. The empirically-derived asymmetry of the transcontinental land mammal exchange is represented by the thickness of the two arrows, the thicker the arrow, the more intense the exchange.
 
 knitr::include_graphics("../Figures/MS/Main/Figure1/Figure1.png")
 ```
@@ -73,9 +73,9 @@ Additionally, in order to discriminate simulations on the basis of the biome the
 
 We performed our spatially-explicit simulations of biodiversity using the General Engine for Eco-Evolutionary SImulationS, gen3sis, v1.5.11 [@hagen2021]. Simulations, moving forward-in-time with a 10ky time step, tracked the radiation of a clade arising from a single ancestral population, either originating in North or in South America, throughout the last 5 Myr. In gen3sis, virtual species are made up with a set of individual populations evolving independently, following a set of four rules: dispersal, speciation, environmental filtering and trait evolution. All simulation scenarios that we implemented only differed on the last rule (trait evolution), the first three being common to all models (or at least partly).
 
-We elaborated a gridded landscape made up with the two time-series of the aforementioned palaeoclimatic layers. Within this landscape, virtual species, made up with populations, inhabited a set of connected cells. At each time step, populations could disperse to the surrounding cells with an intensity sampled in a Weibull distribution. If, by chance, two populations happened to be disconnected, they would accumulate divergence as long as they get disconnected, at a rate ruled by a divergence factor, here set to $0.05$. Once passed a divergence threshold, speciation occurred.
+We elaborated a gridded landscape made up with the two time-series of the aforementioned palaeoclimatic layers. Within this landscape, virtual species, made up with populations, inhabited a set of connected cells. At each time step, populations could disperse to the surrounding cells with an intensity sampled in a Weibull distribution (of shape and scale respectively termed $\phi$ and $\psi$). If, by chance, two populations happened to be disconnected, they would accumulate divergence as long as they get disconnected, at a rate ruled by a divergence factor, here set to $0.05$. Once passed a divergence threshold ($S$), speciation would occur. Thus, the only mode of speciation allowed by gen3sis is allopatry.
 
-As our goal was to evaluate the extent to which palaeoclimate change may have shaped the unequal success of North American taxa establishing southwards compared to South American taxa establishing northwards, local climate was set as the only constraint for a population to maintain in a given cell. Each species was therefore assigned a two-dimensional climatic niche, one axis corresponding to temperature suitability and the other to precipitation suitability. The abundance of a species along an environmental gradient was ruled by two parameters -- that we also call traits --, an population- and species-specific optimum (resp. $P_{k,l}$ and $T_{k,l}$ for the precipitation and temperature optima of the population $k$ of the species $l$) and a breadth (or tolerance) (resp. $\omega_P$ and $\omega_T$; within a simulation, breadths were shared across populations and species). A population could maintain in a given cell only if the difference between its optima and local climate (both temperature and precipitation) was below its breadths. Therefore, given a site $i$ with local precipitation and temperature at time $t$ being $P_i(t)$ and $T_i(t)$, this translates in
+As our goal was to evaluate the extent to which palaeoclimate change may have shaped the unequal success of North American taxa establishing southwards compared to South American taxa establishing northwards, local climate was set as the only constraint for a population to maintain in a given cell. Each species was therefore assigned a two-dimensional climatic niche, one axis corresponding to temperature suitability and the other to precipitation suitability. The abundance of a species along an environmental gradient was ruled by two parameters -- that we also call traits -- a population- and species-specific optimum (resp. $P_{k,l}$ and $T_{k,l}$ for the precipitation and temperature optima of the population $k$ of the species $l$) and a breadth (or tolerance) (resp. $\omega_P$ and $\omega_T$; within a simulation, breadths were shared across populations and species). A population could maintain in a given cell only if the difference between its optima and local climate (both temperature and precipitation) was below its breadths. Therefore, given a site $i$ with local precipitation and temperature at time $t$ being $P_i(t)$ and $T_i(t)$, this translates in
 
 $$
 \begin{cases}
@@ -86,7 +86,7 @@ $$
 
 Each simulation started with a single ancestral species. The range of this ancestral species was randomly selected within the desired ancestral area (*i*.*e*., North or South America). To avoid oversampling high latitudes, we merged the ancestral landscape with the centroids of an equal-area grid (\~100km spacing) generated using the R package *h3jsr* [@obrien2023]. We then sampled a centroid at random and retrieved the corresponding cell in our landscape. To reduce the probability of initial crash, the temperature and/or precipitation optima parameter of the ancestor were set to those of the local environment.
 
-A total of 500 replicates was made under each modelling scheme (detailed in the next paragraph), both with North and South America as ancestral area. Across replicates, we varied 6 key parameters: (1) the divergence threshold above which speciation occurred ($S$, range = $[1, 3]$), (2) the rate of environmental niche evolution ($\sigma_e$, $[0.005, 0.15]$), (3) the shape ($\phi$, $[0.5, 3]$) and (4) scale ($\psi$, $[0.1, 1]$) of the Weibull distribution acting as a dispersal kernel, (5) the strength of environmental filtering (*i*.*e*., niche breadth) for temperature ($\omega_T$, $[0.01, 0.1]$) and (6) precipitations ($\omega_P$, $[0.05, 0.3]$). As done by many authors, we ensured an even sampling of the resulting multidimensional parameter space via a quasirandom sampling technique relying on Sobol' sequences [@hagen2021b; @skeels2023b]. Parameter ranges were determined on the basis of a literature review, allowing to assess their biological relevance, and were further adjusted in order to limit the prevalence of crashing simulations.
+A total of 500 replicates was made under each modelling scheme (detailed in the next paragraph), both with North and South America as ancestral area. Across replicates, we varied 6 key parameters: (1) the divergence threshold above which speciation occurred ($S$, range = $[1, 3]$), (2) the rate of environmental niche evolution -- only in models where we allowed climatic niche to evolve ($\sigma_e$, $[0.005, 0.15]$), (3) the shape ($\phi$, $[0.5, 3]$) and (4) scale ($\psi$, $[0.1, 1]$) of the Weibull distribution acting as a dispersal kernel, (5) the strength of environmental filtering (*i*.*e*., niche breadth) for temperature ($\omega_T$, $[0.01, 0.1]$) and (6) precipitations ($\omega_P$, $[0.05, 0.3]$). As done by many authors, we ensured an even sampling of the resulting multidimensional parameter space via a quasirandom sampling technique relying on Sobol' sequences [@hagen2021b; @skeels2023b]. Parameter ranges were determined on the basis of a literature review, allowing to assess their biological relevance, and were further adjusted in order to limit the prevalence of crashing simulations. In addition to these varying parameters, we specified the value of several fixed parameters (Tab. S1)
 
 We implemented various simulation scenarios where we modulated the ability of species to cope with climate change, and thus, the generalist vs. specialist nature of the simulated species. In the full-adaptationist model (*M1*, generalist), climatic optima ($P_{k,l}$ and $T_{k,l}$) were able to evolve in the direction of local climate change. To isolate the effect of a single environmental covariate on the resulting simulated biodiversity pattern, alternative versions of this model consisted of either removing the temperature (*M2*) or the precipitation (*M3*) constraint on species ecology. Besides, we also implemented a zero-adaptationist model (*M0*, specialist), where niche optima could not evolve and were therefore held constant (to their initial value) across all simulations.
 
@@ -94,7 +94,11 @@ Last, it is important to notice that, since the palaeoclimate reconstructions th
 
 ## Postprocessing and quantifications
 
-Once a
+At every time step, for each run of each simulation, we used a function released by Skeels et al. @skeels2023b to save presence-absence matrices. Given a time $t$, those matrices stored on their columns the presence of each simulated species that have existed from the onset of the simulation to $t$ within each cell of the landscape (rows of the matrix) as a binary variable -- $1$: the species inhabits that cell, $0$: it does not. 
+
+Given a batch of simulations, after discarding those that crashed -- *i*.*e*., that lead to no living representative -- we quantified four metrics reflecting the occurrence, magnitude and efficiency of an eventual transcontinental exchange based on the presence-absence matrix of the last time step of each successful run (hereafter called $t_{end}$). First, we assessed the exchange success, a binary variable set to one if at least one pixel of the area to colonise (let's call it $\mathcal{A}_{col}$, *e*.*g*., South America if the simulation started in North America) recorded a presence. Then, in the case of a successful exchange, we quantified the proportion of $\mathcal{A}_{col}$ actually colonised at $t_{end}$ as the ratio between the number of cells occupied by the colonisers and the total number of available cells (*i*.*e*., surface of $\mathcal{A}_{col}$). We also quantified the number of virtual taxa recorded in $\mathcal{A}_{col}$ at $t_{end}$.
+
+Additionnally, we also evaluated the distance of the initial ancestor to a point arbitrarily located on the zone of the isthmus of Panama, ($-84°$lon, $10°$lat).
 
 # Results
 
@@ -128,6 +132,8 @@ One of the predictions of Vrba's ressource-use hypotheses formulated in the fram
 
 Success in South America for temperate-adapted species, posited as the most successful, not recovered, with tropical meeting the gighest success
 
+Precipitation niche @skeels2023b
+
 ## On the effect of geography
 
 One consistent pattern, however, is the fact that the prevalence of an intercontinental interchange gets higher as the ancestral species' coordinates get closer to the isthmus, which mirrors the results of Motta & Quental [@motta2025]
@@ -141,6 +147,8 @@ Fortuitous experiment ?
 ## Limitations & perspectives
 
 Maybe one of the most obvious caveats of our study stems from the assumption of fixed palaeogeography, particularly near the isthmus, whereas we know that this region changed across our study.
+
+Problem of taxonomic extinctions in Gen3sis!
 
 # Thrash
 
