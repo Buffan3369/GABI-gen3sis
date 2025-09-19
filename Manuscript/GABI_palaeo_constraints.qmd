@@ -11,7 +11,7 @@ crossref:
   fig-title: "Figure"
   tbl-title: "Table"
 bibliography: references.bib
-csl: biology-letters.csl
+csl: current-biology.csl
 ---
 
 \noindent Affiliations:
@@ -19,16 +19,6 @@ csl: biology-letters.csl
 \noindent ¹ Institut des Sciences de l’Evolution de Montpellier, Université de Montpellier, CNRS, IRD, Place Eugène Bataillon, 34095 Montpellier cedex 5, France.
 
 \noindent ² Centro de Investigación Mariña, Departamento de Ecoloxía e Bioloxía Animal, Universidade de Vigo, Campus Lagoas-Marcosende, 36310 Vigo, Spain
-
-# Potential journals
-
-## Primary aims
-
-Biology Letters or Current Biology
-
-## Others that could fit
-
-Proceedings B? Global ecology & Biogeography? Journal of Biogeography?
 
 # Abstract
 
@@ -60,12 +50,12 @@ Beforehand, it has to be noticed that, across the entire study, "North America" 
 
 ```{r, echo=FALSE}
 #| label: fig-1
-#| fig-cap: Palaeoclimate histories within our studied landmasses (North America−in red, and South America−in green). Spatially-averaged climate variables (Annual Temperature and Precipitations) are taken from the PALEO-PGEM palaeoclimate emulator @holden2019. The empirically-derived asymmetry of the transcontinental land mammal exchange is represented by the thickness of the two arrows, the thicker the arrow, the more intense the exchange.
+#| fig-cap: Palaeoclimate histories within our studied landmasses (North America is displayed in coral red and South America in cyan). Spatially-averaged climate variables (Annual Temperature and Precipitation) are taken from the PALEO-PGEM palaeoclimate emulator @holden2019. The empirically-derived asymmetry of the transcontinental land mammal exchange is represented by the thickness of the two arrows, the thicker the arrow, the more intense the exchange.
 
 knitr::include_graphics("../Figures/MS/Main/Figure1/Figure1.png")
 ```
 
-We used the spatio-temporal terrestrial palaeoclimate series from the PALEO-PGEM atmosphere-ocean general circulation model [@holden2019], covering the last 5 Myrs with a 1 \times 1 ° spatial resolution [@barreto2023]. For the scope of this work, we used two bioclimatic variables: mean annual temperature (MAT, BIO1) and mean annual precipitation (MAP, BIO12). To avoid reaching an overkillingly-high number of simulation steps, we reduced the temporal resolution of the climate simulations from a 1000 years-time step to a 10,000 years time-step.
+We used the spatio-temporal terrestrial palaeoclimate series from the PALEO-PGEM atmosphere-ocean general circulation model [@holden2019], covering the last 5 Myrs with a 1 $\times$ 1 ° spatial resolution [@barreto2023]. For the scope of this work, we used two bioclimatic variables: mean annual temperature (MAT, BIO1) and mean annual precipitation (MAP, BIO12). To avoid reaching an overkillingly-high number of simulation steps, we reduced the temporal resolution of the climate simulations from a 1000 years-time step to a 10,000 years time-step.
 
 Additionally, in order to discriminate simulations on the basis of the biome the initial species starts in, we reclassified monthly palaeoclimate layers for our starting time ($t=5$ Myrs) according to Köppen-Geiger broad climate types [@galván2023]. This classification divides the world into five broad climatic regions: Polar, Cold, Temperate, Arid and Tropical.
 
@@ -86,7 +76,7 @@ $$
 
 Each simulation started with a single ancestral species. The range of this ancestral species was randomly selected within the desired ancestral area (*i*.*e*., North or South America). To avoid oversampling high latitudes, we merged the ancestral landscape with the centroids of an equal-area grid (\~100km spacing) generated using the R package *h3jsr* [@obrien2023]. We then sampled a centroid at random and retrieved the corresponding cell in our landscape. To reduce the probability of initial crash, the temperature and/or precipitation optima parameter of the ancestor were set to those of the local environment.
 
-A total of 500 replicates was made under each modelling scheme (detailed in the next paragraph), both with North and South America as ancestral area. Across replicates, we varied 6 key parameters: (1) the divergence threshold above which speciation occurred ($S$, range = $[1, 3]$), (2) the rate of environmental niche evolution -- only in models where we allowed climatic niche to evolve ($\sigma_e$, $[0.005, 0.15]$), (3) the shape ($\phi$, $[0.5, 3]$) and (4) scale ($\psi$, $[0.1, 1]$) of the Weibull distribution acting as a dispersal kernel, (5) the strength of environmental filtering (*i*.*e*., niche breadth) for temperature ($\omega_T$, $[0.01, 0.1]$) and (6) precipitations ($\omega_P$, $[0.05, 0.3]$). As done by many authors, we ensured an even sampling of the resulting multidimensional parameter space via a quasirandom sampling technique relying on Sobol' sequences [@hagen2021b; @skeels2023b]. Parameter ranges were determined on the basis of a literature review, allowing to assess their biological relevance, and were further adjusted in order to limit the prevalence of crashing simulations. In addition to these varying parameters, we specified the value of several fixed parameters (Tab. S1)
+A total of 500 replicates was made under each modelling scheme (detailed in the next paragraph), both with North and South America as ancestral area. Across replicates, we varied 6 key parameters: (1) the divergence threshold above which speciation occurred ($S$, range = $[1, 3]$), (2) the rate of environmental niche evolution -- only in models where we allowed climatic niche to evolve ($\sigma_e$, $[0.005, 0.15]$), (3) the shape ($\phi$, $[0.5, 3]$) and (4) scale ($\psi$, $[0.1, 1]$) of the Weibull distribution acting as a dispersal kernel, (5) the strength of environmental filtering (*i*.*e*., niche breadth) for temperature ($\omega_T$, $[0.01, 0.1]$) and (6) precipitation ($\omega_P$, $[0.05, 0.3]$). As done by many authors, we ensured an even sampling of the resulting multidimensional parameter space via a quasirandom sampling technique relying on Sobol' sequences [@hagen2021b; @skeels2023b]. Parameter ranges were determined on the basis of a literature review, allowing to assess their biological relevance, and were further adjusted in order to limit the prevalence of crashing simulations. In addition to these varying parameters, we specified the value of several fixed parameters (Tab. S1)
 
 We implemented various simulation scenarios where we modulated the ability of species to cope with climate change, and thus, the generalist vs. specialist nature of the simulated species. In the full-adaptationist model (*M1*, generalist), climatic optima ($P_{k,l}$ and $T_{k,l}$) were able to evolve in the direction of local climate change. To isolate the effect of a single environmental covariate on the resulting simulated biodiversity pattern, alternative versions of this model consisted of either removing the temperature (*M2*) or the precipitation (*M3*) constraint on species ecology. Besides, we also implemented a zero-adaptationist model (*M0*, specialist), where niche optima could not evolve and were therefore held constant (to their initial value) across all simulations.
 
@@ -96,27 +86,35 @@ Last, it is important to notice that, since the palaeoclimate reconstructions th
 
 At every time step, for each run of each simulation, we used a function released by Skeels et al. @skeels2023b to save presence-absence matrices. Given a time $t$, those matrices stored on their columns the presence of each simulated species that have existed from the onset of the simulation to $t$ within each cell of the landscape (rows of the matrix) as a binary variable -- $1$: the species inhabits that cell, $0$: it does not. 
 
-Given a batch of simulations, after discarding those that crashed -- *i*.*e*., that lead to no living representative -- we quantified four metrics reflecting the occurrence, magnitude and efficiency of an eventual transcontinental exchange based on the presence-absence matrix of the last time step of each successful run (hereafter called $t_{end}$). First, we assessed the exchange success, a binary variable set to one if at least one pixel of the area to colonise (let's call it $\mathcal{A}_{col}$, *e*.*g*., South America if the simulation started in North America) recorded a presence. Then, in the case of a successful exchange, we quantified the proportion of $\mathcal{A}_{col}$ actually colonised at $t_{end}$ as the ratio between the number of cells occupied by the colonisers and the total number of available cells (*i*.*e*., surface of $\mathcal{A}_{col}$). We also quantified the number of virtual taxa recorded in $\mathcal{A}_{col}$ at $t_{end}$.
-
-Additionnally, we also evaluated the distance of the initial ancestor to a point arbitrarily located on the zone of the isthmus of Panama, ($-84°$lon, $10°$lat).
+Given a batch of simulations, after discarding those that crashed -- *i*.*e*., that lead to no living representative -- we quantified four metrics reflecting the occurrence, magnitude and efficiency of an eventual transcontinental exchange based on the presence-absence matrix of the last time step of each successful run (hereafter called $t_{end}$). First, we assessed the exchange success, a binary variable set to one if at least one pixel of the area to colonise (hereafter called $\mathcal{A}_{col}$, *e*.*g*., South America if the simulation started in North America) recorded a presence. Then, we recorded the biome in which the initial ancestor occurs (*i*.*e*., Tropical, Arid, Temperate, Cold, Polar) as well as the distance of this initial ancestor to a point arbitrarily located on the zone of the isthmus of Panama, ($-84°$lon, $10°$lat). Last, in the case of a successful exchange, we quantified the number of virtual taxa recorded in $\mathcal{A}_{col}$ at $t_{end}$ and the proportion of $\mathcal{A}_{col}$ actually colonised at $t_{end}$ as the ratio between the number of cells occupied by the colonisers and the total number of available cells (*i*.*e*., surface of $\mathcal{A}_{col}$).
 
 # Results
 
-## Climate makes it easier to reach North America from South America than the other way round
+## Climate makes it easier to reach North America from South America than the other way around
 
-Unexpectedly, our simulation-based framework suggests that the proportion of simulations successfully reaching the other continent is always higher when starting from South America than from North America (Fig X). This imbalance, strikingly going against our expectations, is maintained whether we allowed species climatic niche to evolve following climatic change (44% vs. 87%, model M1) or not (29% vs 59%, model M0, @fig-2). That being said, it has to be noticed that there the proportion of simulations resulting in no living representative (=crash) was on average twice higher for simulations starting in North America.
+The contribution of palaeoclimate in the biogeographic asymmetry of the Great American Biotic Interchange (GABI) was tested in a simulation-based framework relying on gen3sis v1.5.11, a mechanistic eco-evolutionary simulator @hagen2021 and palaeoclimatic layers (annual temperature and precipitation) covering the last 5 million years generated by the PALEO-PGEM emulator [@holden2019; @barreto2023]. Each set of simulations tracked the radiation of a clade either originating in North or in South America. Climate was the only ecological constraint limiting virtual species' biogeography. We further compared the ability of virtual species to colonise the continent where they did not originate between the two initial conditions. For additional details, please refer to the *Star Methods* section.
+
+Our results suggest that the proportion of simulations successfully reaching the other continent is always higher when starting from South America than from North America (@fig-2 A). This imbalance, strikingly going against our expectations, is maintained whether we allow species climatic niche to evolve following climatic change (44% vs. 87%, model $M1$) or not (29% vs 59%, $M0$). Amputation of either the temperature (47% vs. 88%, $M2$) or the precipitation (38% vs. 89%, $M3$) compound of the climatic niche does not seem to alter the pattern.
+That being said, the proportion of simulations resulting in no living representative (=crash) was on average twice higher for simulations starting in North America, except for model $M3$.
 
 ```{r, echo=FALSE}
 #| label: fig-2
-#| fig-cap: Proportion of successful exchange to the other continent, either starting from North (red) or South (blue) America.
-knitr::include_graphics("../Figures/prop_successful_exch/succ_exch_panel.png")
+#| fig-align: "left"
+#| fig-cap: A few metrics summarising climate-mediated interchange. From left to right are depicted the results of the zero-adaptationist model ($M0$, species climatic niche does not change through time -- climate specialists), full adaptationist model ($M1$, species climatic niche evolves following local environmental conditions -- climate generalists) and alternative versions of $M1$ where species ecological niche is only determined by precipitation ($M2$) or temperature ($M3$). Each individual plot shows the outcome of simulations starting in North (red) and South (cyan) America. **(A)** Proportion of simulations leading to a successful exchange to the other continent. **(B)** Proportion of colonised area. **(C)** Distance to the isthmus. The last two metrics have been computed out of successful simulations, *i*.*e*., that resulted in a transcontinental faunal exchange.
+
+
+knitr::include_graphics("../Figures/MS/Main/Figure2/Figure2.png")
 ```
 
-**Biome here?**
 
 ## Success on the foreign continent
 
-## Geographic features of the simulated interchange
+Our findings reveal that successful simulations starting from North America result in a higher proportion of colonised area, except for the $M3$ model, relaxing the precipitation constraint on virtual species' niche (@fig-2 B). In addition, successful simulations starting from North America generally started from an ancestor located closer to the isthmus than those starting from South America (@fig-2 C), again except for simulation generated under $M3$. Also, we can highlight a general trend that the ancestral species originated closer to the isthmus in the case of successful simulations compared to unsuccessful ones (Supp. Figure 3-4).
+
+Last, no difference in the diversity reached on the colonised area could be characterised between simulations based on their area of origin (Supp. Figure 1).
+
+
+## Biome
 
 \newpage
 
@@ -132,7 +130,10 @@ One of the predictions of Vrba's ressource-use hypotheses formulated in the fram
 
 Success in South America for temperate-adapted species, posited as the most successful, not recovered, with tropical meeting the gighest success
 
-Precipitation niche @skeels2023b
+Precipitation niche @skeels2023b.
+Result of Figure 2C for $M3$ can be related to tropical biome
+
+Tropical Niche Conservatism
 
 ## On the effect of geography
 
@@ -146,9 +147,13 @@ Fortuitous experiment ?
 
 ## Limitations & perspectives
 
-Maybe one of the most obvious caveats of our study stems from the assumption of fixed palaeogeography, particularly near the isthmus, whereas we know that this region changed across our study.
+Assumption of fixed palaeogeography, particularly near the isthmus, whereas we know that this region changed across our study.
+
+spatial clustering of simulation crashing in temperate/cold North America => related to biome instability in the zone ?
 
 Problem of taxonomic extinctions in Gen3sis!
+
+Timeline of the simulation (last 5Myrs). Some claim for an onset of the interchange further back in time, but we justify our choice as (1) most studies agree with an onset of significant mammal exchange *c.* 3.5 Ma and (2) assumpltion of fixed palaeogeography.
 
 # Thrash
 

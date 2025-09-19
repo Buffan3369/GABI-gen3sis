@@ -95,7 +95,7 @@ for(i in 1:4){
     annotate(geom = "text", y = 1.07, x = 1.5, label = mdl, size = 3, color = "black")
   if(i == 1){
     prop_plot <- prop_plot + 
-      theme(axis.text = element_text(size = 4.5),
+      theme(axis.text = element_text(size = 4),
             axis.line = element_line(linewidth = 0.3, color = "black"),
             panel.background = element_rect(fill = "grey85"),
             panel.grid.major = element_line(linewidth = 0.25),
@@ -127,7 +127,7 @@ p <- annotate_figure(p,
 
 # Save
 ggsave("./Figures/prop_successful_exch/succ_exch_panel.pdf",
-       plot = p, height = 80, width = 170, units = "mm")
+       plot = p, height = 70, width = 150, units = "mm")
 
 ggsave("./Figures/prop_successful_exch/succ_exch_panel.png",
-       plot = p, dpi = 600, height = 80, width = 170, units = "mm")
+       plot = p, dpi = 600, height = 70, width = 150, units = "mm")
