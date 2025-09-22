@@ -36,7 +36,7 @@ Beforehand, it has to be noticed that, across the entire study, "North America" 
 
 ## Palaeoclimate data
 
-We used the spatio-temporal terrestrial palaeoclimate series from the PALEO-PGEM atmosphere-ocean general circulation model [@holden2019], covering the last 5 Myrs with a 1 $\times$ 1 ° spatial resolution [@barreto2023]. For the scope of this work, we used two bioclimatic variables: mean annual temperature (MAT, BIO1) and mean annual precipitation (MAP, BIO12). To avoid reaching an overkillingly-high number of simulation steps, we reduced the temporal resolution of the climate simulations from a 1000 years-time step to a 10,000 years time-step.
+We used the spatio-temporal terrestrial palaeoclimate series from the PALEO-PGEM atmosphere-ocean general circulation model [@holden2019], covering the last 5 Myrs with a 1 $\times$ 1 ° spatial resolution [@barreto2023]. For the scope of this work, we used two bioclimatic variables: mean annual temperature (MAT, BIO1) and mean annual precipitation (MAP, BIO12). To avoid reaching an overkillingly-high number of simulation steps, we reduced the temporal resolution of the climate simulations from a 1000-years to a 10,000-years time step.
 
 Additionally, in order to discriminate simulations on the basis of the biome the initial species starts in, we reclassified monthly palaeoclimate layers for our starting time ($t=5$ Myrs) according to Köppen-Geiger broad climate types [@galván2023]. This classification divides the world into five broad climatic regions: Polar, Cold, Temperate, Arid and Tropical.
 
@@ -73,7 +73,7 @@ Given a batch of simulations, after discarding those that crashed -- *i*.*e*., t
 
 # Supplementary figures
 
-All across the study, metrics computed out of simulations starting in North America are shown in coral red, and those starting in South America in cyan. 
+All across the study, metrics computed out of simulations starting in North America are shown in coral red, and those starting in South America in cyan.
 
 ```{r, echo=FALSE}
 #| label: fig-s1
@@ -84,8 +84,8 @@ All across the study, metrics computed out of simulations starting in North Amer
 knitr::include_graphics("../Figures/div_col_area/PANEL_div_col_area.png")
 ```
 
-|
-|
+| 
+| 
 
 ```{r, echo=FALSE}
 #| label: fig-s2
@@ -98,7 +98,6 @@ knitr::include_graphics("../Figures/dist_to_isthm/comparative_distances_UNSUCCES
 
 ```
 
-
 ```{r, echo=FALSE}
 #| label: fig-s3
 #| out-height: 7cm
@@ -108,7 +107,6 @@ knitr::include_graphics("../Figures/dist_to_isthm/comparative_distances_UNSUCCES
 knitr::include_graphics("../Figures/dist_to_isthm/distance_violin_panel_NoCRASH.png")
 ```
 
-
 ```{r, echo=FALSE}
 #| label: fig-s4
 #| out-height: 7cm
@@ -117,8 +115,6 @@ knitr::include_graphics("../Figures/dist_to_isthm/distance_violin_panel_NoCRASH.
 
 knitr::include_graphics("../Figures/dist_to_isthm/distance_violin_panel_CRASH.png")
 ```
-
-
 
 \newpage
 
