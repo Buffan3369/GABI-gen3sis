@@ -1,17 +1,13 @@
 ################################################################################
-# Name: 8-Area_and_div.R
+# Name: 5c-AreaDiv.R
 # Author: Lucas Buffan
 # E-mail: lucas.l.buffan@gmail.com
-# Goal: Quantify the proportion of colonised area occupied by a species and the 
-#       total diversity present in this area => run on BIGMEM
+# Goal: Function quantifying the proportion of colonised area occupied by a 
+#       species and the total diversity present in this area
 ################################################################################
 
 library(terra)
 source("helper_functions.R")
-
-args <- commandArgs(trailingOnly = T)
-mdl <- as.character(args[1]) # M0, M1, ...
-start <- as.character(args[2]) # North or South
 
 # Function assessing whether a species occupies a grid from a gridded landscape
 species_occupies <- function(col, df){ # df is the clipped occupancy dataframe
@@ -62,34 +58,3 @@ get_area_div <- function(run,
     return(prop_col_area)
   }
 }
-
-# Execute
-# Open the corresponding param table
-ptbl <- read.table(paste0("../Data/param_tables/", mdl, "/", start, "_America_parameters_EXTENDED_EXCH.txt"),
-                   header = T)
-# Select runs that resulted in a successful exchange (i.e., flagged 1 in the `exchanged` column)
-success_runs <- c(1:nrow(ptbl))[which(ptbl$exchanged == 1)]
-# Add target metric columns and fill them
-ptbl$prop_col_area <- -1
-ptbl$div_col <- -1    
-for(sr in success_runs){
-  print(sr)
-  # Proportion of colonised area
-  area <- get_area_div(run = sr,
-                       model = mdl,
-                       what = "area",
-                       last_step = ptbl$final_timestep[sr],
-                       ancestral_area = start)
-  ptbl$prop_col_area[sr] <- ifelse(length(area) == 0, -1, area)
-  # Diversity in the colonised area
-  div <- get_area_div(run = sr,
-                      model = mdl,
-                      what = "diversity",
-                      last_step = ptbl$final_timestep[sr],
-                      ancestral_area = start)
-  ptbl$div_col[sr] <- ifelse(length(div) == 0, -1, div)
-}
-# Save
-write.tbl.std(ptbl, 
-              paste0("../Data/param_tables/", mdl, "/", start, "_America_parameters_EXTENDED_EXCH_AREA_DIV.txt"))
-

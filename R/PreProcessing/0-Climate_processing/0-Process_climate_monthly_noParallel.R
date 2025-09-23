@@ -3,6 +3,7 @@
 # Author: Lucas Buffan
 # E-mail: lucas.l.buffan@gmail.com
 # Goal: Process MAT and MAP rasters before using them to design gen3sis inputs.
+#       /!\ MEANT TO BE RUN ON BIGMEM /!\
 ################################################################################
 
 library(DDD)

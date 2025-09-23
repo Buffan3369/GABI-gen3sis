@@ -3,6 +3,7 @@
 # Author: Lucas Buffan
 # E-mail: lucas.l.buffan@gmail.com
 # Goal: Function to process rasters (extract values within a given area).
+#       /!\ MEANT TO BE RUN ON BIGMEM /!\
 ################################################################################
 
 library(raster)

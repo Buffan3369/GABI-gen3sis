@@ -1,9 +1,9 @@
 ################################################################################
-# Name: 9-dist_start_to_isthm.R
+# Name: 5d-DistIsthm.R
 # Author: Lucas Buffan
 # E-mail: lucas.l.buffan@gmail.com
 # Goal: Assess the distance between simulation starting point and the isthmus of
-#       Panama => run on BIGMEM
+#       Panama
 ################################################################################
 
 library(raster)
@@ -40,19 +40,5 @@ get_dist_start <- function(i, start, model){
   }
   else{
     return(NA)
-  }
-}
-
-## Apply -----------------------------------------------------------------------
-for(model in c("M0", "M1", "M2", "M3")){
-  for(start in c("North", "South")){
-    # Assess distance between simulation starting point and isthmus
-    dists <- sapply(X = 1:500, FUN = get_dist_start, start = start, model = model)
-    # Open param table and save it
-    param_tbl <- read.table(paste0("../Data/param_tables/", model, "/", start, "_America_parameters_EXTENDED_EXCH_AREA_DIV.txt"),
-                            header = T)
-    param_tbl$dist_to_isthmus <- dists
-    # Save
-    write.table(param_tbl, paste0("../Data/param_tables/", model, "/", start, "_America_parameters_EXTENDED_EXCH_AREA_DIV_DIST.txt"))
   }
 }
