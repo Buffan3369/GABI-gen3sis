@@ -7,7 +7,7 @@
 
 library(tidyverse)
 
-for(mdl in c("M0", "M0_loco", "M1", "M2", "M3")){
+for(mdl in c("M0", "M1", "M2", "M3")){
   NA_recap_tbl <- read.table(paste0("./Data/Gen3sis_parameter_tables/", mdl, "/North_America_parameters_EXTENDED_EXCH_AREA_DIV_DIST_biome.txt"),
                              header = T, sep = "\t")
 

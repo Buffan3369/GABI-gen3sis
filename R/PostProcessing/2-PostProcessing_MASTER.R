@@ -1,7 +1,7 @@
 ################################################################################
 # Name: 2-PostProcessing_MASTER.R
 # Author: Lucas Buffan (lucas.l.buffan@gmail.com)
-# Goal: MasterScript adding additional features related to simulations after 
+# Goal: MasterScript \nAdding additional features related to simulations after 
 #       being run to the param table.
 #       /!\ Meant to be run on BigMem10 /!\
 ################################################################################
@@ -33,7 +33,7 @@ params <- Add_new_params(param_tbl       = init_params,
                          sim_dir         = args[4],
                          mdl             = args[5],
                          start_continent = args[6])
-cat("Adding New Descriptive Parameters: DONE\n")
+cat("\nAdding New Descriptive Parameters: DONE\n\n")
 
 ## ------------------------------------------------------------------ ##
 ## 2. Indicate whether each run resulted in a successful colonisation ##
@@ -43,7 +43,7 @@ params$exchanged <- sapply(X = 1:as.numeric(args[2]),
                            FUN = transfert,
                            mdl = args[5],
                            from = args[6])
-cat("Adding Successful Colonisations: DONE\n")
+cat("\nAdding Successful Colonisations: DONE\n\n")
 
 
 ## ------------------------------------------------------------------------------- ##
@@ -54,7 +54,7 @@ source("./2c-AreaDiv.R")
 success_runs <- c(1:nrow(params))[which(params$exchanged == 1)]
   # Add target metric columns and fill them
 params$prop_col_area <- -1
-params$div_col <- -1    
+params$div_col <- -1
   # Loop across successful runs
 for(sr in success_runs){
   # -------------------------- #
@@ -76,20 +76,20 @@ for(sr in success_runs){
                       ancestral_area = args[6])
   params$div_col[sr] <- ifelse(length(div) == 0, -1, div)
 }
-cat("Adding Colonised Area Surface and Diversity within this Area : DONE\n")
+cat("\nAdding Colonised Area Surface and Diversity within this Area : DONE\n\n")
 
 
 ## --------------------------------------------------------------------- ##
 ## 4. Distance of the simulation starting point to the isthmus of Panama ##
 ## --------------------------------------------------------------------- ##
-source("./2d-DisthIsthm.R")
+source("./2d-DistIsthm.R")
 # Assess distance between simulation starting point and isthmus
-dists <- sapply(X     = 1:as.numeric(args[3]), 
+dists <- sapply(X     = 1:as.numeric(args[3]),
                 FUN   = get_dist_start,
                 model = args[5],
                 start = args[6])
 params$dist_to_isthmus <- dists
-cat("Adding distance of ancestral species to Isthmus: DONE\n")
+cat("\nAdding distance of ancestral species to Isthmus: DONE\n\n")
 
 
 ## -------------------------------------------------------------- ##
@@ -97,13 +97,13 @@ cat("Adding distance of ancestral species to Isthmus: DONE\n")
 ## -------------------------------------------------------------- ##
 source("./2e-StartBiome.R")
 # Assess distance between simulation starting point and isthmus
-biomes <- sapply(X     = 1:as.numeric(args[3]), 
-                 FUN   = get_biome_start, 
+biomes <- sapply(X     = 1:as.numeric(args[3]),
+                 FUN   = get_biome_start,
                  model = args[5],
                  start = args[6])
 params$start_biome <- biomes
-cat("Adding Starting Biome: DONE\n")
+cat("\nAdding Starting Biome: DONE\n\n")
 
 
 ## Save ------------------------------------------------------------------------
-write.tbl.std(params, args[7])
+write_tbl_std(params, args[7])

@@ -79,7 +79,7 @@ All across the study, metrics computed out of simulations starting in North Amer
 #| label: fig-s1
 #| out-height: 7cm
 #| out-width: 14cm
-#| fig-cap: Decimaliversity in the colonised area following a successful interchange.
+#| fig-cap: Diversity in the colonised area following a successful interchange (decimal log scale).
 
 knitr::include_graphics("../Figures/div_col_area/PANEL_div_col_area.png")
 ```
@@ -102,7 +102,7 @@ knitr::include_graphics("../Figures/dist_to_isthm/comparative_distances_UNSUCCES
 #| label: fig-s3
 #| out-height: 7cm
 #| out-width: 14cm
-#| fig-cap: Comparison of the initial distance to the isthmus between successful and unsuccessful simulations of each of our four models, either starting from North (top) or South (bottom) America.
+#| fig-cap: Comparison of the initial distance to the isthmus between successful and unsuccessful simulations of each of our four models, either starting from North (top) or South (bottom) America. Successful simulations ($Exchange$ $Sucess=1$) are displayed in green, whereas unsuccessful simulations ($Exchange$ $Sucess=0$) are displayed in yellow.
 
 knitr::include_graphics("../Figures/dist_to_isthm/distance_violin_panel_NoCRASH.png")
 ```
@@ -111,7 +111,7 @@ knitr::include_graphics("../Figures/dist_to_isthm/distance_violin_panel_NoCRASH.
 #| label: fig-s4
 #| out-height: 7cm
 #| out-width: 14cm
-#| fig-cap: Comparison of the initial distance to the isthmus between successful and unsuccessful simulations of each of our four models including simulations that crashed (*i*.*e*., resulted in no living representative at the final time step), either starting from North (top) or South (bottom) America.
+#| fig-cap: Comparison of the initial distance to the isthmus between successful and unsuccessful simulations of each of our four models including simulations that crashed (*i*.*e*., resulted in no living representative at the final time step), either starting from North (top) or South (bottom) America.  Successful simulations ($Exchange$ $Sucess=1$) are displayed in green, unsuccessful simulations ($Exchange$ $Sucess=0$) in yellow and simulation that crashed ($Exchange$ $Sucess=-1$) in grey.
 
 knitr::include_graphics("../Figures/dist_to_isthm/distance_violin_panel_CRASH.png")
 ```
