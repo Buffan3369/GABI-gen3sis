@@ -40,3 +40,23 @@ linMap <- function(x, from, to, rnd = F, dgts) {
   }
   return(rescaled)
 }
+
+## Rename broadly-classified biomes --------------------------------------------
+biome_rename <- function(biome){
+  if(biome == "1"){
+    return("Tropical")
+  }
+  else if(biome == "2"){
+    return("Arid")
+  }
+  else if(biome == "3"){
+    return("Temperate")
+  }
+  else if(biome == "4"){
+    return("Cold")
+  }
+  else if(biome == "5"){
+    return("Polar")
+  }
+}
+
