@@ -22,13 +22,11 @@ csl: current-biology.csl
 
 # Abstract
 
-The Great American Biotic Interchange (GABI) refers to the admixture of North and South American faunas promoted by the Mio-Pliocene closure of the isthmus of Panama. Among mammals, this faunal exchange was asymmetric because it witnessed a greater ability of North American lineages to establish southwards, meanwhile many South Americans went extinct. Here, coupling a mechanistic eco-evolutionary simulator with high-resolution palaeoclimatic reconstructions for the last 5 million years, we explore the extent to which palaeoclimate may have shaped such a biogeographic asymmetry. When climatic variables are the only constraints to virtual species' ecology, our results indicate that successful interchanges are more frequently achieved when simulations start from South America than from North America, contrasting with empirical observations. In addition, our models fail at explaining the higher representation of temperate-adapted mammals in the fossil record of successfully exchanged mammals, particularly of North American origin, but suggest that successful colonisers from North America occupy larger areas in South America than the other way around. This study offers valuable insights into the processes behind one of the most puzzling macroecological enigmas, suggesting that palaeoclimatic history is not sufficient to explain the imbalanced success of North American migrants in South America following the GABI.
+The Great American Biotic Interchange (GABI) refers to the admixture of North and South American faunas promoted by the closure of the isthmus of Panama. Among land mammals, this faunal exchange was asymmetric because it witnessed a greater ability of North American lineages to establish southwards, meanwhile many South Americans went extinct. Here, coupling a mechanistic eco-evolutionary simulator with palaeoclimatic reconstructions for the last 5 million years, we explore the extent to which palaeoclimate, alone, may have shaped such a biogeographic asymmetry. When climatic variables are the only constraints to virtual species' dispersal, our results indicate that (1) successful interchanges are more frequently achieved when simulations start from South America than from North America, contrasting with empirical observations. In addition, (2) our models fail at explaining the higher representation of temperate-adapted mammals in the fossil record of successfully exchanged mammals, particularly of North American origin, but (3) suggest that successful colonisers from North America occupy larger areas in South America than the other way around. Hence, our findings stress that spatio-temporal palaeoclimate dynamics are not sufficient to explain the imbalanced success of North American migrants in South America following the GABI, suggesting the implication of additional biogeographic and ecological filters. This study offers valuable insights into the processes behind one of the most puzzling macroecological enigmas in the history of life on Earth.
 
 # Keywords
 
-Eco-evolutionary simulations; Mammals; Macroecology; Palaeoclimate
-
-\newpage
+Eco-evolutionary simulations; Mammals; Macroecology; Palaeoclimate \newpage
 
 # Introduction
 
@@ -57,7 +55,7 @@ knitr::include_graphics("../Figures/MS/Main/Figure1/Figure1.png")
 
 We used the spatio-temporal terrestrial palaeoclimate series from the PALEO-PGEM atmosphere-ocean general circulation model [@holden2019], covering the last 5 Myrs with a 1 $\times$ 1 ° spatial resolution [@barreto2023]. For the scope of this work, we used two bioclimatic variables: mean annual temperature (MAT, BIO1) and mean annual precipitation (MAP, BIO12). To avoid reaching an overkillingly-high number of simulation steps, we reduced the temporal resolution of the climate simulations from a 1000-years to a 10,000-years time step.
 
-Additionally, in order to discriminate simulations on the basis of the biome the initial species starts in, we reclassified monthly palaeoclimate layers for our starting time ($t=5$ Myrs) according to Köppen-Geiger broad climate types [@galván2023]. This classification divides the world into five broad climatic regions: Polar, Cold, Temperate, Arid and Tropical, following the criteria proposed by [@köppen1900].
+Additionally, in order to discriminate simulations on the basis of the biome the initial species starts in, we reclassified monthly palaeoclimate layers for our starting time ($t=5$ Myrs) according to Köppen-Geiger broad climate types [@beck2018; @galván2023]. This classification divides the world into five broad climatic regions: Polar, Cold, Temperate, Arid and Tropical, following the criteria proposed by Köppen [@köppen1900].
 
 ## Simulation model and modelling schemes
 
@@ -113,7 +111,14 @@ Last, no difference in the diversity reached on the colonised area could be char
 
 ## Biome
 
+```{r, echo=FALSE}
+#| label: fig-3
+#| fig-align: "left"
+#| fig-cap: Initial biome where each ancestral species leading to successful simulations is recorded at the time of the onset of the simulations (5 Ma). **(A)** Global main climate zones based on Köppen-Geiger biome classification at $t=5$ Ma. **(B)** Proportion of successful simulations based on the biome where ancestral species originates, for each scenario-ancestral area combination.
 
+knitr::include_graphics("../Figures/MS/Main/Figure3/Figure3.png")
+
+```
 
 \newpage
 
@@ -125,13 +130,13 @@ Species pool proved relevant in the case of the interchange along the Wallacea [
 
 ## Climate
 
-One of the predictions of Vrba's ressource-use hypotheses formulated in the framework of the habitat theory @vrba1992 applied to the GABI is that tropical specialists, in the aftermath of the global cooling occurring in the Plio-Pleistocene boundary (decreasing trend visible on the temperature plots displayed in @fig-1), would have naturally been attracted towards the equator, in turn actively promoting some North American mammal's establishment in South America. On the other hand, fewer mammals -- only biome generalists or open-habitat specialists -- from South America are expected to roam the other way around. Our virtual experiments partially corroborate with these predictions, in the sense that tropical-adapted taxa of North American origin have a higher prevalence of crossing the isthmus than species belonging to other biomes (Figure X \[biomes\], model M0).
+One of the predictions of Vrba's ressource-use hypotheses formulated in the framework of the habitat theory applied to the GABI is that tropical specialists, in the aftermath of the global cooling occurring in the Plio-Pleistocene boundary (decreasing trend visible on the temperature plots displayed in @fig-1, from *c.* 3 Ma), would have been naturally attracted towards the equator following tropical belt's contraction, in turn actively promoting some North American mammal's establishment in South America @vrba1992. On the other hand, fewer mammals -- only biome generalists or open-habitat specialists -- from South America would be expected to roam the other way around. These predictions somewhat meet those of the 'tropical refugia' hypothesis, viewing the high diversity in the (Neo)tropics as a result of historical climatic fragmentation of the tropical climatic region, generating disconnection within populations in turn favouring speciation by vicariance [@haffer1969]. In case of climatic disruption, tropical specialists would therefore follow the contraction-expansion of their habitat, being a driver for speciation on evolutionary timescales. Our virtual experiments partially corroborate Vrba's predictions. In fact, simulated tropical-adapted taxa of North American origin -- coming from simulations starting in the North American tropical biome and of which climatic niche could not evolve, model $M0$ -- have a higher prevalence of crossing the isthmus than other biome specialists of North American origin (@fig-3 B, model $M0$).
 
 Success in South America for temperate-adapted species, posited as the most successful, not recovered, with tropical meeting the gighest success
 
 Precipitation niche @skeels2023b. Result of Figure 2C for $M3$ can be related to tropical biome
 
-Tropical Niche Conservatism
+North American taxa exhibit strong Tropical Niche Conservatism (TNC), but not South Americans, except for M0. TNC relaxed in M3.
 
 ## On the effect of geography
 
