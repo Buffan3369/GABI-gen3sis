@@ -221,21 +221,24 @@ ggsave(paste0("./Figures/dist_to_isthm/comparative_distances_UNSUCCESSFUL.png"),
        plot = comp_plot_unsuccessful, height = 80, width = 170, dpi = 600, units = "mm")
 
 
-## Starting biomes -------------------------------------------------------------
-  # All simulations
+################################################################################
+############################ 3. DISTANCE TO ISTHMUS ############################
+################################################################################
+
+# All simulations
 
 P_tbl <- P_tbl %>% 
   mutate(start_biome = as.factor(start_biome))
 
 start_biome_all <- P_tbl %>% 
-  # all initial conditions are the same as each simulation batch share the same seed
-  filter(model == "M1" & !(is.na(start_biome))) %>%
+  filter(!(is.na(start_biome))) %>%
   ggplot(aes(x = start_biome)) +
   geom_bar(aes(fill = start_biome), colour = "black", linewidth = 0.3) +
+  geom_text(stat = "count", aes(label=..count..), size = 2, vjust = -0.5) +
   scale_fill_manual(values = c("1" = "#f9d14a", "2" = "#ab3329", "3" = "#ed968c", "4" = "#7c4b73", "5" = "#88a0dc")) +
   labs(x = "Ancestral biome", y = "Nb. simulations") +
   scale_x_discrete(labels = c("1" = "Tropical", "2" = "Arid", "3" = "Temperate", "4" = "Cold", "5" = "Polar")) +
-  facet_grid(.~start_region) +
+  facet_grid(model~start_region) +
   theme(axis.text = element_text(size = 7),
         axis.title = element_text(size = 10),
         axis.line = element_line(linewidth = 0.3, color = "black"),
@@ -248,8 +251,10 @@ start_biome_all <- P_tbl %>%
         plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"))
 
 ggsave(paste0("./Figures/starting_biome/starting_biome_ALL.pdf"), 
-       plot = start_biome_all, height = 80, width = 140, units = "mm")
+       plot = start_biome_all, height = 230, width = 170, units = "mm")
 
+ggsave(paste0("./Figures/starting_biome/starting_biome_ALL.png"), 
+       plot = start_biome_all, height = 230, width = 170, units = "mm", dpi = 600)
 
 start_biome_success <- P_tbl %>% 
   # all initial conditions are the same as each simulation batch share the same seed
