@@ -121,11 +121,19 @@ knitr::include_graphics("../Figures/dist_to_isthm/distance_violin_panel_CRASH.pn
 #| label: fig-s5
 #| out-height: 17cm
 #| out-width: 23cm
-#| fig-cap: Biome where the ancestral species of each of the 500 simulation originates, for each continent and each scenario.
+#| fig-cap: Biome where the ancestral species of each of the 500 simulation originated, for each continent and each scenario.
 
 knitr::include_graphics("../Figures/starting_biome/starting_biome_ALL.png")
 ```
 
+```{r, echo=FALSE}
+#| label: fig-s6
+#| out-height: 17cm
+#| out-width: 23cm
+#| fig-cap: Biome where the ancestral species of each simulation leading to a successful exchange originated, for each continent and each scenario.
+
+knitr::include_graphics("../Figures/starting_biome/starting_biome_EXCH.png")
+```
 
 \newpage
 

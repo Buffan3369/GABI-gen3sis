@@ -70,9 +70,13 @@ Our findings reveal that successful simulations starting in North America result
 
 ## Biome
 
-We classified the climatic landscape at the time where simulation starts ($t=5$ Million years ago, Ma) following the five broad climatic zones proposed by Beck et al. [@beck2018] and Galván et al. [@galván2023]: Tropical, Arid, Temperate, Cold and Polar (@fig-3 A). The ancestral species of each simulation was therefore assigned an initial biome based on the location of the site where it originated, randomly drawn within an equal-area grid overlaying our landscape (see *STAR Methods*).
+We classified the climatic landscape at the time of the simulation onset ($t=5$ Million years ago, Ma) following the five broad climatic zones proposed by Beck et al. [@beck2018] and Galván et al. [@galván2023]: Tropical, Arid, Temperate, Cold and Polar (@fig-3 A). The ancestral species of each simulation was therefore assigned an initial biome based on the location of the site where it originated, randomly drawn within an equal-area grid overlaying our landscape (see *STAR Methods*).
 
-Initial biome distribution -- *i*.*e*., the proportions of simulations starting within each biome -- were very uneven across classes and continents. The majority of North American ancestral species originated in the cold biome, whereas the tropical biome recorded the largest proportion of ancestral species origination in South America (Supp. Fig. 5). The distribution of 
+Initial biome distribution -- *i*.*e*., the number of simulations starting within each biome -- were very uneven across biome classes and continents. Indeed, the majority of North American ancestral species originated in the cold biome, whereas the tropical biome recorded the largest proportion of ancestral species origination in South America (Supp. Fig. 5). Besides, 
+
+Similar proportions of successful simulations that started from 
+
+$M3$ more permissive towards South American species migrating northwards than the other way around
 
 ```{r, echo=FALSE}
 #| label: fig-3
@@ -97,6 +101,8 @@ One of the predictions of Vrba's resource-use hypotheses formulated in the frame
 
 Success in South America for temperate-adapted species, posited as the most successful, not recovered, with tropical meeting the gighest success
 
+Tropics as a "holding pen" [@woodburne2010] -- read more this paper
+
 Biome pattern (Supp. Figure 5) directly reflects the diffencial amount of surface that each biome represents in the two continents.
 
 Precipitation niche @skeels2023b. Result of Figure 2C for $M3$ can be related to tropical biome
@@ -119,9 +125,11 @@ Fortuitous experiment ?
 
 ## Limitations & perspectives
 
-Assumption of fixed palaeogeography, particularly near the isthmus, whereas we know that this region changed across our study.
-
 The landscape designed for the purpose of this study (@fig-1) only permitted transcontinental faunal exchange via the isthmus of Panama, the closure of which being assumed as the main trigger of the GABI [@marshall1982]. Yet, the fossil record of the West Indies has provided evidence for faunal supply both from the South and the North American landmasses, in particular since the late Miocene [*e*.*g*., @morgan1993; @ali2021b]. Although over-water dispersal has long been regarded as the prevailing mechanism [@morgan1993], recent geological advances have providing evidence for (1) the emergence of land bridges connecting South America to Caribbean islands and (2) the formation of mega-islands -- during Pleistocene glacial maximum episodes -- several times since the Mio-Pliocene boundary @cornée2021. Hence, it would make sense to consider West Indies as an alternative dispersal pathway between the Americas. However, due to the idiosyncratic eco-evolutionary processes shaping insular systems [*e*.*g*., @warren2015] as well as the poor mention of West Indies as a stepping-stone in the literature, we believe that considering this alternative route in the framework of the GABI would rather deserve to be the topic of a study in itself.
+
+Bias in the number of simulations crashing, with on average twice as many crashes when simulations started in North America when compared to those starting from South America. Also, an obvious spatial clustering of crashes in North America is to be reported, mainly affecting the centre of the landmass (temperate and cold biomes) **biome histogram + maps in SI**.
+
+Assumption of fixed palaeogeography, particularly near the isthmus, whereas we know that this region changed across our study.
 
 spatial clustering of simulation crashing in temperate/cold North America =\> related to biome instability in the zone ?
 
