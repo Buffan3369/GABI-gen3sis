@@ -60,3 +60,40 @@ biome_rename <- function(biome){
   }
 }
 
+## Statistical facilities ------------------------------------------------------
+  # Quantiles of an N(0,1)
+normal_quantiles <- function(q){
+  X <- rnorm(n = 1e6)
+  qtl <- quantile(x = X, probs = q)
+  return(round(as.numeric(qtl), digits = 2))
+}
+  # Binomial confidence interval
+bino_CI <- function(prop,      # Estimated proportion 
+                    n,         # Number of trials (500 here)
+                    alpha,     # Error associated to the confidence level (0.05 for a 95% Conf lvl)
+                    what = c("Lower", "Upper")){
+  if(what == "Lower"){
+    q_alpha <- normal_quantiles(alpha/2)
+  }
+  else if(what == "Upper"){
+    q_alpha <- normal_quantiles(1-alpha/2)
+  }
+  value <- prop + q_alpha * sqrt(prop * (1-prop)) / sqrt(n)
+  return(value)
+}
+  # Confidence interval associated to a quantity
+Student_CI <- function(x_bar,
+                       n,
+                       sigma,      # Estimated standard deviation
+                       alpha,
+                       what = c("Lower", "Upper")){
+  if(what == "Lower"){
+    q_alpha <- normal_quantiles(alpha/2)
+  }
+  else if(what == "Upper"){
+    q_alpha <- normal_quantiles(1-alpha/2)
+  }
+  value <- x_bar + q_alpha * sigma / sqrt(n)
+  return(value)
+}
+
