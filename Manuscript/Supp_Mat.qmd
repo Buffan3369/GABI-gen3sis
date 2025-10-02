@@ -56,9 +56,9 @@ $$
 \end{cases}
 $$
 
-Each simulation started with a single ancestral species. The range of this ancestral species was randomly selected within the desired ancestral area (*i*.*e*., North or South America). To avoid oversampling high latitudes, we merged the ancestral landscape with the centroids of an equal-area grid (\~100km spacing) generated using the R package *h3jsr* [@obrien2023]. We then sampled a centroid at random and retrieved the corresponding cell in our landscape. To reduce the probability of initial crash, the temperature and/or precipitation optima parameter of the ancestor were set to those of the local environment.
+Each simulation started with a single ancestral species. The range of this ancestral species was randomly selected within the desired ancestral area (*i*.*e*., North or South America). To avoid oversampling high latitudes, we merged the ancestral landscape with the centroids of an equal-area grid (\~100km spacing) generated using the R package *h3jsr* [@obrien2023]. We then sampled a centroid at random and retrieved the corresponding cell in our landscape. To reduce the probability of initial crash, the temperature and/or precipitation optima parameter of the ancestor were set to those of the local environment. Due to the geometry of the two continents, this sampling scheme resulted in ancestral species starting from South America originating on average closer to the isthmus of Panama than those from North America (@fig-s1). To control for this spatial bias, we assessed the distance to the isthmus of each cell of the North American portion of our 1 $\times$ 1° landscape. We then carried out other batches of simulations starting from North America, constraining the initial distance to the isthmus of the ancestral species of the simulation $i$ to be as close as possible to same distance involving the ancestral species of the simulation $i$ starting from South America.
 
-A total of 500 replicates was made under each modelling scheme (detailed in the next paragraph), both with North and South America as ancestral area. Across replicates, we varied 6 key parameters: (1) the divergence threshold above which speciation occurred ($S$, range = $[1, 3]$), (2) the rate of environmental niche evolution -- only in models where we allowed climatic niche to evolve ($\sigma_e$, $[0.005, 0.15]$), (3) the shape ($\phi$, $[0.5, 3]$) and (4) scale ($\psi$, $[0.1, 1]$) of the Weibull distribution acting as a dispersal kernel, (5) the strength of environmental filtering (*i*.*e*., niche breadth) for temperature ($\omega_T$, $[0.01, 0.1]$) and (6) precipitation ($\omega_P$, $[0.05, 0.3]$). As done by many authors, we ensured an even sampling of the resulting multidimensional parameter space via a quasirandom sampling technique relying on Sobol' sequences [@hagen2021b; @skeels2023b]. Parameter ranges were determined on the basis of a literature review, allowing to assess their biological relevance, and were further adjusted in order to limit the prevalence of crashing simulations. In addition to these varying parameters, we specified the value of several fixed parameters (Tab. S1)
+A total of 500 replicates was made under each modelling scheme (detailed in the next paragraph), both with North and South America as ancestral area. Across replicates, we varied 6 key parameters: (1) the divergence threshold above which speciation occurred ($S$, range = $[1, 3]$), (2) the rate of environmental niche evolution -- only in models where we allowed climatic niche to evolve ($\sigma_e$, $[0.005, 0.15]$), (3) the shape ($\phi$, $[0.5, 3]$) and (4) scale ($\psi$, $[0.1, 1]$) of the Weibull distribution acting as a dispersal kernel, (5) the strength of environmental filtering (*i*.*e*., niche breadth) for temperature ($\omega_T$, $[0.01, 0.1]$) and (6) precipitation ($\omega_P$, $[0.05, 0.3]$). As done by many authors, we ensured an even sampling of the resulting multidimensional parameter space via a quasirandom sampling technique relying on Sobol' sequences [@hagen2021b; @skeels2023b]. Parameter ranges were determined on the basis of a literature review, allowing to assess their biological relevance, and were further adjusted in order to limit the prevalence of crashing simulations. In addition to these varying parameters, we specified the value of several fixed parameters (@tab-s1)
 
 We implemented various simulation scenarios where we modulated the ability of species to cope with climate change, and thus, the generalist vs. specialist nature of the simulated species. In the full-adaptationist model (*M1*, generalist), climatic optima ($P_{k,l}$ and $T_{k,l}$) were able to evolve in the direction of local climate change. To isolate the effect of a single environmental covariate on the resulting simulated biodiversity pattern, alternative versions of this model consisted of either removing the temperature (*M2*) or the precipitation (*M3*) constraint on species ecology. Besides, we also implemented a zero-adaptationist model (*M0*, specialist), where niche optima could not evolve and were therefore held constant (to their initial value) across all simulations.
 
@@ -80,6 +80,17 @@ All across the study, metrics computed out of simulations starting in North Amer
 #| label: fig-s1
 #| out-height: 7cm
 #| out-width: 14cm
+#| fig-cap: Distribution of the distance to isthmus of the ancestral species of simulations either starting in North or South America, resulting from our random equal-area sampling scheme (see Method details) 
+
+knitr::include_graphics("../Figures/dist_to_isthm/All_starting_ranges.png")
+
+```
+
+
+```{r, echo=FALSE}
+#| label: fig-s2
+#| out-height: 7cm
+#| out-width: 14cm
 #| fig-cap: Diversity in the colonised area following a successful interchange (decimal log scale).
 
 knitr::include_graphics("../Figures/div_col_area/PANEL_div_col_area.png")
@@ -89,7 +100,7 @@ knitr::include_graphics("../Figures/div_col_area/PANEL_div_col_area.png")
 | 
 
 ```{r, echo=FALSE}
-#| label: fig-s2
+#| label: fig-s3
 #| out-height: 7cm
 #| out-width: 14cm
 #| fig-cap: Distance to the isthmus for non-successful simulations -- *i*.*e*., that did not result in a significant interchange.
@@ -100,7 +111,7 @@ knitr::include_graphics("../Figures/dist_to_isthm/comparative_distances_UNSUCCES
 ```
 
 ```{r, echo=FALSE}
-#| label: fig-s3
+#| label: fig-s4
 #| out-height: 7cm
 #| out-width: 14cm
 #| fig-cap: Comparison of the initial distance to the isthmus between successful and unsuccessful simulations of each of our four models, either starting from North (top) or South (bottom) America. Successful simulations ($Exchange$ $Sucess=1$) are displayed in green, whereas unsuccessful simulations ($Exchange$ $Sucess=0$) are displayed in yellow.
@@ -109,7 +120,7 @@ knitr::include_graphics("../Figures/dist_to_isthm/distance_violin_panel_NoCRASH.
 ```
 
 ```{r, echo=FALSE}
-#| label: fig-s4
+#| label: fig-s5
 #| out-height: 7cm
 #| out-width: 14cm
 #| fig-cap: Comparison of the initial distance to the isthmus between successful and unsuccessful simulations of each of our four models including simulations that crashed (*i*.*e*., resulted in no living representative at the final time step), either starting from North (top) or South (bottom) America.  Successful simulations ($Exchange$ $Sucess=1$) are displayed in green, unsuccessful simulations ($Exchange$ $Sucess=0$) in yellow and simulation that crashed ($Exchange$ $Sucess=-1$) in grey.
@@ -118,7 +129,7 @@ knitr::include_graphics("../Figures/dist_to_isthm/distance_violin_panel_CRASH.pn
 ```
 
 ```{r, echo=FALSE}
-#| label: fig-s5
+#| label: fig-s6
 #| out-height: 17cm
 #| out-width: 23cm
 #| fig-cap: Biome where the ancestral species of each of the 500 simulation originated, for each continent and each scenario.
@@ -127,7 +138,7 @@ knitr::include_graphics("../Figures/starting_biome/starting_biome_ALL.png")
 ```
 
 ```{r, echo=FALSE}
-#| label: fig-s6
+#| label: fig-s7
 #| out-height: 17cm
 #| out-width: 23cm
 #| fig-cap: Biome where the ancestral species of each simulation leading to a successful exchange originated, for each continent and each scenario.

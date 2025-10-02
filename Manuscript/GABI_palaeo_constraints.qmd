@@ -66,15 +66,15 @@ knitr::include_graphics("../Figures/MS/Main/Figure2/Figure2.png")
 
 ## Success on the foreign continent
 
-Our findings reveal that successful simulations starting in North America result in a higher proportion of colonised area, quantified as the ratio between the number of pixels recording a presence in the landmass to colonise and the total number of pixels offered by this landmass (@fig-2 B). The pattern holds for all but the $M3$ model -- relaxing the precipitation constraint on virtual species' niche (@fig-2 B). In addition, successful simulations starting in North America generally started from an ancestor located closer to the isthmus than those starting in South America (@fig-2 C), again except for simulation generated under $M3$. Also, we can highlight a general trend that ancestral species originates closer to the isthmus in the case of successful simulations compared to unsuccessful ones (Supp. Figure 3-4). Also, no difference in the diversity reached on the colonised area could be characterised between simulations based on their area of origin (Supp. Figure 1).
+Our findings reveal that successful simulations starting in North America result in a higher proportion of colonised area, quantified as the ratio between the number of pixels recording a presence in the landmass to colonise and the total number of pixels offered by this landmass (@fig-2 B). The pattern holds for all but the $M3$ model -- relaxing the precipitation constraint on virtual species' niche (@fig-2 B). In addition, successful simulations starting in North America generally started from an ancestor located closer to the isthmus than those starting in South America (@fig-2 C), again except for simulation generated under $M3$. Also, we can highlight a general trend that ancestral species originates closer to the isthmus in the case of successful simulations compared to unsuccessful ones (Supp. Figure 4-5). Also, no difference in the diversity reached on the colonised area could be characterised between simulations based on their area of origin (Supp. Figure 2).
 
 ## Biome
 
 We classified the climatic landscape at the time of the simulation onset ($t=5$ Million years ago, Ma) following the five broad climatic zones proposed by Beck et al. [@beck2018] and Galván et al. [@galván2023]: Tropical, Arid, Temperate, Cold and Polar (@fig-3 A). The ancestral species of each simulation was therefore assigned an initial biome based on the location of the site where it originated, randomly drawn within an equal-area grid overlaying our landscape (see *STAR Methods*).
 
-Initial biome distribution -- *i*.*e*., the number of simulations starting within each biome -- were very uneven across biome classes and continents. Indeed, the majority of North American ancestral species originated in the cold biome, whereas the tropical biome recorded the largest proportion of ancestral species origination in South America (Supp. Fig. 5). Besides, 
+Initial biome distribution -- *i*.*e*., the number of simulations starting within each biome -- were very uneven across biome classes and continents. Indeed, the majority of North American ancestral species originated in the cold biome, whereas the tropical biome recorded the largest proportion of ancestral species origination in South America (Supp. Fig. 6). Besides,
 
-Similar proportions of successful simulations that started from 
+Similar proportions of successful simulations that started from
 
 $M3$ more permissive towards South American species migrating northwards than the other way around
 
@@ -103,7 +103,7 @@ Success in South America for temperate-adapted species, posited as the most succ
 
 Tropics as a "holding pen" [@woodburne2010] -- read more this paper
 
-Biome pattern (Supp. Figure 5) directly reflects the diffencial amount of surface that each biome represents in the two continents.
+Biome pattern (Supp. Figure 6) directly reflects the diffencial amount of surface that each biome represents in the two continents.
 
 Precipitation niche @skeels2023b. Result of Figure 2C for $M3$ can be related to tropical biome
 
@@ -138,6 +138,10 @@ Higher proportion of colonised area could come from the different size of the co
 Problem of taxonomic extinctions in Gen3sis!
 
 Timeline of the simulation (last 5Myrs). Some claim for an onset of the interchange further back in time, but we justify our choice as (1) most studies agree with an onset of significant mammal exchange *c.* 3.5 Ma and (2) assumpltion of fixed palaeogeography.
+
+# Acknowledgements
+
+We thank Céline Devaux for her useful comments and feedbacks on the present work.
 
 # Thrash
 
