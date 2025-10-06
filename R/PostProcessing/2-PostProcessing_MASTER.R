@@ -74,7 +74,7 @@ for(sr in success_runs){
                       what = "diversity",
                       last_step = params$final_timestep[sr],
                       ancestral_area = args[6])
-  params$div_col[sr] <- ifelse(length(div) == 0, -1, div)
+  params$div_col[sr] <- div
 }
 cat("\nAdding Colonised Area Surface and Diversity within this Area : DONE\n\n")
 

@@ -19,6 +19,7 @@ cell_occupied <- function(row, df){ # df is the clipped occupancy dataframe
 }
 
 # Function to retrieve either of the two target metrics
+#          /!\ APPLY TO SUCCESSFUL RUNS /!\ 
 get_area_div <- function(run,
                          model,
                          what = c("area", "diversity"),
@@ -45,7 +46,9 @@ get_area_div <- function(run,
   # Diversity in colonised area
   if(what == "diversity"){
     sp_occ <- sapply(1:ncol(grid_clipped_df), FUN = species_occupies, df = grid_clipped_df)
-    div <- ncol(grid_clipped_df[, sp_occ])
+    div <- ifelse(length(sp_occ) > 1, 
+                  ncol(grid_clipped_df[, sp_occ]), # does not work in case `grid_clipped_df` is unidimensional (meaning diversity in the foreign continent = 1 species)
+                  1) # obviously, as this function is meant to be applied to successful runs
     return(div)
   } 
   # Proportion of area colonised (in pixels)
@@ -53,7 +56,12 @@ get_area_div <- function(run,
     avail_area <- nrow(grid_clipped_df)
     cell_occ <- sapply(1:nrow(grid_clipped_df), FUN = cell_occupied, df = grid_clipped_df)
     grid_clipped_df_occ <- grid_clipped_df[cell_occ, ]
-    occ_area <- nrow(grid_clipped_df_occ)
+    if(ncol(grid_clipped_df) > 1){
+      occ_area <- nrow(grid_clipped_df_occ)
+    }
+    else{
+      occ_area <- length(grid_clipped_df_occ)
+    }
     prop_col_area <- occ_area / avail_area
     return(prop_col_area)
   }
