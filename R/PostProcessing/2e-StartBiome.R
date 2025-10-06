@@ -12,9 +12,16 @@ biome_5M <- readRDS("../Data/pClimate/KG_biomes/KG_5Ma_broadclass.RDS")
 biome_5M <- biome_5M[[1]]
 
 ## Assess the biome to which the starting species of run i belongs -------------
-get_biome_start <- function(i, start, model){
-  init_mat <- readRDS(paste0("../Outputs/", model, "/", start, "_America_start/", 
-                             "config_", model, "_", start, "_America_run_", i, "/pa_matrices/pa_t_499.rds"))
+get_biome_start <- function(i, start, model, eq_dist = FALSE){
+  # Open initial presence-absence matrix
+  if(eq_dist){
+    init_mat <- readRDS(paste0("../Outputs_Eq_Dist/", model, "/", start, "_America_start/Config_", i, "/config_", model, 
+                         "_", start, "_America_run_", i, "/pa_matrices/pa_t_499.rds"))
+  }
+  else{
+    init_mat <- readRDS(paste0("../Outputs/", model, "/", start, "_America_start/config_", model,
+                               "_", start, "_America_run_", i, "/pa_matrices/pa_t_499.rds"))
+  }
   # Check whether starting species existed
   if(length(which(init_mat[,3] == 1)) > 0){
     

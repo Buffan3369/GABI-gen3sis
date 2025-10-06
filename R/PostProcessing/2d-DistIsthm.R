@@ -14,9 +14,16 @@ library(spaths)
 SA_mask <- shapefile("../Data/Shapefile_masks/South_America_cut.shp")
 
 # Function to assess the distance between sim° starting point & isthmus -------- 
-get_dist_start <- function(i, start, model){
-  init_mat <- readRDS(paste0("../Outputs/", model, "/", start, "_America_start/", 
-                             "config_", model, "_", start, "_America_run_", i, "/pa_matrices/pa_t_499.rds"))
+get_dist_start <- function(i, start, model, eq_dist = FALSE){
+  # Open initial presence-absence matrix
+  if(eq_dist){
+    init_mat <- readRDS(paste0("../Outputs_Eq_Dist/", model, "/", start, "_America_start/Config_", i, "/config_", model, 
+                         "_", start, "_America_run_", i, "/pa_matrices/pa_t_499.rds"))
+  }
+  else{
+    init_mat <- readRDS(paste0("../Outputs/", model, "/", start, "_America_start/config_", model,
+                               "_", start, "_America_run_", i, "/pa_matrices/pa_t_499.rds"))
+  }
   # Check whether starting species existed
   if(length(which(init_mat[,3] == 1)) > 0){
     

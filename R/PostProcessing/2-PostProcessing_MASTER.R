@@ -33,7 +33,8 @@ params <- Add_new_params(param_tbl       = init_params,
                          n_sim           = args[3],
                          sim_dir         = args[4],
                          mdl             = args[5],
-                         start_continent = args[6])
+                         start_continent = args[6],
+                         eq_dist         = as.logical(args[7]))
 cat("\nAdding New Descriptive Parameters: DONE\n\n")
 
 ## ------------------------------------------------------------------ ##
@@ -43,9 +44,11 @@ source("./2b-ColAssessor.R")
 params$exchanged <- sapply(X = 1:as.numeric(args[2]),
                            FUN = transfert,
                            mdl = args[5],
-                           from = args[6])
+                           from = args[6],
+                           eq_dist = as.logical(args[7]))
 cat("\nAdding Successful Colonisations: DONE\n\n")
 
+saveRDS(params, "intermediary_table.RDS")
 
 ## ------------------------------------------------------------------------------- ##
 ## 3. Assessing the area occupied by colonisers and the diversity within this area ##
@@ -58,6 +61,7 @@ params$prop_col_area <- -1
 params$div_col <- -1
   # Loop across successful runs
 for(sr in success_runs){
+  print(sr)
   # -------------------------- #
   # Proportion of colonised area
   # -------------------------- #
@@ -90,7 +94,8 @@ source("./2d-DistIsthm.R")
 dists <- sapply(X     = 1:as.numeric(args[3]),
                 FUN   = get_dist_start,
                 model = args[5],
-                start = args[6])
+                start = args[6],
+                eq_dist = as.logical(args[7]))
 params$dist_to_isthmus <- dists
 cat("\nAdding distance of ancestral species to Isthmus: DONE\n\n")
 
@@ -103,7 +108,8 @@ source("./2e-StartBiome.R")
 biomes <- sapply(X     = 1:as.numeric(args[3]),
                  FUN   = get_biome_start,
                  model = args[5],
-                 start = args[6])
+                 start = args[6],
+                 eq_dist = as.logical(args[7]))
 params$start_biome <- biomes
 cat("\nAdding Starting Biome: DONE\n\n")
 

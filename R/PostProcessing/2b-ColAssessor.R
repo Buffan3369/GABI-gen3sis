@@ -18,7 +18,8 @@ source("helper_functions.R")
 
 transfert <- function(i,     # Run index
                       mdl,   # Scenario (M0, M1, ..)
-                      from){ # Ancestral area ("North" or "South")
+                      from,  # Ancestral area ("North" or "South")
+                      eq_dist){
   E <- 0 # exchange metric
   # Define mask
   if(from == "North"){
@@ -28,7 +29,15 @@ transfert <- function(i,     # Run index
     mask <- shapefile("../Data/Shapefile_masks/North_America_cut.shp")
   }
   # Define directory
-  dir <- paste0("../Outputs/", mdl, "/", from, "_America_start/config_", mdl, "_", from, "_America_run_", i, "/pa_matrices")
+  if(eq_dist){
+    dir <- paste0("../Outputs_Eq_Dist/", mdl, "/", from, "_America_start/Config_", i, "/config_", mdl, 
+                  "_", from, "_America_run_", i, "/pa_matrices/")
+  }
+  else{
+    dir <- paste0("../Outputs/", mdl, "/", from, "_America_start/config_", mdl, "_", from, "_America_run_",
+                  i, "/pa_matrices")
+  }
+  
   if(dir.exists(dir)){
     # Open the presence/absence matrix of the last time step and ratserise it (1 ancestor => perfect xyz table)
     t_end <- 500 - length(list.files(paste0(dir)))

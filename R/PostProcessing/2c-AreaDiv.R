@@ -41,7 +41,7 @@ get_area_div <- function(run,
   # Differential path whether considering equal distances or not
   # -----------------
   if(eq_dist){
-    of <- readRDS(paste0("../Outputs_Eq_Dist/", model, "/", ancestral_area, "_America_start/config_", model, 
+    of <- readRDS(paste0("../Outputs_Eq_Dist/", model, "/", ancestral_area, "_America_start/Config_", run, "/config_", model, 
                          "_", ancestral_area, "_America_run_", run, "/pa_matrices/pa_t_", last_step, ".rds"))
   }
   else{
@@ -56,7 +56,7 @@ get_area_div <- function(run,
   # Diversity in colonised area
   if(what == "diversity"){
     sp_occ <- sapply(1:ncol(grid_clipped_df), FUN = species_occupies, df = grid_clipped_df)
-    div <- ifelse(length(sp_occ) > 1, 
+    div <- ifelse(length(which(sp_occ) == TRUE) > 1, 
                   ncol(grid_clipped_df[, sp_occ]), # does not work in case `grid_clipped_df` is unidimensional (meaning diversity in the foreign continent = 1 species)
                   1) # obviously, as this function is meant to be applied to successful runs
     return(div)
