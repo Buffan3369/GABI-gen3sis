@@ -8,7 +8,6 @@
 library(tidyverse)
 source("./R/useful/helper_functions.R")
 
-
 ################################################################################
 ############################## 0. Preprocessing ################################
 ################################################################################
@@ -36,29 +35,35 @@ for(mdl in c("M0", "M1", "M2", "M3")){
   
   ## 2. Proportion of colonised area -------------------------------------------
   na_prop_col_area <- mean(NA_success_tbl$prop_col_area)
-  
+
   ## 3. Diversity in colonised area --------------------------------------------
   na_mean_div <- mean(NA_success_tbl$div_col)
   na_sd_div <- sd(NA_success_tbl$div_col)
   sa_mean_div <- mean(SA_success_tbl$div_col)
   sa_sd_div <- sd(SA_success_tbl$div_col)
-  
+
   ## 4. 
   
   if(mdl == "M0"){
     # Proportion of success (associated CI from binomial)
     plot_df_prop_success <- data.frame(Ori = c("North America", "South America"),
                                        Prop_success = c(na_success, sa_success),
-                                       Lower_CI = sapply(X = c(na_success, sa_success),
-                                                         FUN = bino_CI,
-                                                         n = 500,
-                                                         alpha = 0.05,
-                                                         what = "Lower"),
-                                       Upper_CI = sapply(X = c(na_success, sa_success),
-                                                         FUN = bino_CI,
-                                                         n = 500,
-                                                         alpha = 0.05,
-                                                         what = "Upper"),
+                                       Lower_CI = c(bino_CI(prop = na_success,
+                                                            n = nrow(NA_recap_tbl),
+                                                            alpha = 0.05,
+                                                            what = "Lower"),
+                                                    bino_CI(prop = sa_success,
+                                                            n = nrow(SA_recap_tbl),
+                                                            alpha = 0.05,
+                                                            what = "Lower")),
+                                       Upper_CI = c(bino_CI(prop = na_success,
+                                                            n = nrow(NA_recap_tbl),
+                                                            alpha = 0.05,
+                                                            what = "Upper"),
+                                                    bino_CI(prop = sa_success,
+                                                            n = nrow(SA_recap_tbl),
+                                                            alpha = 0.05,
+                                                            what = "Upper")),
                                        Model = c(mdl, mdl))
   }
   else{
@@ -66,16 +71,22 @@ for(mdl in c("M0", "M1", "M2", "M3")){
     plot_df_prop_success <- plot_df_prop_success %>% 
       add_row(Ori = c("North America", "South America"),
               Prop_success = c(na_success, sa_success),
-              Lower_CI = sapply(X = c(na_success, sa_success),
-                                FUN = bino_CI,
-                                n = 500,
-                                alpha = 0.05,
-                                what = "Lower"),
-              Upper_CI = sapply(X = c(na_success, sa_success),
-                                FUN = bino_CI,
-                                n = 500,
-                                alpha = 0.05,
-                                what = "Upper"),
+              Lower_CI = c(bino_CI(prop = na_success,
+                                   n = nrow(NA_recap_tbl),
+                                   alpha = 0.05,
+                                   what = "Lower"),
+                           bino_CI(prop = sa_success,
+                                   n = nrow(SA_recap_tbl),
+                                   alpha = 0.05,
+                                   what = "Lower")),
+              Upper_CI = c(bino_CI(prop = na_success,
+                                   n = nrow(NA_recap_tbl),
+                                   alpha = 0.05,
+                                   what = "Upper"),
+                           bino_CI(prop = sa_success,
+                                   n = nrow(SA_recap_tbl),
+                                   alpha = 0.05,
+                                   what = "Upper")),
               Model = c(mdl, mdl))
   }
 }
