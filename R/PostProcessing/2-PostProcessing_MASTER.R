@@ -14,7 +14,8 @@ args <- commandArgs(trailingOnly=TRUE)
 # args[4] : path towards where outputs are stored
 # args[5] : model (e.g. M0, M1)
 # args[6] : region (North or South)
-# args[7] : path to and name of the extended parameter table
+# args[7] : standardised distances to isthmus? (set to TRUE if yes)
+# args[8] : path to and name of the extended parameter table
 # -------------------------------------------------------- #
 
 source("./helper_functions.R")
@@ -64,7 +65,8 @@ for(sr in success_runs){
                        model = args[5],
                        what = "area",
                        last_step = params$final_timestep[sr],
-                       ancestral_area = args[6])
+                       ancestral_area = args[6],
+                       eq_dist = as.logical(args[7]))
   params$prop_col_area[sr] <- ifelse(length(area) == 0, -1, area)
   # ----------------------------- #
   # Diversity in the colonised area
@@ -73,7 +75,8 @@ for(sr in success_runs){
                       model = args[5],
                       what = "diversity",
                       last_step = params$final_timestep[sr],
-                      ancestral_area = args[6])
+                      ancestral_area = args[6],
+                      eq_dist = as.logical(args[7]))
   params$div_col[sr] <- div
 }
 cat("\nAdding Colonised Area Surface and Diversity within this Area : DONE\n\n")
@@ -106,4 +109,4 @@ cat("\nAdding Starting Biome: DONE\n\n")
 
 
 ## Save ------------------------------------------------------------------------
-write_tbl_std(params, args[7])
+write_tbl_std(params, args[8])
