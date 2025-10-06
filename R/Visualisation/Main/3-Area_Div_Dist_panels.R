@@ -30,11 +30,14 @@ for(mdl in c("M0", "M1", "M2", "M3")){
   SA_success_tbl <- SA_recap_tbl %>% filter(exchanged == 1)
   
   ## 1. Success proportions ----------------------------------------------------
-  na_success <- sum(NA_recap_tbl$exchanged) / nrow(NA_recap_tbl)
-  sa_success <- sum(SA_recap_tbl$exchanged) / nrow(SA_recap_tbl)
+  na_success <- nrow(NA_success_tbl) / nrow(NA_recap_tbl)
+  sa_success <- nrow(SA_success_tbl) / nrow(SA_recap_tbl)
   
   ## 2. Proportion of colonised area -------------------------------------------
   na_prop_col_area <- mean(NA_success_tbl$prop_col_area)
+  na_sd_area <- sd(NA_success_tbl$prop_col_area)
+  sa_prop_col_area <- mean(SA_success_tbl$prop_col_area)
+  sa_sd_area <- sd(SA_success_tbl$prop_col_area)
 
   ## 3. Diversity in colonised area --------------------------------------------
   na_mean_div <- mean(NA_success_tbl$div_col)
@@ -42,10 +45,14 @@ for(mdl in c("M0", "M1", "M2", "M3")){
   sa_mean_div <- mean(SA_success_tbl$div_col)
   sa_sd_div <- sd(SA_success_tbl$div_col)
 
-  ## 4. 
+  ## 4. Distance to the Isthmus ------------------------------------------------
+  na_mean_dist <- mean(NA_success_tbl$dist_to_isthmus)
+  na_sd_dist <- sd(NA_success_tbl$dist_to_isthmus)
+  sa_mean_dist <- mean(SA_success_tbl$dist_to_isthmus)
+  sa_sd_dist <- sd(SA_success_tbl$dist_to_isthmus)
   
   if(mdl == "M0"){
-    # Proportion of success (associated CI from binomial)
+  ## 1. Proportion of success (associated CI from binomial) --------------------
     plot_df_prop_success <- data.frame(Ori = c("North America", "South America"),
                                        Prop_success = c(na_success, sa_success),
                                        Lower_CI = c(bino_CI(prop = na_success,
@@ -65,10 +72,86 @@ for(mdl in c("M0", "M1", "M2", "M3")){
                                                             alpha = 0.05,
                                                             what = "Upper")),
                                        Model = c(mdl, mdl))
+
+  ## 2. Proportion of colonised area (and associated CI) -----------------------
+    plot_df_prop_col_area <- data.frame(Ori = c("North America", "South America"),
+                                        Prop_col_area = c(na_prop_col_area, sa_prop_col_area),
+                                        Lower_CI = c(Student_CI(x_bar = na_prop_col_area,
+                                                                n = nrow(NA_recap_tbl),
+                                                                sigma = na_sd_area,
+                                                                alpha = 0.05,
+                                                                what = "Lower"),
+                                                     Student_CI(x_bar = sa_prop_col_area,
+                                                                n = nrow(SA_recap_tbl),
+                                                                sigma = sa_sd_area,
+                                                                alpha = 0.05,
+                                                                what = "Lower")),
+                                        Upper_CI = c(Student_CI(x_bar = na_prop_col_area,
+                                                                n = nrow(NA_recap_tbl),
+                                                                sigma = na_sd_area,
+                                                                alpha = 0.05,
+                                                                what = "Upper"),
+                                                     Student_CI(x_bar = sa_prop_col_area,
+                                                                n = nrow(SA_recap_tbl),
+                                                                sigma = sa_sd_area,
+                                                                alpha = 0.05,
+                                                                what = "Upper")),
+                                        Model = c(mdl, mdl))
+    
+  ## 3. Diversity in colonised area (and associated CI) -----------------------
+    plot_df_div_col_area <- data.frame(Ori = c("North America", "South America"),
+                                       Div_col_area = c(na_mean_div, sa_mean_div),
+                                       Lower_CI = c(Student_CI(x_bar = na_mean_div,
+                                                               n = nrow(NA_recap_tbl),
+                                                               sigma = na_sd_div,
+                                                               alpha = 0.05,
+                                                               what = "Lower"),
+                                                    Student_CI(x_bar = sa_mean_div,
+                                                               n = nrow(SA_recap_tbl),
+                                                               sigma = sa_sd_div,
+                                                               alpha = 0.05,
+                                                               what = "Lower")),
+                                       Upper_CI = c(Student_CI(x_bar = na_mean_div,
+                                                               n = nrow(NA_recap_tbl),
+                                                               sigma = na_sd_div,
+                                                               alpha = 0.05,
+                                                               what = "Upper"),
+                                                    Student_CI(x_bar = sa_mean_div,
+                                                               n = nrow(SA_recap_tbl),
+                                                               sigma = sa_sd_div,
+                                                               alpha = 0.05,
+                                                               what = "Upper")),
+                                        Model = c(mdl, mdl))
+    
+  ## 4. Distance of the starting species to the Isthmus ------------------------
+    plot_df_dist_isthmus <- data.frame(Ori = c("North America", "South America"),
+                                       Dist = c(na_mean_dist, sa_mean_dist),
+                                       Lower_CI = c(Student_CI(x_bar = na_mean_dist,
+                                                               n = nrow(NA_recap_tbl),
+                                                               sigma = na_sd_dist,
+                                                               alpha = 0.05,
+                                                               what = "Lower"),
+                                                    Student_CI(x_bar = sa_mean_dist,
+                                                               n = nrow(SA_recap_tbl),
+                                                               sigma = sa_sd_dist,
+                                                               alpha = 0.05,
+                                                               what = "Lower")),
+                                       Upper_CI = c(Student_CI(x_bar = na_mean_dist,
+                                                               n = nrow(NA_recap_tbl),
+                                                               sigma = na_sd_dist,
+                                                               alpha = 0.05,
+                                                               what = "Upper"),
+                                                    Student_CI(x_bar = sa_mean_dist,
+                                                               n = nrow(SA_recap_tbl),
+                                                               sigma = sa_sd_dist,
+                                                               alpha = 0.05,
+                                                               what = "Upper")),
+                                       Model = c(mdl, mdl))
+    
   }
   else{
-    # Proportion of success (associated CI from binomial)
-    plot_df_prop_success <- plot_df_prop_success %>% 
+    ## 1. Proportion of success (associated CI from binomial) ------------------
+    plot_df_prop_success <- plot_df_prop_success %>%
       add_row(Ori = c("North America", "South America"),
               Prop_success = c(na_success, sa_success),
               Lower_CI = c(bino_CI(prop = na_success,
@@ -88,6 +171,84 @@ for(mdl in c("M0", "M1", "M2", "M3")){
                                    alpha = 0.05,
                                    what = "Upper")),
               Model = c(mdl, mdl))
+    
+    ## 2. Proportion of colonised area -----------------------------------------
+    plot_df_prop_col_area <- plot_df_prop_col_area %>% 
+      add_row(Ori = c("North America", "South America"),
+              Prop_col_area = c(na_prop_col_area, sa_prop_col_area),
+              Lower_CI = c(Student_CI(x_bar = na_prop_col_area,
+                                      n = nrow(NA_recap_tbl),
+                                      sigma = na_sd_area,
+                                      alpha = 0.05,
+                                      what = "Lower"),
+                           Student_CI(x_bar = sa_prop_col_area,
+                                      n = nrow(SA_recap_tbl),
+                                      sigma = sa_sd_area,
+                                      alpha = 0.05,
+                                      what = "Lower")),
+              Upper_CI = c(Student_CI(x_bar = na_prop_col_area,
+                                      n = nrow(NA_recap_tbl),
+                                      sigma = na_sd_area,
+                                      alpha = 0.05,
+                                      what = "Upper"),
+                           Student_CI(x_bar = sa_prop_col_area,
+                                      n = nrow(SA_recap_tbl),
+                                      sigma = sa_sd_area,
+                                      alpha = 0.05,
+                                      what = "Upper")),
+              Model = c(mdl, mdl))
+    
+    
+    ## 3. Diversity in the colonised area --------------------------------------
+    plot_df_div_col_area <- plot_df_div_col_area %>% 
+      add_row(Ori = c("North America", "South America"),
+             Div_col_area = c(na_mean_div, sa_mean_div),
+             Lower_CI = c(Student_CI(x_bar = na_mean_div,
+                                     n = nrow(NA_recap_tbl),
+                                     sigma = na_sd_div,
+                                     alpha = 0.05,
+                                     what = "Lower"),
+                          Student_CI(x_bar = sa_mean_div,
+                                     n = nrow(SA_recap_tbl),
+                                     sigma = sa_sd_div,
+                                     alpha = 0.05,
+                                     what = "Lower")),
+             Upper_CI = c(Student_CI(x_bar = na_mean_div,
+                                     n = nrow(NA_recap_tbl),
+                                     sigma = na_sd_div,
+                                     alpha = 0.05,
+                                     what = "Upper"),
+                          Student_CI(x_bar = sa_mean_div,
+                                     n = nrow(SA_recap_tbl),
+                                     sigma = sa_sd_div,
+                                     alpha = 0.05,
+                                     what = "Upper")),
+             Model = c(mdl, mdl))
+    ## 4. Distance to the Isthmus ----------------------------------------------
+    plot_df_dist_isthmus <- plot_df_dist_isthmus %>% 
+      add_row(Ori = c("North America", "South America"),
+             Dist = c(na_mean_dist, sa_mean_dist),
+             Lower_CI = c(Student_CI(x_bar = na_mean_dist,
+                                     n = nrow(NA_recap_tbl),
+                                     sigma = na_sd_dist,
+                                     alpha = 0.05,
+                                     what = "Lower"),
+                          Student_CI(x_bar = sa_mean_dist,
+                                     n = nrow(SA_recap_tbl),
+                                     sigma = sa_sd_dist,
+                                     alpha = 0.05,
+                                     what = "Lower")),
+             Upper_CI = c(Student_CI(x_bar = na_mean_dist,
+                                     n = nrow(NA_recap_tbl),
+                                     sigma = na_sd_dist,
+                                     alpha = 0.05,
+                                     what = "Upper"),
+                          Student_CI(x_bar = sa_mean_dist,
+                                     n = nrow(SA_recap_tbl),
+                                     sigma = sa_sd_dist,
+                                     alpha = 0.05,
+                                     what = "Upper")),
+             Model = c(mdl, mdl))
   }
 }
 
@@ -123,6 +284,87 @@ ggsave("./Figures/prop_successful_exch/Panel_point_CI.png",
 
 
 ################################################################################
-##################### 2. DIVERSITY IN THE COLONISED AREA #######################
+###################### 2. PROPORTION OF COLONISED AREA #########################
 ################################################################################
 
+area_plot2 <- plot_df_prop_col_area %>% 
+  ggplot(aes(x = Ori, y = Prop_col_area)) +
+  geom_errorbar(aes(ymin = Lower_CI, ymax = Upper_CI), width = 0.15) +
+  geom_point(aes(colour = Ori), size = 1.5) +
+  scale_colour_manual(values = c("#fb6a4aff", "#66c2a4ff")) +
+  labs(x = NULL, y = NULL) +
+  facet_grid(.~Model) +
+  labs(x = "Ancestral area", y = "Proportion of colonised area") +
+  theme(axis.title = element_text(size = 7.5),
+        axis.text = element_text(size = 5),
+        axis.line = element_line(linewidth = 0.3, color = "black"),
+        legend.position = "none",
+        panel.background = element_rect(fill = "white", colour = "black"),
+        panel.grid.major = element_line(linewidth = 0.1, color = "grey50"),
+        panel.grid.minor = element_line(linewidth = 0.1, color = "grey50"),
+        plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"),
+        strip.background = element_rect(fill = "#DDE6F5"))
+
+ggsave("./Figures/prop_col_area/prop_col_area_panel_CI.pdf", 
+       plot = area_plot2, height = 80, width = 170, units = "mm")
+
+ggsave("./Figures/prop_col_area/prop_col_area_panel_CI.png", 
+       plot = area_plot2, height = 80, width = 170, dpi = 600, units = "mm")
+
+
+################################################################################
+##################### 3. DIVERSITY IN THE COLONISED AREA #######################
+################################################################################
+
+div_plot2 <- plot_df_div_col_area %>% 
+  ggplot(aes(x = Ori, y = Div_col_area)) +
+  geom_errorbar(aes(ymin = Lower_CI, ymax = Upper_CI), width = 0.15) +
+  geom_point(aes(colour = Ori), size = 1.5) +
+  scale_colour_manual(values = c("#fb6a4aff", "#66c2a4ff")) +
+  labs(x = NULL, y = NULL) +
+  facet_grid(.~Model) +
+  labs(x = "Ancestral area", y = "Diversty in the colonised area") +
+  theme(axis.title = element_text(size = 7.5),
+        axis.text = element_text(size = 5),
+        axis.line = element_line(linewidth = 0.3, color = "black"),
+        legend.position = "none",
+        panel.background = element_rect(fill = "white", colour = "black"),
+        panel.grid.major = element_line(linewidth = 0.1, color = "grey50"),
+        panel.grid.minor = element_line(linewidth = 0.1, color = "grey50"),
+        plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"),
+        strip.background = element_rect(fill = "#DDE6F5"))
+
+ggsave("./Figures/div_col_area/Panel_point_CI_diversity.pdf", 
+       plot = div_plot2, height = 80, width = 170, units = "mm")
+
+ggsave("./Figures/div_col_area/Panel_point_CI_diversity.png", 
+       plot = div_plot2, height = 80, width = 170, dpi = 600, units = "mm")
+
+
+################################################################################
+######################### 4. DISTANCE TO THE ISTHMUS ###########################
+################################################################################
+
+dist_plot2 <- plot_df_dist_isthmus %>% 
+  ggplot(aes(x = Ori, y = Dist)) +
+  geom_errorbar(aes(ymin = Lower_CI, ymax = Upper_CI), width = 0.15) +
+  geom_point(aes(colour = Ori), size = 1.5) +
+  scale_colour_manual(values = c("#fb6a4aff", "#66c2a4ff")) +
+  labs(x = NULL, y = NULL) +
+  facet_grid(.~Model) +
+  labs(x = "Ancestral area", y = "Distance to the isthmus (km)") +
+  theme(axis.title = element_text(size = 7.5),
+        axis.text = element_text(size = 5),
+        axis.line = element_line(linewidth = 0.3, color = "black"),
+        legend.position = "none",
+        panel.background = element_rect(fill = "white", colour = "black"),
+        panel.grid.major = element_line(linewidth = 0.1, color = "grey50"),
+        panel.grid.minor = element_line(linewidth = 0.1, color = "grey50"),
+        plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"),
+        strip.background = element_rect(fill = "#DDE6F5"))
+
+ggsave("./Figures/dist_to_isthm/distance_panel_point_CI.pdf", 
+       plot = dist_plot2, height = 80, width = 170, units = "mm")
+
+ggsave("./Figures/dist_to_isthm/distance_panel_point_CI.png", 
+       plot = dist_plot2, height = 80, width = 170, dpi = 600, units = "mm")
