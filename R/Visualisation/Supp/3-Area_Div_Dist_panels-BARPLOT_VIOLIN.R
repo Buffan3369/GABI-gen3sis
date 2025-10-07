@@ -122,34 +122,6 @@ ggsave("./Figures/div_col_area/PANEL_div_col_area.png",
 ############################ 3. DISTANCE TO ISTHMUS ############################
 ################################################################################
 
-## All simulations -------------------------------------------------------------
-plot_all_starting_range <- P_tbl %>% 
-  ggplot(aes(x = start_region, y = dist_to_isthmus)) +
-  geom_violin(adjust = .75, draw_quantiles = c(0.25, 0.75), scale = "width",
-              linewidth = 0.1, aes(fill = factor(start_region)), linetype = "dashed") +
-  # draw the 50% quantile a bit thicker
-  geom_violin(adjust = 0.75, draw_quantiles = 0.5, , scale = "width", fill="transparent", linewidth = 0.3) +
-  geom_point(shape = ".") +
-  scale_fill_manual(values = c("#fcbba1", "#ccece6")) +
-  labs(x = "Ancestral region", y = "Distance to isthmus (km)") +
-  theme(legend.position = "none",
-        axis.title = element_text(size = 7.5),
-        axis.text = element_text(size = 6),
-        axis.line = element_line(linewidth = 0.3, color = "black"),
-        strip.background = element_rect(fill = "#DDE6F5"),
-        panel.background = element_rect(fill = "#F5F0FF"),
-        panel.grid.major = element_line(linewidth = 0.25),
-        panel.grid.minor = element_line(linewidth = 0.25),
-        plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm")
-  ) +
-  facet_grid(.~model)
-
-ggsave(paste0("./Figures/dist_to_isthm/All_starting_ranges.pdf"), 
-       plot = plot_all_starting_range, height = 120, width = 200, units = "mm")
-
-ggsave(paste0("./Figures/dist_to_isthm/All_starting_ranges.png"), 
-       plot = plot_all_starting_range, height = 120, width = 200, dpi = 600, units = "mm")
-
 ## Plot with simulations that crashed ------------------------------------------
 plot_crash <- P_tbl %>% 
   ggplot(aes(x = exchanged, y = dist_to_isthmus)) +
