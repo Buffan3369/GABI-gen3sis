@@ -78,20 +78,19 @@ All across the study, metrics computed out of simulations starting in North Amer
 
 ```{r, echo=FALSE}
 #| label: fig-s1
-#| out-height: 7cm
+#| out-height: 6cm
 #| out-width: 14cm
-#| fig-cap: Distribution of the distance to isthmus of the ancestral species of simulations either starting in North or South America, resulting from our random equal-area sampling scheme (see Method details) 
+#| fig-cap: Distribution of the distance to isthmus of the ancestral species of simulations either starting in North or South America, resulting from our random equal-area sampling scheme (see Method details). Dashed lines on top and bottom of the distribution represent the 25% and 75% quantiles whereas the thicker full line in the middle shows the median (50% quantile).
 
 knitr::include_graphics("../Figures/dist_to_isthm/All_starting_ranges.png")
 
 ```
 
-
 ```{r, echo=FALSE}
 #| label: fig-s2
 #| out-height: 7cm
 #| out-width: 14cm
-#| fig-cap: Diversity in the colonised area following a successful interchange (decimal log scale).
+#| fig-cap: Diversity in the colonised area following a successful interchange (decimal log scale). Dashed lines on top and bottom of the distribution represent the 25% and 75% quantiles whereas the thicker full line in the middle shows the median (50% quantile).
 
 knitr::include_graphics("../Figures/div_col_area/PANEL_div_col_area.png")
 ```
@@ -103,7 +102,7 @@ knitr::include_graphics("../Figures/div_col_area/PANEL_div_col_area.png")
 #| label: fig-s3
 #| out-height: 7cm
 #| out-width: 14cm
-#| fig-cap: Distance to the isthmus for non-successful simulations -- *i*.*e*., that did not result in a significant interchange.
+#| fig-cap: Distance to the isthmus for non-successful simulations -- *i*.*e*., that did not result in a significant interchange. Dashed lines on top and bottom of the distribution represent the 25% and 75% quantiles whereas the thicker full line in the middle shows the median (50% quantile).
 
 
 knitr::include_graphics("../Figures/dist_to_isthm/comparative_distances_UNSUCCESSFUL.png")
@@ -114,16 +113,16 @@ knitr::include_graphics("../Figures/dist_to_isthm/comparative_distances_UNSUCCES
 #| label: fig-s4
 #| out-height: 7cm
 #| out-width: 14cm
-#| fig-cap: Comparison of the initial distance to the isthmus between successful and unsuccessful simulations of each of our four models, either starting from North (top) or South (bottom) America. Successful simulations ($Exchange$ $Sucess=1$) are displayed in green, whereas unsuccessful simulations ($Exchange$ $Sucess=0$) are displayed in yellow.
+#| fig-cap: Comparison of the initial distance to the isthmus between successful and unsuccessful simulations of each of our four models, either starting from North (top) or South (bottom) America. Successful simulations ($Exchange$ $Sucess=1$) are displayed in green, whereas unsuccessful simulations ($Exchange$ $Sucess=0$) are displayed in yellow. Dashed lines on top and bottom of the distribution represent the 25% and 75% quantiles whereas the thicker full line in the middle shows the median (50% quantile).
 
 knitr::include_graphics("../Figures/dist_to_isthm/distance_violin_panel_NoCRASH.png")
 ```
 
 ```{r, echo=FALSE}
 #| label: fig-s5
-#| out-height: 7cm
-#| out-width: 14cm
-#| fig-cap: Comparison of the initial distance to the isthmus between successful and unsuccessful simulations of each of our four models including simulations that crashed (*i*.*e*., resulted in no living representative at the final time step), either starting from North (top) or South (bottom) America.  Successful simulations ($Exchange$ $Sucess=1$) are displayed in green, unsuccessful simulations ($Exchange$ $Sucess=0$) in yellow and simulation that crashed ($Exchange$ $Sucess=-1$) in grey.
+#| out-height: 8cm
+#| out-width: 16cm
+#| fig-cap: Comparison of the initial distance to the isthmus between successful and unsuccessful simulations of each of our four models including simulations that crashed (*i*.*e*., resulted in no living representative at the final time step), either starting from North (top) or South (bottom) America.  Successful simulations ($Exchange$ $Sucess=1$) are displayed in green, unsuccessful simulations ($Exchange$ $Sucess=0$) in yellow and simulation that crashed ($Exchange$ $Sucess=-1$) in grey. Dashed lines on top and bottom of the distribution represent the 25% and 75% quantiles whereas the thicker full line in the middle shows the median (50% quantile).
 
 knitr::include_graphics("../Figures/dist_to_isthm/distance_violin_panel_CRASH.png")
 ```
@@ -136,6 +135,8 @@ knitr::include_graphics("../Figures/dist_to_isthm/distance_violin_panel_CRASH.pn
 
 knitr::include_graphics("../Figures/starting_biome/starting_biome_ALL.png")
 ```
+ 
+\newpage
 
 ```{r, echo=FALSE}
 #| label: fig-s7
@@ -145,6 +146,9 @@ knitr::include_graphics("../Figures/starting_biome/starting_biome_ALL.png")
 
 knitr::include_graphics("../Figures/starting_biome/starting_biome_EXCH.png")
 ```
+
+|
+|
 
 \newpage
 
