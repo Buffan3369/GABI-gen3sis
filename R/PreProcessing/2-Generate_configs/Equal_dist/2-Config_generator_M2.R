@@ -12,11 +12,10 @@ n <- 500 # number of replicates
 start_region  <- "North_America"
 
 ## Initialise 5-dim Sobol' sequence --------------------------------------------
-param_df <- data.frame(cbind(paste0("Simulation_", 1:n), sobol(n = n, dim = 6)))
+param_df <- data.frame(cbind(paste0("Simulation_", 1:n), sobol(n = n, dim = 5)))
 colnames(param_df) <- c("Sim_index",  # Simulation index
                         "S",          # Divergence threshold above which speciation occurs
                         "omega_T",    # Strength of environmental filtering for temperature
-                        "omega_P",    # Same for precipitations
                         "sigma_e",    # Rate of environmental niche evolution
                         "disp_shape", # Shape of the dispersal kernel (Weibull distribution)
                         "disp_scale") # Scale of the dispersal kernel
@@ -24,7 +23,6 @@ colnames(param_df) <- c("Sim_index",  # Simulation index
 ## Rescale parameters to desired range -----------------------------------------
 param_df$S <-          linMap(as.numeric(param_df$S), from = 1, to = 3, rnd = T, dgts = 3)
 param_df$omega_T <-    linMap(as.numeric(param_df$omega_T), from = 0.01, to = 0.1, rnd = T, dgts = 3)
-param_df$omega_P <-    linMap(as.numeric(param_df$omega_P), from = 0.05, to = 0.3, rnd = T, dgts = 3)
 param_df$sigma_e <-    linMap(as.numeric(param_df$sigma_e), from = 0.005, to = 0.15, rnd = T, dgts = 3)
 param_df$disp_shape <- linMap(as.numeric(param_df$disp_shape), from = 0.5, to = 3, rnd = T, dgts = 3)
 param_df$disp_scale <- linMap(as.numeric(param_df$disp_scale), from = 0.1, to = 1, rnd = T, dgts = 3)
@@ -71,7 +69,6 @@ for(i in 1:n){
   config_i <- gsub("params\\$S", params$S, config_i)
   config_i <- gsub("params\\$divergence_factor", params$divergence_factor, config_i)
   config_i <- gsub("params\\$omega_T", params$omega_T, config_i)
-  config_i <- gsub("params\\$omega_P", params$omega_P, config_i)
   config_i <- gsub("params\\$sigma_e", params$sigma_e, config_i)
   config_i <- gsub("params\\$disp_shape", params$disp_shape, config_i)
   config_i <- gsub("params\\$disp_scale", params$disp_scale, config_i)

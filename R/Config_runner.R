@@ -14,9 +14,9 @@ run_sim_i <- function(i, where = c("North", "South")){
   # Path towards the i-th config file
   config_dir <- paste0("../Data/Gen3sis_configs/", args[1], "/", where, "_America_start/Config_", i, "/config_M1_", where, "_America_run_", i, ".R")
   # Path towards landscape
-  input_dir <- "../Data/Landscapes/downscaled_landscape_10/"
+  input_dir <- "../Data/Landscapes/downscaled_landscape_10"
   # Path towards output directory
-  output_dir <- paste0("../Outputs/", args[1], "/", where, "_America_start/")
+  output_dir <- paste0("../Outputs/", args[1], "/", where, "_America_start")
   # Run simulation
   sim <- run_simulation(config = config_dir,
                         landscape = input_dir,
