@@ -264,7 +264,7 @@ prop_plot2 <- plot_df_prop_success %>%
   scale_colour_manual(values = c("#fb6a4aff", "#66c2a4ff")) +
   scale_y_continuous(expand = c(0, 0), limits = c(0, 1.12), breaks = c(0, 0.25, 0.5, 0.75, 1)) +
   labs(x = NULL, y = NULL) +
-#  facet_grid(.~Model) +
+  facet_grid(.~Model) +
   labs(x = "Ancestral area", y = "Prop. successful exchange") +
   theme(axis.title = element_text(size = 7.5),
         axis.text = element_text(size = 5),
@@ -276,10 +276,10 @@ prop_plot2 <- plot_df_prop_success %>%
         plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"),
         strip.background = element_rect(fill = "#DDE6F5"))
 
-ggsave("./Figures/prop_successful_exch/Panel_point_CI-M0-DIST_STD.pdf", 
+ggsave("./Figures/prop_successful_exch/Panel_point_CI-M0-M1-DIST_STD.pdf", 
        plot = prop_plot2, height = 80, width = 170, units = "mm")
 
-ggsave("./Figures/prop_successful_exch/Panel_point_CI-M0-DIST_STD.png", 
+ggsave("./Figures/prop_successful_exch/Panel_point_CI-M0-M1-DIST_STD.png", 
        plot = prop_plot2, height = 80, width = 170, dpi = 600, units = "mm")
 
 
@@ -293,7 +293,7 @@ area_plot2 <- plot_df_prop_col_area %>%
   geom_point(aes(colour = Ori), size = 1.5) +
   scale_colour_manual(values = c("#fb6a4aff", "#66c2a4ff")) +
   labs(x = NULL, y = NULL) +
- # facet_grid(.~Model) +
+  facet_grid(.~Model) +
   labs(x = "Ancestral area", y = "Proportion of colonised area") +
   theme(axis.title = element_text(size = 7.5),
         axis.text = element_text(size = 5),
@@ -305,10 +305,10 @@ area_plot2 <- plot_df_prop_col_area %>%
         plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"),
         strip.background = element_rect(fill = "#DDE6F5"))
 
-ggsave("./Figures/prop_col_area/prop_col_area_panel_CI-M0-DIST_STD.pdf", 
+ggsave("./Figures/prop_col_area/prop_col_area_panel_CI-M0-M1-DIST_STD.pdf", 
        plot = area_plot2, height = 80, width = 170, units = "mm")
 
-ggsave("./Figures/prop_col_area/prop_col_area_panel_CI-M0-DIST_STD.png", 
+ggsave("./Figures/prop_col_area/prop_col_area_panel_CI-M0-M1-DIST_STD.png", 
        plot = area_plot2, height = 80, width = 170, dpi = 600, units = "mm")
 
 
@@ -322,7 +322,7 @@ div_plot2 <- plot_df_div_col_area %>%
   geom_point(aes(colour = Ori), size = 1.5) +
   scale_colour_manual(values = c("#fb6a4aff", "#66c2a4ff")) +
   labs(x = NULL, y = NULL) +
-#  facet_grid(.~Model) +
+  facet_grid(.~Model) +
   labs(x = "Ancestral area", y = "Diversty in the colonised area") +
   theme(axis.title = element_text(size = 7.5),
         axis.text = element_text(size = 5),
@@ -334,10 +334,10 @@ div_plot2 <- plot_df_div_col_area %>%
         plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"),
         strip.background = element_rect(fill = "#DDE6F5"))
 
-ggsave("./Figures/div_col_area/Panel_point_CI_diversity-M0-DIST_STD.pdf", 
+ggsave("./Figures/div_col_area/Panel_point_CI_diversity-M0-M1-DIST_STD.pdf", 
        plot = div_plot2, height = 80, width = 170, units = "mm")
 
-ggsave("./Figures/div_col_area/Panel_point_CI_diversity-M0-DIST_STD.png", 
+ggsave("./Figures/div_col_area/Panel_point_CI_diversity-M0-M1-DIST_STD.png", 
        plot = div_plot2, height = 80, width = 170, dpi = 600, units = "mm")
 
 
@@ -351,7 +351,7 @@ dist_plot2 <- plot_df_dist_isthmus %>%
   geom_point(aes(colour = Ori), size = 1.5) +
   scale_colour_manual(values = c("#fb6a4aff", "#66c2a4ff")) +
   labs(x = NULL, y = NULL) +
-#  facet_grid(.~Model) +
+  facet_grid(.~Model) +
   labs(x = "Ancestral area", y = "Distance to the isthmus (km)") +
   theme(axis.title = element_text(size = 7.5),
         axis.text = element_text(size = 5),
@@ -363,8 +363,8 @@ dist_plot2 <- plot_df_dist_isthmus %>%
         plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"),
         strip.background = element_rect(fill = "#DDE6F5"))
 
-ggsave("./Figures/dist_to_isthm/distance_panel_point_CI-M0-DIST_STD.pdf", 
+ggsave("./Figures/dist_to_isthm/distance_panel_point_CI-M0-M1-DIST_STD.pdf", 
        plot = dist_plot2, height = 80, width = 170, units = "mm")
 
-ggsave("./Figures/dist_to_isthm/distance_panel_point_CI-M0-DIST_STD.png", 
+ggsave("./Figures/dist_to_isthm/distance_panel_point_CI-M0-M1-DIST_STD.png", 
        plot = dist_plot2, height = 80, width = 170, dpi = 600, units = "mm")
