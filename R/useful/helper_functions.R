@@ -68,9 +68,9 @@ normal_quantiles <- function(q){
   return(round(as.numeric(qtl), digits = 2))
 }
   # Binomial confidence interval
-bino_CI <- function(prop,      # Estimated proportion 
-                    n,         # Number of trials (500 here)
-                    alpha,     # Error associated to the confidence level (0.05 for a 95% Conf lvl)
+bino_CI <- function(prop,           # Estimated proportion 
+                    n,              # Number of trials (500 here)
+                    alpha=0.05,     # Error associated to the confidence level
                     what = c("Lower", "Upper")){
   if(what == "Lower"){
     q_alpha <- normal_quantiles(alpha/2)
@@ -85,7 +85,7 @@ bino_CI <- function(prop,      # Estimated proportion
 Student_CI <- function(x_bar,
                        n,
                        sigma,      # Estimated standard deviation
-                       alpha,
+                       alpha=0.05,
                        what = c("Lower", "Upper")){
   if(what == "Lower"){
     q_alpha <- normal_quantiles(alpha/2)
