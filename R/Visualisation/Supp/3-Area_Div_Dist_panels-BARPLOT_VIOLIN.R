@@ -28,6 +28,7 @@ for(mdl in c("M0", "M1", "M2", "M3")){
     }
     param_tbl <- read.table(paste0("./Data/Gen3sis_parameter_tables/", mdl,
                                    "/", start, "_America_parameters_EXTENDED_EXCH_AREA_DIV_DIST_biome.txt"),
+                            sep = "\t",
                             header = T)
     
     param_tbl <- param_tbl %>% 
@@ -55,7 +56,10 @@ prop_plot <- P_tbl %>%
   filter(prop_col_area != -1) %>% 
   # Plot
   ggplot(aes(x = start_region, y = prop_col_area)) +
-  geom_violin(adjust = .75, draw_quantiles = c(0.5), scale = "width", linewidth = 0.2, aes(fill = factor(start_region))) +
+  geom_violin(adjust = .75, draw_quantiles = c(0.25, 0.75), scale = "width",
+              linewidth = 0.1, aes(fill = factor(start_region)), linetype = "dashed") +
+  # draw the 50% quantile a bit thicker
+  geom_violin(adjust = 0.75, draw_quantiles = 0.5, , scale = "width", fill="transparent", linewidth = 0.3) +
   geom_point(shape = ".") +
   scale_y_continuous(limits = c(0, 1)) +
   scale_fill_manual(values = c("#fcbba1", "#ccece6")) +
@@ -89,7 +93,10 @@ div_plot <-  P_tbl %>%
   mutate(logdiv = sapply(X = div_col, FUN = log10)) %>% 
   # Plot
   ggplot(aes(x = start_region, y = logdiv)) +
-  geom_violin(adjust = .75, draw_quantiles = c(0.5), scale = "width", linewidth = 0.2, aes(fill = factor(start_region))) +
+  geom_violin(adjust = .75, draw_quantiles = c(0.25, 0.75), scale = "width",
+              linewidth = 0.1, aes(fill = factor(start_region)), linetype = "dashed") +
+  # draw the 50% quantile a bit thicker
+  geom_violin(adjust = 0.75, draw_quantiles = 0.5, , scale = "width", fill="transparent", linewidth = 0.3) +
   geom_point(shape = ".") +
   scale_fill_manual(values = c("#fcbba1", "#ccece6")) +
   labs(x = "Ancestral region", y = "Log(Diversity in colonised region)") +
@@ -118,7 +125,10 @@ ggsave("./Figures/div_col_area/PANEL_div_col_area.png",
 ## All simulations -------------------------------------------------------------
 plot_all_starting_range <- P_tbl %>% 
   ggplot(aes(x = start_region, y = dist_to_isthmus)) +
-  geom_violin(adjust = .75, draw_quantiles = c(0.5), scale = "width", linewidth = 0.2, aes(fill = factor(start_region))) +
+  geom_violin(adjust = .75, draw_quantiles = c(0.25, 0.75), scale = "width",
+              linewidth = 0.1, aes(fill = factor(start_region)), linetype = "dashed") +
+  # draw the 50% quantile a bit thicker
+  geom_violin(adjust = 0.75, draw_quantiles = 0.5, , scale = "width", fill="transparent", linewidth = 0.3) +
   geom_point(shape = ".") +
   scale_fill_manual(values = c("#fcbba1", "#ccece6")) +
   labs(x = "Ancestral region", y = "Distance to isthmus (km)") +
@@ -143,7 +153,10 @@ ggsave(paste0("./Figures/dist_to_isthm/All_starting_ranges.png"),
 ## Plot with simulations that crashed ------------------------------------------
 plot_crash <- P_tbl %>% 
   ggplot(aes(x = exchanged, y = dist_to_isthmus)) +
-  geom_violin(adjust = .75, draw_quantiles = c(0.5), scale = "width", linewidth = 0.2, aes(fill = exchanged)) +
+  geom_violin(adjust = .75, draw_quantiles = c(0.25, 0.75), scale = "width",
+              linewidth = 0.1, aes(fill = exchanged), linetype = "dashed") +
+  # draw the 50% quantile a bit thicker
+  geom_violin(adjust = 0.75, draw_quantiles = 0.5, , scale = "width", fill="transparent", linewidth = 0.3) +
   scale_fill_manual(values = c("grey80", "#f7fcb9", "#78c679")) +
   geom_point(shape = ".") +
   labs(x = "Exchange success", y = "Distance to isthmus (km)") +
@@ -168,7 +181,10 @@ ggsave(paste0("./Figures/dist_to_isthm/distance_violin_panel_CRASH.png"),
 plot_NoCrash <- P_tbl %>% 
   filter(exchanged != -1) %>% 
   ggplot(aes(x = exchanged, y = dist_to_isthmus)) +
-  geom_violin(adjust = .75, draw_quantiles = c(0.5), scale = "width", linewidth = 0.2, aes(fill = exchanged)) +
+  geom_violin(adjust = .75, draw_quantiles = c(0.25, 0.75), scale = "width",
+              linewidth = 0.1, aes(fill = exchanged), linetype = "dashed") +
+  # draw the 50% quantile a bit thicker
+  geom_violin(adjust = 0.75, draw_quantiles = 0.5, , scale = "width", fill="transparent", linewidth = 0.3) +
   scale_fill_manual(values = c( "#f7fcb9", "#78c679")) +
   geom_point(shape = ".") +
   labs(x = "Exchange success", y = "Distance to isthmus (km)") +
@@ -196,7 +212,10 @@ comp_plot_successful <- P_tbl %>%
   filter(exchanged == 1) %>% 
   mutate(model = sapply(model, function(x){paste0(x, " (successful)")})) %>% 
   ggplot(aes(x = start_region, y = dist_to_isthmus)) +
-  geom_violin(adjust = .75, draw_quantiles = c(0.5), scale = "width", linewidth = 0.2, aes(fill = factor(start_region))) +
+  geom_violin(adjust = .75, draw_quantiles = c(0.25, 0.75), scale = "width",
+              linewidth = 0.1, aes(fill = factor(start_region)), linetype = "dashed") +
+  # draw the 50% quantile a bit thicker
+  geom_violin(adjust = 0.75, draw_quantiles = 0.5, , scale = "width", fill="transparent", linewidth = 0.3) +
   geom_point(shape = ".") +
   scale_fill_manual(values = c("#fcbba1", "#ccece6")) +
   labs(x = "Ancestral region", y = "Distance to isthmus (km)") +
@@ -223,7 +242,10 @@ comp_plot_unsuccessful <- P_tbl %>%
   filter(exchanged == 0) %>% 
   mutate(model = sapply(model, function(x){paste0(x, " (unsuccessful)")})) %>% 
   ggplot(aes(x = start_region, y = dist_to_isthmus)) +
-  geom_violin(adjust = .75, draw_quantiles = c(0.5), scale = "width", linewidth = 0.2, aes(fill = factor(start_region))) +
+  geom_violin(adjust = .75, draw_quantiles = c(0.25, 0.75), scale = "width",
+              linewidth = 0.1, aes(fill = factor(start_region)), linetype = "dashed") +
+  # draw the 50% quantile a bit thicker
+  geom_violin(adjust = 0.75, draw_quantiles = 0.5, , scale = "width", fill="transparent", linewidth = 0.3) +
   geom_point(shape = ".") +
   scale_fill_manual(values = c("#fcbba1", "#ccece6")) +
   labs(x = "Ancestral region", y = "Distance to isthmus (km)") +
@@ -319,12 +341,10 @@ per_biome_df <- P_tbl %>%
 per_biome_exch_df <- P_tbl %>% 
   filter(!(is.na(start_biome)) & exchanged == 1) %>% 
   count(start_biome, model, start_region)
-    ## No cold species exchanged from NA in M0, from SA in M0 & M1; polar species from NA in M0 : add them
+    ## No polar species exchanged from NA in M0, no cold species exchanged from SA in M0: add them
 per_biome_exch_df <- per_biome_exch_df %>% 
-  add_row(start_biome = "5", model = "M0", start_region = "North America", n = 0, .before = 30) %>% 
-  add_row(start_biome = "4", model = "M1", start_region = "South America", n = 0, .before = 26) %>% 
-  add_row(start_biome = "4", model = "M0", start_region = "South America", n = 0, .before = 25) %>% 
-  add_row(start_biome = "4", model = "M0", start_region = "North America", n = 0, .before = 25)
+  add_row(start_biome = "5", model = "M0", start_region = "North America", n = 0, .before = 32) %>% 
+  add_row(start_biome = "4", model = "M0", start_region = "South America", n = 0, .before = 26)
   # Assess proportion
 per_biome_exch_df <- per_biome_exch_df %>% 
   mutate(n_init = per_biome_df$n) %>% 
