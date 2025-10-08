@@ -6,6 +6,7 @@
 ################################################################################
 
 library(tidyverse)
+source("./R/PostProcessing/4-Extract_distribs_with_moments.R")
 
 ################################################################################
 #################### 1. PROPORTION OF SUCCESSFUL EXCHANGES #####################
@@ -41,19 +42,45 @@ ggsave("./Figures/prop_successful_exch/Panel_point_CI.png",
 
 
 ################################################################################
-###################### 2. PROPORTION OF COLONISED AREA #########################
+############ 2. LARGE PANEL SUMMARISING THE 3 REMAINING METRICS ################
 ################################################################################
 
-plot_df_prop_col_area <- readRDS("./Results/Exchanged_metrics/Prop_colonised_area.RDS")
+## Load plot dataframes for the three metrics ----------------------------------
+# Proportion of colonised area
+plot_df_prop_col_area <- summarise_distrib(metric = "prop_col_area",
+                                           what = "exchanged")
+plot_df_prop_col_area <- plot_df_prop_col_area %>% 
+  mutate(metric = "Proportion of colonised area") %>% 
+  rename(value = "prop_col_area")
+# Diversity in the colonised area
+plot_df_div_col_area <- summarise_distrib(metric = "div_col",
+                                          what = "exchanged",
+                                          Log_transform = T)
+plot_df_div_col_area <- plot_df_div_col_area %>% 
+  mutate(metric = "Log(Diversty in the colonised area)") %>% 
+  rename(value = "div_col")
+# Distance to isthmus
+plot_df_dist_isthmus <- summarise_distrib(metric = "dist_to_isthmus",
+                                          what = "exchanged")
+plot_df_dist_isthmus <- plot_df_dist_isthmus %>% 
+  mutate(metric = "Distance to isthmus (km)") %>% 
+  rename(value = "dist_to_isthmus")
 
-area_plot2 <- plot_df_prop_col_area %>% 
-  ggplot(aes(x = Ori, y = Prop_col_area)) +
-  geom_errorbar(aes(ymin = Lower_CI, ymax = Upper_CI), width = 0.15) +
-  geom_point(aes(colour = Ori), size = 1.5) +
-  scale_colour_manual(values = c("#fb6a4aff", "#66c2a4ff")) +
+## Merge them ------------------------------------------------------------------
+PLOT_DF <- rbind.data.frame(plot_df_prop_col_area, plot_df_div_col_area, plot_df_dist_isthmus)
+PLOT_DF$metric <- factor(PLOT_DF$metric, levels = c("Proportion of colonised area",
+                                                    "Log(Diversty in the colonised area)",
+                                                    "Distance to isthmus (km)"))
+
+full_panel <- PLOT_DF %>% 
+  ggplot(aes(x = start, y = value)) +
+  geom_violin(adjust = .75, scale = "width", linewidth = 0.1, alpha = 0.5, aes(fill = factor(start))) +
+  geom_errorbar(aes(ymin = lower_ci, ymax = upper_ci), width = 0.1, linewidth = 0.2) +
+  geom_point(aes(y = mean), size = 0.5) +
+  scale_fill_manual(values = c("#fcbba1", "#ccece6")) +
   labs(x = NULL, y = NULL) +
-  facet_grid(.~Model) +
-  labs(x = "Ancestral area", y = "Proportion of colonised area") +
+  facet_grid(metric~model, scale = "free_y") +
+  labs(x = "Ancestral area", y = NULL) +
   theme(axis.title = element_text(size = 7.5),
         axis.text = element_text(size = 5),
         axis.line = element_line(linewidth = 0.3, color = "black"),
@@ -64,71 +91,8 @@ area_plot2 <- plot_df_prop_col_area %>%
         plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"),
         strip.background = element_rect(fill = "#DDE6F5"))
 
-ggsave("./Figures/prop_col_area/prop_col_area_panel_CI.pdf", 
-       plot = area_plot2, height = 80, width = 170, units = "mm")
+ggsave("./Figures/MS/Main/Figure2/Figure2.pdf", 
+       plot = full_panel, height = 200, width = 200, units = "mm")
 
-ggsave("./Figures/prop_col_area/prop_col_area_panel_CI.png", 
-       plot = area_plot2, height = 80, width = 170, dpi = 600, units = "mm")
-
-
-
-################################################################################
-##################### 3. DIVERSITY IN THE COLONISED AREA #######################
-################################################################################
-
-plot_df_div_col_area <- readRDS("./Results/Exchanged_metrics/Div_col_area.RDS")
-
-div_plot2 <- plot_df_div_col_area %>% 
-  ggplot(aes(x = Ori, y = Div_col_area)) +
-  geom_errorbar(aes(ymin = Lower_CI, ymax = Upper_CI), width = 0.15) +
-  geom_point(aes(colour = Ori), size = 1.5) +
-  scale_colour_manual(values = c("#fb6a4aff", "#66c2a4ff")) +
-  labs(x = NULL, y = NULL) +
-  facet_grid(.~Model) +
-  labs(x = "Ancestral area", y = "Diversty in the colonised area") +
-  theme(axis.title = element_text(size = 7.5),
-        axis.text = element_text(size = 5),
-        axis.line = element_line(linewidth = 0.3, color = "black"),
-        legend.position = "none",
-        panel.background = element_rect(fill = "#EAF4FB", colour = "black"),
-        panel.grid.major = element_line(linewidth = 0.1, color = "grey50"),
-        panel.grid.minor = element_line(linewidth = 0.1, color = "grey50"),
-        plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"),
-        strip.background = element_rect(fill = "#DDE6F5"))
-
-ggsave("./Figures/div_col_area/Panel_point_CI_diversity.pdf", 
-       plot = div_plot2, height = 80, width = 170, units = "mm")
-
-ggsave("./Figures/div_col_area/Panel_point_CI_diversity.png", 
-       plot = div_plot2, height = 80, width = 170, dpi = 600, units = "mm")
-
-
-################################################################################
-######################### 4. DISTANCE TO THE ISTHMUS ###########################
-################################################################################
-
-plot_df_dist_isthmus <- readRDS("./Results/Exchanged_metrics/Dist_isthmus.RDS")
-
-dist_plot2 <- plot_df_dist_isthmus %>% 
-  ggplot(aes(x = Ori, y = Dist)) +
-  geom_errorbar(aes(ymin = Lower_CI, ymax = Upper_CI), width = 0.15) +
-  geom_point(aes(colour = Ori), size = 1.5) +
-  scale_colour_manual(values = c("#fb6a4aff", "#66c2a4ff")) +
-  labs(x = NULL, y = NULL) +
-  facet_grid(.~Model) +
-  labs(x = "Ancestral area", y = "Distance to the isthmus (km)") +
-  theme(axis.title = element_text(size = 7.5),
-        axis.text = element_text(size = 5),
-        axis.line = element_line(linewidth = 0.3, color = "black"),
-        legend.position = "none",
-        panel.background = element_rect(fill = "#F5F0FF", colour = "black"),
-        panel.grid.major = element_line(linewidth = 0.1, color = "grey50"),
-        panel.grid.minor = element_line(linewidth = 0.1, color = "grey50"),
-        plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"),
-        strip.background = element_rect(fill = "#DDE6F5"))
-
-ggsave("./Figures/dist_to_isthm/distance_panel_point_CI.pdf", 
-       plot = dist_plot2, height = 80, width = 170, units = "mm")
-
-ggsave("./Figures/dist_to_isthm/distance_panel_point_CI.png", 
-       plot = dist_plot2, height = 80, width = 170, dpi = 600, units = "mm")
+ggsave("./Figures/MS/Main/Figure2/Figure2.png", 
+       plot = full_panel, height = 200, width = 200, dpi = 600, units = "mm")
