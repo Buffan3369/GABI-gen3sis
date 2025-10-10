@@ -9,15 +9,19 @@
 library(tidyverse)
 source("./R/useful/helper_functions.R")
 
-assign_sumtbl_to_metric <- function(metric){
+assign_sumtbl_to_metric <- function(metric, dist_std = F){ # if dist_std set to TRUE, treats outputs with North American distances to isthmus standardised with SA
+  std <- ""
+  if(dist_std){
+    std <- "_STD"
+  }
   if(metric == "dist_to_isthmus"){
-    sumtbl <- readRDS("./Results/Exchanged_metrics/Dist_isthmus.RDS")
+    sumtbl <- readRDS(paste0("./Results/Exchanged_metrics/Dist_isthmus", std, ".RDS"))
   }
   else if(metric == "prop_col_area"){
-    sumtbl <- readRDS("./Results/Exchanged_metrics/Prop_colonised_area.RDS")
+    sumtbl <- readRDS(paste0("./Results/Exchanged_metrics/Prop_colonised_area", std, ".RDS"))
   }
   else if(metric == "div_col"){
-    sumtbl <- readRDS("./Results/Exchanged_metrics/Div_col_area.RDS")
+    sumtbl <- readRDS(paste0("./Results/Exchanged_metrics/Div_col_area", std, ".RDS"))
   }
   else{
     stop(paste0("Metric not found: ", metric, "\nPlease check parameter table's column names."))
@@ -26,7 +30,8 @@ assign_sumtbl_to_metric <- function(metric){
 
 summarise_distrib <- function(metric = c("dist_to_isthmus", "prop_col_area", "div_col"), # Metric we want to summarise
                               what = c("all", "no_crash", "exchanged)"), # Shall we keep all the runs, only those that didn't crash or those that resulted in a success
-                              Log_transform = F){ # shall we log-transform the data (only relevant for diversity in colonised area) 
+                              Log_transform = F, # Shall we log-transform the data (only relevant for diversity in colonised area) 
+                              dist_std = F){
                                 # Initialise dataframe
                                 param_tbl <- data.frame(metric = NA,
                                                         model = NA,
@@ -42,6 +47,12 @@ summarise_distrib <- function(metric = c("dist_to_isthmus", "prop_col_area", "di
                                     p_tbl <- read.table(paste0("./Data/Gen3sis_parameter_tables/", mdl, "/", start,
                                                                "_America_parameters_EXTENDED_EXCH_AREA_DIV_DIST_biome.txt"),
                                                         sep = "\t", header = TRUE)
+                                    
+                                    if(dist_std & start == "North"){
+                                      p_tbl <- read.table(paste0("./Data/Gen3sis_parameter_tables/Equal_dist/", mdl, "/", start,
+                                                                 "_America_parameters_EqDist_EXTENDED_EXCH_AREA_DIV_DIST_biome.txt"),
+                                                          sep = "\t", header = TRUE)
+                                    }
                                     
                                     if(what == "no_crash"){
                                       p_tbl <- p_tbl %>% filter(exchanged != -1)
