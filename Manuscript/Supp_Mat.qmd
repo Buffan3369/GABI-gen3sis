@@ -78,11 +78,11 @@ All across the study, metrics computed out of simulations starting in North Amer
 
 ```{r, echo=FALSE}
 #| label: fig-s1
-#| out-height: 6cm
-#| out-width: 14cm
-#| fig-cap: Distribution of the distance to isthmus of the ancestral species of simulations either starting in North or South America, resulting from our random equal-area sampling scheme (see Method details). Dashed lines on top and bottom of the distribution represent the 25% and 75% quantiles whereas the thicker full line in the middle shows the median (50% quantile).
-
-knitr::include_graphics("../Figures/dist_to_isthm/All_starting_ranges.png")
+#| out-height: 13cm
+#| out-width: 20cm
+#| fig-cap: Distribution of the distance to isthmus of the ancestral species of simulations either starting in North or South America, either resulting from our random equal-area sampling scheme (*top*) or from our spatial standardisation procedure (*bottom*) (see Method details). Black dots in the middle of the distribtions are mean estimates, and error bars represent their student-derived 95% confidence interval.
+ 
+knitr::include_graphics("../Figures/MS/Supp/metrics_std/panel_all_starting_distances.png")
 
 ```
 

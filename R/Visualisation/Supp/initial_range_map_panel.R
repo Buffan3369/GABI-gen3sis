@@ -1,3 +1,10 @@
+################################################################################
+# Name: initial_range_map_panel.R
+# Author: Lucas Buffan
+# Contact: lucas.l.buffan@gmail.com
+# Aim: Plotting initial range maps
+################################################################################
+
 library(tidyverse)
 
 # Tables

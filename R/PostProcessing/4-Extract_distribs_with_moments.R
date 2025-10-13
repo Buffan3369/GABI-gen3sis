@@ -9,19 +9,25 @@
 library(tidyverse)
 source("./R/useful/helper_functions.R")
 
-assign_sumtbl_to_metric <- function(metric, dist_std = F){ # if dist_std set to TRUE, treats outputs with North American distances to isthmus standardised with SA
+assign_sumtbl_to_metric <- function(metric, 
+                                    what=c("all", "no_crash", "exchanged"), # all only for dist_to_isthmus
+                                    dist_std = F){ # if dist_std set to TRUE, treats outputs with North American distances to isthmus standardised with SA
   std <- ""
+  all <- ""
   if(dist_std){
     std <- "_STD"
   }
+  if(what == "all"){
+    all <- "_ALL"
+  }
   if(metric == "dist_to_isthmus"){
-    sumtbl <- readRDS(paste0("./Results/Exchanged_metrics/Dist_isthmus", std, ".RDS"))
+    sumtbl <- readRDS(paste0("./Results/Exchanged_metrics/Dist_isthmus", all, std, ".RDS"))
   }
   else if(metric == "prop_col_area"){
-    sumtbl <- readRDS(paste0("./Results/Exchanged_metrics/Prop_colonised_area", std, ".RDS"))
+    sumtbl <- readRDS(paste0("./Results/Exchanged_metrics/Prop_colonised_area", all, std, ".RDS"))
   }
   else if(metric == "div_col"){
-    sumtbl <- readRDS(paste0("./Results/Exchanged_metrics/Div_col_area", std, ".RDS"))
+    sumtbl <- readRDS(paste0("./Results/Exchanged_metrics/Div_col_area", all, std, ".RDS"))
   }
   else{
     stop(paste0("Metric not found: ", metric, "\nPlease check parameter table's column names."))
@@ -93,7 +99,7 @@ summarise_distrib <- function(metric = c("dist_to_isthmus", "prop_col_area", "di
                                     
                                     else{
                                       # Add mean and CI from table
-                                      sumtbl <- assign_sumtbl_to_metric(metric = metric)
+                                      sumtbl <- assign_sumtbl_to_metric(metric = metric, what = what, dist_std = dist_std)
                                       
                                       p_tbl$mean <- sumtbl[which(sumtbl$Ori == paste0(start, " America") & 
                                                                    sumtbl$Model == mdl),2] # second column is for the mean estimate, unstandardised name

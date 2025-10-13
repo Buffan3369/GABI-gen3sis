@@ -189,3 +189,49 @@ ggsave("./Figures/MS/Supp/metrics_std/panel_area_div_dist_std.pdf",
 
 ggsave("./Figures/MS/Supp/metrics_std/panel_area_div_dist_std.png", 
        plot = full_panel_STD, height = 200, width = 200, dpi = 600, units = "mm")
+
+
+rm(plot_df_prop_col_area_std, plot_df_div_col_area_std, plot_df_dist_isthmus_std, PLOT_DF_STD, full_panel_STD)
+## Panel comparing distance to isthmus in unstandardised and standardised cases
+
+plot_df_dist_isthmus <- summarise_distrib(metric = "dist_to_isthmus",
+                                          what = "all",
+                                          dist_std = F)
+plot_df_dist_isthmus <- plot_df_dist_isthmus %>%  
+  mutate(stand = "Unstandardised")
+
+
+plot_df_dist_isthmus_std <- summarise_distrib(metric = "dist_to_isthmus",
+                                              what = "all",
+                                              dist_std = T)
+plot_df_dist_isthmus_std <- plot_df_dist_isthmus_std %>% 
+  mutate(stand = "Standardised")
+
+plot_dist_df <- rbind.data.frame(plot_df_dist_isthmus, plot_df_dist_isthmus_std)
+plot_dist_df$stand <- factor(plot_dist_df$stand, levels = c("Unstandardised", "Standardised"))
+
+plot_all_start_dists <- plot_dist_df %>% 
+  ggplot(aes(x = start, y = dist_to_isthmus)) +
+  geom_violin(adjust = .75, scale = "width", linewidth = 0.1, alpha = 0.5, aes(fill = factor(start))) +
+  geom_errorbar(aes(ymin = lower_ci, ymax = upper_ci), width = 0.1, linewidth = 0.2) +
+  geom_point(aes(y = mean), size = 0.5) +
+  scale_fill_manual(values = c("#fcbba1", "#ccece6")) +
+  labs(x = NULL, y = NULL) +
+  facet_grid(stand~model, scale = "free_y") +
+  labs(x = "Ancestral area", y = "Distance to isthmus (km)") +
+  theme(axis.title = element_text(size = 7.5),
+        axis.text = element_text(size = 5),
+        axis.line = element_line(linewidth = 0.3, color = "black"),
+        legend.position = "none",
+        panel.background = element_rect(fill = "#eee4f4ff", colour = "black"),
+        panel.grid.major = element_line(linewidth = 0.1, color = "grey50"),
+        panel.grid.minor = element_line(linewidth = 0.1, color = "grey50"),
+        plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"),
+        strip.background = element_rect(fill = "#DDE6F5"))
+
+
+ggsave("./Figures/MS/Supp/metrics_std/panel_all_starting_distances.pdf", 
+       plot = plot_all_start_dists, height = 130, width = 200, units = "mm")
+
+ggsave("./Figures/MS/Supp/metrics_std/panel_all_starting_distances.png", 
+       plot = plot_all_start_dists, height = 130, width = 200, dpi = 600, units = "mm")

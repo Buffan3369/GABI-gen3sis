@@ -282,3 +282,83 @@ for(std in c(TRUE, FALSE)){
     saveRDS(plot_df_dist_isthmus, "./Results/Exchanged_metrics/Dist_isthmus.RDS")
   }
 }
+
+## Particular case : all initial distances to isthmus (including plots that crashed)
+for(std in c(TRUE, FALSE)){
+  for(mdl in c("M0", "M1", "M2", "M3")){
+    if(std){
+      NA_recap_tbl <- read.table(paste0("./Data/Gen3sis_parameter_tables/Equal_dist/", mdl, "/North_America_parameters_EqDist_EXTENDED_EXCH_AREA_DIV_DIST_biome.txt"),
+                                 header = T, sep = "\t")
+    }
+    else{
+      NA_recap_tbl <- read.table(paste0("./Data/Gen3sis_parameter_tables/", mdl, "/North_America_parameters_EXTENDED_EXCH_AREA_DIV_DIST_biome.txt"),
+                                 header = T, sep = "\t")
+    }
+    SA_recap_tbl <- read.table(paste0("./Data/Gen3sis_parameter_tables/", mdl, "/South_America_parameters_EXTENDED_EXCH_AREA_DIV_DIST_biome.txt"),
+                               header = T, sep = "\t")
+    
+    ## Compute distance to the Isthmus -------------------------------------------
+    na_mean_dist <- mean(NA_recap_tbl$dist_to_isthmus, na.rm = T)
+    na_sd_dist <- sd(NA_recap_tbl$dist_to_isthmus, na.rm = T)
+    sa_mean_dist <- mean(SA_recap_tbl$dist_to_isthmus, na.rm = T)
+    sa_sd_dist <- sd(SA_recap_tbl$dist_to_isthmus, na.rm = T)
+    
+    if(mdl == "M0"){
+      plot_df_dist_isthmus <- data.frame(Ori = c("North America", "South America"),
+                                         Dist = c(na_mean_dist, sa_mean_dist),
+                                         Lower_CI = c(Student_CI(x_bar = na_mean_dist,
+                                                                 n = nrow(NA_recap_tbl),
+                                                                 sigma = na_sd_dist,
+                                                                 alpha = 0.05,
+                                                                 what = "Lower"),
+                                                      Student_CI(x_bar = sa_mean_dist,
+                                                                 n = nrow(SA_recap_tbl),
+                                                                 sigma = sa_sd_dist,
+                                                                 alpha = 0.05,
+                                                                 what = "Lower")),
+                                         Upper_CI = c(Student_CI(x_bar = na_mean_dist,
+                                                                 n = nrow(NA_recap_tbl),
+                                                                 sigma = na_sd_dist,
+                                                                 alpha = 0.05,
+                                                                 what = "Upper"),
+                                                      Student_CI(x_bar = sa_mean_dist,
+                                                                 n = nrow(SA_recap_tbl),
+                                                                 sigma = sa_sd_dist,
+                                                                 alpha = 0.05,
+                                                                 what = "Upper")),
+                                         Model = c(mdl, mdl))
+    }
+    else{
+      plot_df_dist_isthmus <- plot_df_dist_isthmus %>%
+        add_row(Ori = c("North America", "South America"),
+                Dist = c(na_mean_dist, sa_mean_dist),
+                Lower_CI = c(Student_CI(x_bar = na_mean_dist,
+                                        n = nrow(NA_recap_tbl),
+                                        sigma = na_sd_dist,
+                                        alpha = 0.05,
+                                        what = "Lower"),
+                             Student_CI(x_bar = sa_mean_dist,
+                                        n = nrow(SA_recap_tbl),
+                                        sigma = sa_sd_dist,
+                                        alpha = 0.05,
+                                        what = "Lower")),
+                Upper_CI = c(Student_CI(x_bar = na_mean_dist,
+                                        n = nrow(NA_recap_tbl),
+                                        sigma = na_sd_dist,
+                                        alpha = 0.05,
+                                        what = "Upper"),
+                             Student_CI(x_bar = sa_mean_dist,
+                                        n = nrow(SA_recap_tbl),
+                                        sigma = sa_sd_dist,
+                                        alpha = 0.05,
+                                        what = "Upper")),
+                Model = c(mdl, mdl))
+    }
+    if(std){
+      saveRDS(plot_df_dist_isthmus, "./Results/Exchanged_metrics/Dist_isthmus_ALL_STD.RDS")
+    }
+    else{
+      saveRDS(plot_df_dist_isthmus, "./Results/Exchanged_metrics/Dist_isthmus_ALL.RDS")
+    }
+  }
+}
