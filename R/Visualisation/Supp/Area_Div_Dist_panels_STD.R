@@ -40,7 +40,7 @@ prop_plot2bis <- plot_df_prop_success_std %>%
 #        plot = prop_plot2bis, height = 80, width = 170, dpi = 600, units = "mm")
 
 ggsave("./Figures/MS/Supp/metrics_std/prop_successful_col_STD.png", 
-       plot = prop_plot2bis, height = 80, width = 170, dpi = 600, units = "mm")
+       plot = prop_plot2bis, height = 70, width = 170, dpi = 600, units = "mm")
 
 ################################################################################
 ############ 2. LARGE PANEL SUMMARISING THE 3 REMAINING METRICS ################
