@@ -59,7 +59,7 @@ plot_df_div_col_area <- summarise_distrib(metric = "div_col",
                                           what = "exchanged",
                                           Log_transform = T)
 plot_df_div_col_area <- plot_df_div_col_area %>% 
-  mutate(metric = "Log(Diversty in the colonised area)") %>% 
+  mutate(metric = "Log(Colonised \u03b1 diversity)") %>% 
   rename(value = "div_col")
 # Distance to isthmus
 plot_df_dist_isthmus <- summarise_distrib(metric = "dist_to_isthmus",
@@ -71,7 +71,7 @@ plot_df_dist_isthmus <- plot_df_dist_isthmus %>%
 ## Merge them ------------------------------------------------------------------
 PLOT_DF <- rbind.data.frame(plot_df_prop_col_area, plot_df_div_col_area, plot_df_dist_isthmus)
 PLOT_DF$metric <- factor(PLOT_DF$metric, levels = c("Proportion of colonised area",
-                                                    "Log(Diversty in the colonised area)",
+                                                    "Log(Colonised \u03b1 diversity)",
                                                     "Distance to isthmus (km)"))
 
 full_panel <- PLOT_DF %>% 
@@ -93,11 +93,9 @@ full_panel <- PLOT_DF %>%
         plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"),
         strip.background = element_rect(fill = "#DDE6F5"))
 
-ggsave("./Figures/MS/Main/Figure2/Figure3_baseline.pdf", 
+ggsave("./Figures/MS/Main/Figure3/Figure3_baseline.pdf", 
        plot = full_panel, height = 200, width = 200, units = "mm")
 
-ggsave("./Figures/MS/Main/Figure2/Figure3_baseline.png", 
-       plot = full_panel, height = 200, width = 200, dpi = 600, units = "mm")
 
 
 
