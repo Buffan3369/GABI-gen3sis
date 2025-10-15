@@ -17,8 +17,8 @@ plot_df_prop_success_std <- readRDS("./Results/Exchanged_metrics/Prop_successful
 prop_plot2bis <- plot_df_prop_success_std %>% 
   ggplot(aes(x = Ori, y = Prop_success)) +
   geom_errorbar(aes(ymin = Lower_CI, ymax = Upper_CI), width = 0.15) +
-  geom_point(aes(colour = Ori), size = 1.5) +
-  scale_colour_manual(values = c("#fb6a4aff", "#66c2a4ff")) +
+  geom_point(aes(fill = Ori), colour = "black", pch = 23, size = 1.5) +
+  scale_fill_manual(values = c("#fb6a4aff", "#66c2a4ff")) +
   scale_y_continuous(expand = c(0, 0), limits = c(0, 1.12), breaks = c(0, 0.25, 0.5, 0.75, 1)) +
   labs(x = NULL, y = NULL) +
   facet_grid(.~Model) +
