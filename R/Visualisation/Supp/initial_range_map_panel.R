@@ -7,43 +7,65 @@
 
 library(tidyverse)
 
-# Tables
-NthAm_start <- data.frame(readRDS("./Results/starting_ranges/North_America_start_xyz.RDS"))
-colnames(NthAm_start) <- c("lon", "lat", "run")
-NthAm_start$start <- "North America"
-
-NthAm_start_std <- data.frame(readRDS("./Results/starting_ranges/North_America_start_xyz_DIST_STD.RDS"))
-colnames(NthAm_start_std) <- c("lon", "lat", "run")
-NthAm_start_std$start <- "North America (standardised)"
-
-SthAm_start <- data.frame(readRDS("./Results/starting_ranges/South_America_start_xyz.RDS"))
-colnames(SthAm_start) <- c("lon", "lat", "run")
-SthAm_start$start <- "South America"
-
-
 ## All runs --------------------------------------------------------------------
-# Prepare plot table
-union_tbl <- rbind.data.frame(NthAm_start, NthAm_start_std, SthAm_start)
-colnames(union_tbl)[1:3]
+
+U_TBL <- data.frame(lon = NA, lat = NA, run = NA, start = NA, model = NA)
+
+for(model in c("M0", "M1", "M2", "M3")){
+  # Tables
+  NthAm_start <- data.frame(readRDS(paste0("./Results/starting_ranges/", model, "_North_America_start_xyz.RDS")))
+  colnames(NthAm_start) <- c("lon", "lat", "run")
+  NthAm_start$start <- "North America"
+  
+  NthAm_start_std <- data.frame(readRDS(paste0("./Results/starting_ranges/", model, "_North_America_start_xyz_DIST_STD.RDS")))
+  colnames(NthAm_start_std) <- c("lon", "lat", "run")
+  NthAm_start_std$start <- "North America (standardised)"
+  
+  SthAm_start <- data.frame(readRDS(paste0("./Results/starting_ranges/", model, "_South_America_start_xyz.RDS")))
+  colnames(SthAm_start) <- c("lon", "lat", "run")
+  SthAm_start$start <- "South America"
+  
+  # Union tables
+  union_tbl <- rbind.data.frame(NthAm_start, NthAm_start_std, SthAm_start)
+  union_tbl$model <- model
+  U_TBL <- rbind.data.frame(U_TBL, union_tbl)
+}
+
+U_TBL <- U_TBL[-1,]
 
 # Plot
-init_maps <- union_tbl %>% 
+init_maps <- U_TBL %>% 
   ggplot(aes(x = lon, y = lat, fill = run)) +
   geom_tile() +
   scale_fill_viridis_c() +
-  facet_grid(.~start) +
+  facet_grid(model~start) +
   labs(x = "Longitude", y = "Latitude", fill = "Simulation\n index") +
-  theme(axis.title = element_text(size = 7),
-        axis.text = element_text(size = 5),
+  theme(axis.title = element_text(size = 10),
+        axis.text = element_text(size = 7),
         legend.title = element_text(size = 7, hjust = 0.5),
         legend.text = element_text(size = 5),
-        legend.key.size = unit(4, "mm"))
+        legend.key.size = unit(4, "mm"),
+        strip.text = element_text(size = 9))
 
 ggsave("./Figures/MS/Supp/starting_ranges/Initial_ranges_All_runs.png", 
-       plot = init_maps, dpi = 600, height = 80, width = 180, units = "mm")
+       plot = init_maps, dpi = 600, height = 200, width = 200, units = "mm")
 
 ## Only successful runs --------------------------------------------------------
 for(mdl in c("M0", "M1", "M2", "M3")){
+  
+  # Open corresponding maps
+  NthAm_start <- data.frame(readRDS(paste0("./Results/starting_ranges/", model, "_North_America_start_xyz.RDS")))
+  colnames(NthAm_start) <- c("lon", "lat", "run")
+  NthAm_start$start <- "North America"
+  
+  NthAm_start_std <- data.frame(readRDS(paste0("./Results/starting_ranges/", model, "_North_America_start_xyz_DIST_STD.RDS")))
+  colnames(NthAm_start_std) <- c("lon", "lat", "run")
+  NthAm_start_std$start <- "North America (standardised)"
+  
+  SthAm_start <- data.frame(readRDS(paste0("./Results/starting_ranges/", model, "_South_America_start_xyz.RDS")))
+  colnames(SthAm_start) <- c("lon", "lat", "run")
+  SthAm_start$start <- "South America"
+  
   # NthAm start
   recap_tbl_NthAm <- read.table(paste0("./Data/Gen3sis_parameter_tables/", mdl, "/North_America_parameters_EXTENDED_EXCH_AREA_DIV_DIST_biome.txt"),
                              sep = "\t", header = T)
@@ -108,11 +130,12 @@ init_maps_success <- u_tbl_success %>%
   scale_fill_viridis_c() +
   facet_grid(model~start) +
   labs(x = "Longitude", y = "Latitude", fill = "Simulation\n index") +
-  theme(axis.title = element_text(size = 7),
-        axis.text = element_text(size = 5),
+  theme(axis.title = element_text(size = 10),
+        axis.text = element_text(size = 7),
         legend.title = element_text(size = 7, hjust = 0.5),
         legend.text = element_text(size = 5),
-        legend.key.size = unit(4, "mm"))
+        legend.key.size = unit(4, "mm"),
+        strip.text = element_text(size = 9))
 
 ggsave("./Figures/MS/Supp/starting_ranges/Initial_ranges_successful_runs.png", 
-       plot = init_maps_success, dpi = 600, height = 200, width = 180, units = "mm")
+       plot = init_maps_success, dpi = 600, height = 200, width = 200, units = "mm")
