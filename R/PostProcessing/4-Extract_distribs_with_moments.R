@@ -81,7 +81,7 @@ summarise_distrib <- function(metric = c("dist_to_isthmus", "prop_col_area",
                                     p_tbl$model <- mdl
                                     p_tbl$start <- start
                                     p_tbl <- p_tbl %>% 
-                                      select(metric, model, start)
+                                      dplyr::select(metric, model, start)
                                     
                                     if(metric != "start_biome"){ # if start_biome, we don't want the mean and CI
                                       if(Log_transform){

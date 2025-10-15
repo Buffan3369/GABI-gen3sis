@@ -69,7 +69,7 @@ normal_quantiles <- function(q){
 }
   # Binomial confidence interval
 bino_CI <- function(prop,           # Estimated proportion 
-                    n,              # Number of trials (500 here)
+                    n,              # Number of trials
                     alpha=0.05,     # Error associated to the confidence level
                     what = c("Lower", "Upper")){
   if(what == "Lower"){

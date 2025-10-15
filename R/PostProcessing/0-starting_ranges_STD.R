@@ -9,22 +9,23 @@ library(raster)
 
 args <- commandArgs(trailingOnly = T) # don't specify mdl as starting ranges are shared
 nruns <- args[1]  # 500
+model <- args[2]
 
 ## Standardised --------------------------------------------------------------
 # Initialise
 run <- 1
-path_to_pa <- paste0("../Outputs_Eq_Dist/M0/North_America_start/Config_", run, "/config_M0_North_America_run_", run, "/pa_matrices/")
+path_to_pa <- paste0("../Outputs_Eq_Dist/", model, "/North_America_start/Config_", run, "/config_", model, "_North_America_run_", run, "/pa_matrices/")
 pa_0 <- readRDS(paste0(path_to_pa, "pa_t_499.rds")) # oldest time step numbered last in gen3sis
 
 # Loop across remaining runs
 for(run in 2:nruns){
-  path_to_pa <- paste0("../Outputs_Eq_Dist/M0/North_America_start/Config_", run, "/config_M0_North_America_run_", run, "/pa_matrices/")
-  m0 <- readRDS(paste0(path_to_pa, "pa_t_499.rds"))
-  pa_0[which(m0[,3] == 1),3] <- run
+  path_to_pa <- paste0("../Outputs_Eq_Dist/", model, "/North_America_start/Config_", run, "/config_", model, "_North_America_run_", run, "/pa_matrices/")
+  mat <- readRDS(paste0(path_to_pa, "pa_t_499.rds"))
+  pa_0[which(mat[,3] == 1),3] <- run
 }
 
 # Save xyz tbl
-saveRDS(pa_0, "../Outputs_Eq_Dist/all_starting_ranges/North_America_start_xyz_DIST_STD.RDS")
+saveRDS(pa_0, paste0("../Outputs_Eq_Dist/all_starting_ranges/", model, "_North_America_start_xyz_DIST_STD.RDS"))
 
 # Rasterise, plot and save
 # r0 <- rasterFromXYZ(pa_0)
