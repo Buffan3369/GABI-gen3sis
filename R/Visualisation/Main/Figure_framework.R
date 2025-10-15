@@ -34,7 +34,7 @@ clim_plot <- av_clim %>%
                                                                  var = striplabs_clim)) +
   coord_geo(dat = "epochs", abbr = F, center_end_labels = T, height = unit(0.7, "line"), size = 2.5)
 
-ggsave(filename = "./Figures/MS/Main/Figure1/clim_panel.pdf", plot = clim_plot, height = 10, width = 13, unit = "cm")
+ggsave(filename = "./Figures/MS/Main/Figure_framework/clim_panel.pdf", plot = clim_plot, height = 10, width = 13, unit = "cm")
 
 
 ## Continental masses ----------------------------------------------------------
@@ -47,7 +47,7 @@ NA_sil <- NthA %>% ggplot() +
         axis.title = element_blank(),
         axis.text = element_blank(),
         axis.ticks = element_blank())
-ggsave("./Figures/MS/Main/Figure1/North_America.pdf", plot = NA_sil, height = 75, width = 105, units = "mm")
+ggsave("./Figures/MS/Main/Figure_framework/North_America.pdf", plot = NA_sil, height = 75, width = 105, units = "mm")
 # South America
 SthA <- sf::st_read("./Data/Shapefile_masks/clean_representations/Sth_Am.shp")
 SA_sil <- SthA %>% ggplot() +
@@ -58,4 +58,4 @@ SA_sil <- SthA %>% ggplot() +
         axis.title = element_blank(),
         axis.text = element_blank(),
         axis.ticks = element_blank())
-ggsave("./Figures/MS/Main/Figure1/South_America.pdf", plot = SA_sil, height = 75, width = 105, units = "mm")
+ggsave("./Figures/MS/Main/Figure_framework/South_America.pdf", plot = SA_sil, height = 75, width = 105, units = "mm")
