@@ -71,29 +71,52 @@ per_biome_exch_df <- P_tbl_exchanged %>%
 per_biome_exch_df <- per_biome_exch_df %>% 
   add_row(start_biome = 5, model = "M0", start = "North America", n = 0, .before = 32) %>% 
   add_row(start_biome = 4, model = "M0", start = "South America", n = 0, .before = 26)
-# Assess proportion
+# Compute proportion
 per_biome_exch_df <- per_biome_exch_df %>% 
   mutate(n_init = per_biome_df$n) %>% 
   mutate(prop_exch = n / per_biome_df$n)
+# Compute binomial 95% confidence interval
+per_biome_exch_df <- per_biome_exch_df %>% 
+  mutate(lower_ci = sapply(X = 1:nrow(per_biome_exch_df),
+                           FUN = function(i){
+                             p <- per_biome_exch_df$prop_exch[i]
+                             N <- per_biome_exch_df$n_init[i]
+                             lwr <- bino_CI(prop = p, n = N, what = "Lower")
+                             if(lwr < 0){
+                               lwr <- 0
+                             }
+                             return(lwr)
+                           }),
+         upper_ci = sapply(X = 1:nrow(per_biome_exch_df),
+                           FUN = function(i){
+                             p <- per_biome_exch_df$prop_exch[i]
+                             N <- per_biome_exch_df$n_init[i]
+                             upr <- bino_CI(prop = p, n = N, what = "Upper")
+                             if(upr > 1){
+                               upr <- 1
+                             }
+                             return(upr)
+                           }))
 # Plot
 prop_biome_success_plot <- per_biome_exch_df %>% 
   mutate(start_biome = as.character(start_biome)) %>% 
   ggplot(aes(x = start_biome, y = prop_exch)) +
-  geom_col(aes(fill = start_biome), linewidth = 0.3, colour = "black") +
-  geom_text(aes(label = sapply(prop_exch, round, digits = 2)), inherit.aes = TRUE, nudge_y = 0.05, size = 2.5) +
-  scale_fill_manual(values = c("1" = "#f9d14a", "2" = "#ab3329", "3" = "#ed968c", "4" = "#7c4b73", "5" = "#88a0dc")) +
+  geom_errorbar(aes(ymin = lower_ci, ymax = upper_ci), width = 0.3) +
+  geom_point(aes(fill = start_biome), colour = "black", pch = 23, size = 1.5) +
+  scale_fill_manual(values = c("#f9d14a","#ab3329", "#ed968c", "#7c4b73", "#88a0dc")) +
   scale_x_discrete(labels = c("1" = "Tropical", "2" = "Arid", "3" = "Temperate", "4" = "Cold", "5" = "Polar")) +
+  scale_y_continuous(limits = c(0, 1.05)) +
   labs(x = "Ancestral biome", y = "Prop. success") +
   facet_grid(model~start) +
-  theme(axis.text = element_text(size = 7),
-        axis.title = element_text(size = 10),
+  theme(axis.text = element_text(size = 5),
+        axis.title = element_text(size = 7),
         axis.line = element_line(linewidth = 0.3, color = "black"),
         legend.position = "none",
         strip.background = element_rect(fill = "#DDE6F5"),
-        strip.text = element_text(size = 10),
-        panel.background = element_rect(fill = "grey85"),
-        panel.grid.major = element_line(linewidth = 0.25),
-        panel.grid.minor = element_line(linewidth = 0.25),
+        strip.text = element_text(size = 7),
+        panel.background = element_rect(fill = "grey90"),
+        panel.grid.major = element_line(linewidth = 0.25, colour = "white"),
+        panel.grid.minor = element_line(linewidth = 0.25, colour = "white"),
         plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"))
 
 # ggsave(paste0("./Figures/starting_biome/prop_biome_success.pdf"), 
@@ -103,4 +126,4 @@ prop_biome_success_plot <- per_biome_exch_df %>%
 #        plot = prop_biome_success_plot, height = 170, width = 170, dpi = 600, units = "mm")
 
 ggsave(paste0("./Figures/MS/Main/Figure_biomes/prop_biome_success.pdf"), 
-       plot = prop_biome_success_plot, height = 170, width = 170, units = "mm")
+       plot = prop_biome_success_plot, height = 120, width = 120, units = "mm")
