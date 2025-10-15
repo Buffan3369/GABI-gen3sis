@@ -96,7 +96,7 @@ knitr::include_graphics("../Figures/MS/Supp/metrics_std/panel_all_starting_dista
 #| label: fig-AllStartRange
 #| out-height: 7cm
 #| out-width: 20cm
-#| fig-cap: Starting range of all simulations either starting from North America (*left*), South America (*middle*) or North America after standardising initial distances to the isthmus with those from South America (*right*).
+#| fig-cap: Starting range of all simulations either starting from North America (*left*), North America after standardising initial distances to the isthmus with those from South America (*middle*) or South America (*right*).
 
 knitr::include_graphics("../Figures/MS/Supp/starting_ranges/Initial_ranges_All_runs.png")
 ```
@@ -105,7 +105,7 @@ knitr::include_graphics("../Figures/MS/Supp/starting_ranges/Initial_ranges_All_r
 #| label: fig-SuccessStartRange
 #| out-height: 22cm
 #| out-width: 17cm
-#| fig-cap: Starting range of successful simulations generated under each model (from $M0$ to $M3$), either starting from North America (*left*), South America (*middle*) or North America after standardising initial distances to the isthmus with those from South America (*right*).
+#| fig-cap: Starting range of successful simulations generated under each model (from $M0$ to $M3$), either starting from North America (*left*), North America after standardising initial distances to the isthmus with those from South America (*middle*) or South America (*right*).
 
 knitr::include_graphics("../Figures/MS/Supp/starting_ranges/Initial_ranges_successful_runs.png")
 ```

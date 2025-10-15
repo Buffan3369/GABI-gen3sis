@@ -25,7 +25,6 @@ SthAm_start$start <- "South America"
 # Prepare plot table
 union_tbl <- rbind.data.frame(NthAm_start, NthAm_start_std, SthAm_start)
 colnames(union_tbl)[1:3]
-union_tbl$start <- factor(union_tbl$start, levels = c("North America", "South America", "North America (standardised)"))
 
 # Plot
 init_maps <- union_tbl %>% 
@@ -102,8 +101,6 @@ for(mdl in c("M0", "M1", "M2", "M3")){
 }
 
 # Plot
-
-u_tbl_success$start <- factor(u_tbl_success$start, levels = c("North America", "South America", "North America (standardised)"))
 
 init_maps_success <- u_tbl_success %>% 
   ggplot(aes(x = lon, y = lat, fill = run)) +
