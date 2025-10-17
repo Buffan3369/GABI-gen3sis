@@ -18,7 +18,7 @@ prop_plot2 <- plot_df_prop_success %>%
   scale_y_continuous(expand = c(0, 0), limits = c(0, 1.12), breaks = c(0, 0.25, 0.5, 0.75, 1)) +
   labs(x = NULL, y = NULL) +
   facet_wrap(.~Model, ncol = 2) +
-  labs(x = "Ancestral area", y = "Prop. successful exchange") +
+  labs(x = "Ancestral area", y = "Proportion of successful exchange") +
   theme(axis.title = element_text(size = 7.5),
         axis.text = element_text(size = 5),
         axis.line = element_line(linewidth = 0.3, color = "black"),

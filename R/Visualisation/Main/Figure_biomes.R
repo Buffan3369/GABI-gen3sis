@@ -8,6 +8,7 @@
 library(raster)
 library(sf)
 library(tidyverse)
+library(ggpubr)
 
 source("./R/PostProcessing/4-Extract_distribs_with_moments.R")
 
@@ -26,8 +27,10 @@ biome_5M_df <- as.data.frame(biome_5M, xy = TRUE)
 colnames(biome_5M_df) <- c("lon", "lat", "biome")
 biome_5M_df <- biome_5M_df %>%
   filter(!(is.na(biome))) %>% 
-  mutate(biome = sapply(biome, FUN = biome_rename)) %>% 
-  mutate(biome = as.factor(biome))
+  mutate(biome = sapply(biome, FUN = biome_rename))
+
+biome_5M_df <- biome_5M_df %>%
+  mutate(biome = factor(biome, levels = c("Polar", "Cold", "Temperate", "Arid", "Tropical")))
 
 biome_5M_plot <- Americas %>% ggplot() +
   geom_tile(data = biome_5M_df, aes(x = lon, y = lat, fill = biome)) +
@@ -36,20 +39,58 @@ biome_5M_plot <- Americas %>% ggplot() +
                                "Temperate" = "#ed968c", 
                                "Cold" = "#7c4b73", 
                                "Polar" = "#88a0dc")) +
-  geom_sf(alpha = 0.01, lwd = 0.5) +
+  geom_sf(alpha = 0.01, lwd = 0.1) +
   labs(x = "Longitude", y = "Latitude", fill = "Biome", colour = NULL) +
-  ggtitle("5 Ma") +
-  theme(plot.title = element_text(hjust = 0.5, size = 20),
+  ggtitle("t=5 Ma") +
+  theme(axis.text = element_text(size = 4),
+        axis.title = element_text(size = 7),
+        plot.title = element_text(hjust = 0.5, size = 8),
+        legend.key.size = unit(2, 'mm'),
+        legend.key.height = unit(2, 'mm'),
+        legend.key.width = unit(2, 'mm'),
+        legend.key = element_rect(colour = "black"),
+        legend.title = element_text(size = 7),
+        legend.text = element_text(size = 5),
         panel.grid.major = element_line(linetype = 3, colour = "black", linewidth = 0.1),
         panel.grid.minor = element_line(linetype = 3, colour = "black", linewidth = 0.1),
         panel.background = element_rect(fill = "white"),
-        plot.margin=grid::unit(c(0,0,0,0), "mm"))
-
-ggsave("./Figures/MS/Main/Figure_biomes/biome_map.pdf", plot = biome_5M_plot, height = 10, width = 8)
+        plot.margin = unit(c(1, 1, 1, 1), "mm"))
 
 
 ################################################################################
-################ 2. PROPORTION OF REALISED EXCHANGE PER BIOME ##################
+############# 2. NUMBER OF SIMULATION STARTING WITHIN EACH BIOME ###############
+################################################################################
+
+P_tbl_all <- summarise_distrib(metric = "start_biome",
+                               what = "all")
+P_tbl_all <- P_tbl_all %>% 
+  mutate(start = sapply(X = start, FUN = function(x){paste0(x, " America")})) %>%
+  filter(!is.na(start_biome))
+
+start_biome_all <- P_tbl_all %>% 
+  mutate(start_biome = as.character(start_biome)) %>% 
+  ggplot(aes(x = start_biome)) +
+  geom_bar(aes(fill = start_biome), colour = "black", linewidth = 0.3) +
+  geom_text(stat = "count", aes(label=after_stat(count)), size = 1.5, vjust = -0.5) +
+  scale_fill_manual(values = c("1" = "#f9d14a", "2" = "#ab3329", "3" = "#ed968c", "4" = "#7c4b73", "5" = "#88a0dc")) +
+  labs(x = "Ancestral biome", y = "Number of simulations") +
+  scale_x_discrete(labels = c("1" = "Tropical", "2" = "Arid", "3" = "Temperate", "4" = "Cold", "5" = "Polar")) +
+  ylim(0, 315) +
+  facet_grid(model~start) +
+  theme(axis.text = element_text(size = 4),
+        axis.title = element_text(size = 7),
+        axis.line = element_line(linewidth = 0.3, color = "black"),
+        legend.position = "none",
+        strip.background = element_rect(fill = "#DDE6F5"),
+        strip.text = element_text(size = 7),
+        panel.background = element_rect(fill = "grey85"),
+        panel.grid.major = element_line(linewidth = 0.25),
+        panel.grid.minor = element_line(linewidth = 0.25),
+        plot.margin = unit(c(3, 3, 3, 3), "mm"))
+
+
+################################################################################
+################ 3. PROPORTION OF REALISED EXCHANGE PER BIOME ##################
 ################################################################################
 
 P_tbl_all <- summarise_distrib(metric = "start_biome",
@@ -106,7 +147,7 @@ prop_biome_success_plot <- per_biome_exch_df %>%
   scale_fill_manual(values = c("#f9d14a","#ab3329", "#ed968c", "#7c4b73", "#88a0dc")) +
   scale_x_discrete(labels = c("1" = "Tropical", "2" = "Arid", "3" = "Temperate", "4" = "Cold", "5" = "Polar")) +
   scale_y_continuous(limits = c(0, 1.05)) +
-  labs(x = "Ancestral biome", y = "Prop. success") +
+  labs(x = "Ancestral biome", y = "Proportion of successful exchange") +
   facet_grid(model~start) +
   theme(axis.text = element_text(size = 5),
         axis.title = element_text(size = 7),
@@ -117,13 +158,20 @@ prop_biome_success_plot <- per_biome_exch_df %>%
         panel.background = element_rect(fill = "grey90"),
         panel.grid.major = element_line(linewidth = 0.25, colour = "white"),
         panel.grid.minor = element_line(linewidth = 0.25, colour = "white"),
-        plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"))
+        plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"),
+        panel.heights = unit(18, "cm"))
 
-# ggsave(paste0("./Figures/starting_biome/prop_biome_success.pdf"), 
-#        plot = prop_biome_success_plot, height = 170, width = 170, units = "mm")
-# 
-# ggsave(paste0("./Figures/starting_biome/prop_biome_success.png"), 
-#        plot = prop_biome_success_plot, height = 170, width = 170, dpi = 600, units = "mm")
+################################################################################
+############################ 4. ASSEMBLE AND SAVE ##############################
+################################################################################
 
-ggsave(paste0("./Figures/MS/Main/Figure_biomes/prop_biome_success.pdf"), 
-       plot = prop_biome_success_plot, height = 120, width = 120, units = "mm")
+first_col <- ggarrange(biome_5M_plot, start_biome_all, nrow = 2,
+                       labels = c("(A)", "(B)"), label.y = c(0.85, 1.05), 
+                       heights = c(0.5, 0.5), font.label = list(size = 12))
+
+biome_panel <- ggarrange(first_col, prop_biome_success_plot,
+                         ncol = 2, labels = c(NA, "(C)"),
+                         widths = c(0.4, 0.6), font.label = list(size = 12))
+
+ggsave("./Figures/MS/Main/Figure_biomes/Figure_biomes.png", plot = biome_panel,
+       height = 200, width = 200, dpi = 600, units = "mm")

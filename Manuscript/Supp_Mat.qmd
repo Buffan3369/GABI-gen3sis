@@ -191,12 +191,12 @@ knitr::include_graphics("../Figures/MS/Supp/biomes/starting_biome_EXCH_PROP_STD.
 {{< pagebreak >}}
 
 ```{r, echo=FALSE}
-#| label: fig-AllBiomeCount
-#| out-height: 17cm
-#| out-width: 23cm
-#| fig-cap: Biome where the ancestral species of each of the 500 simulation originated, for each continent and each scenario. We removed simulations starting from a cell that could not be assigned a biome from our counts, hence the reason why some are not exactly summing to 500. "North America standardised" refer to simulations starting from North America after standardising initial distance to isthmus with that of simulations starting from South America (see @sec-methods and @fig-alldist).
+#| label: fig-StdBiomeCount
+#| out-height: 8cm
+#| out-width: 17.5cm
+#| fig-cap: Biome where the ancestral species of each of the 500 simulation originated, for each modelling scenario, starting from North America after standardising initial distance to isthmus with that of simulations starting from South America (see @sec-methods and @fig-alldist). We removed simulations starting from a cell that could not be assigned a biome from our counts, hence the reason why some are not exactly summing to 500.
 
-knitr::include_graphics("../Figures/MS/Supp/biomes/starting_biome_ALL.png")
+knitr::include_graphics("../Figures/MS/Supp/biomes/starting_biome_STD.png")
 ```
 
 {{< pagebreak >}}

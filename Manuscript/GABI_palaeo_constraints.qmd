@@ -193,9 +193,9 @@ knitr::include_graphics("../Figures/MS/Main/Figure_metrics/Figure_metrics.png")
 
 ```{r, echo=FALSE}
 #| label: fig-biome
-#| out-height: 10cm
+#| out-height: 15cm
 #| out-width: 15cm
-#| fig-cap: Initial biome where each ancestral species leading to successful simulations is recorded at the time of the onset of the simulations (5 Ma). **(A)** Global main climate zones based on Köppen-Geiger biome classification at $t=5$ Ma. **(B)** Proportion of successful simulations based on the biome where ancestral species originates, for each modelled scenario-ancestral continent combination. This proportion is expressed as the ratio between the number of successful simulations and the total number of simulations starting from a given biome. Coloured dots and error bars respectively show proportion estimates and their associated Binomial-derived 95% confidence intervals.
+#| fig-cap: Initial biome where each ancestral species leading to successful simulations is recorded at the time of the onset of the simulations (5 Ma). **(A)** Global main climate zones based on Köppen-Geiger biome classification at $t=5$ Ma. **(B)** Biome where the ancestral species of each of the 500 simulation originated, for each continent and each scenario. We removed simulations starting from a cell that could not be assigned a biome from our counts, hence the reason why some are not exactly summing to 500. **(C)** Proportion of successful simulations based on the biome where ancestral species originates, for each modelled scenario-ancestral continent combination. This proportion is expressed as the ratio between the number of successful simulations and the total number of simulations starting from a given biome. Coloured dots and error bars respectively show proportion estimates and their associated Binomial-derived 95% confidence intervals.
 
 knitr::include_graphics("../Figures/MS/Main/Figure_biomes/Figure_biomes.png")
 ```

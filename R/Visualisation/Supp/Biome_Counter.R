@@ -10,14 +10,7 @@
 source("./R/PostProcessing/4-Extract_distribs_with_moments.R")
 
 
-## All simulations -------------------------------------------------------------
-P_tbl_all <- summarise_distrib(metric = "start_biome",
-                           what = "all")
-P_tbl_all <- P_tbl_all %>% 
-  mutate(start = sapply(X = start, FUN = function(x){paste0(x, " America")})) %>%
-  filter(!is.na(start_biome))
-
-# Standardised distances to isthmus
+## All simulations with  Standardised distances to isthmus ---------------------
 P_tbl_all_std <- summarise_distrib(metric = "start_biome",
                                    what = "all",
                                    dist_std = T)
@@ -25,10 +18,7 @@ P_tbl_all_std <- P_tbl_all_std %>%
   filter(start == "North" & !(is.na(start_biome))) %>% # South is just the same thing as above
   mutate(start = sapply(X = start, FUN = function(x){paste0(x, " America (standardised)")}))
 
-# Merge
-P_tbl <- rbind.data.frame(P_tbl_all, P_tbl_all_std)
-
-start_biome_all <- P_tbl %>% 
+start_biome_all <- P_tbl_all_std %>% 
   mutate(start_biome = as.character(start_biome)) %>% 
   ggplot(aes(x = start_biome)) +
   geom_bar(aes(fill = start_biome), colour = "black", linewidth = 0.3) +
@@ -37,7 +27,7 @@ start_biome_all <- P_tbl %>%
   labs(x = "Ancestral biome", y = "Nb. simulations") +
   scale_x_discrete(labels = c("1" = "Tropical", "2" = "Arid", "3" = "Temperate", "4" = "Cold", "5" = "Polar")) +
   ylim(0, 315) +
-  facet_grid(model~start) +
+  facet_grid(.~model) +
   theme(axis.text = element_text(size = 7),
         axis.title = element_text(size = 10),
         axis.line = element_line(linewidth = 0.3, color = "black"),
@@ -49,14 +39,8 @@ start_biome_all <- P_tbl %>%
         panel.grid.minor = element_line(linewidth = 0.25),
         plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"))
 
-# ggsave(paste0("./Figures/starting_biome/starting_biome_ALL.pdf"), 
-#        plot = start_biome_all, height = 170, width = 170, units = "mm")
-# 
-# ggsave(paste0("./Figures/starting_biome/starting_biome_ALL.png"), 
-#        plot = start_biome_all, height = 170, width = 170, units = "mm", dpi = 600)
-
-ggsave(paste0("./Figures/MS/Supp/biomes/starting_biome_ALL.png"),
-       plot = start_biome_all, height = 200, width = 200, units = "mm", dpi = 600)
+ggsave(paste0("./Figures/MS/Supp/biomes/starting_biome_STD.png"),
+       plot = start_biome_all, height = 75, width = 200, units = "mm", dpi = 600)
 
 
 ## Only successful simulations -------------------------------------------------
