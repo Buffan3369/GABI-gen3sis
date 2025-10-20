@@ -17,6 +17,7 @@ format:
 editor: visual
 indent: true
 number-sections: true
+tbl-cap-location: top
 crossref:
   fig-title: "Figure&nbsp;S"
   fig-prefix: "Figure&nbsp;S"

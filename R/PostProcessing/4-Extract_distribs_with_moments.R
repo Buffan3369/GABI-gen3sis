@@ -37,7 +37,6 @@ assign_sumtbl_to_metric <- function(metric,
 summarise_distrib <- function(metric = c("dist_to_isthmus", "prop_col_area", 
                                          "div_col", "start_biome"), # Metric we want to summarise
                               what = c("all", "no_crash", "exchanged)"), # Shall we keep all the runs, only those that didn't crash or those that resulted in a success
-                              Log_transform = F, # Shall we log-transform the data (only relevant for diversity in colonised area) 
                               dist_std = F){
                                 # Initialise dataframe
                                 if(metric == "start_biome"){
@@ -84,39 +83,15 @@ summarise_distrib <- function(metric = c("dist_to_isthmus", "prop_col_area",
                                       dplyr::select(metric, model, start)
                                     
                                     if(metric != "start_biome"){ # if start_biome, we don't want the mean and CI
-                                      if(Log_transform){
-                                        p_tbl[,1] <- log(p_tbl[,1], base = 10)
-                                        # /!\ Log(mean(X)) != mean(Log(X))  /!\ 
-                                        mean_log <- mean(p_tbl[,1], na.rm = T)
-                                        p_tbl$mean <- mean_log
-                                        
-                                        sd_log <- sd(p_tbl[,1], na.rm = T)
-                                        Lower_ci <- Student_CI(x_bar = mean_log,
-                                                               n = nrow(p_tbl),
-                                                               sigma = sd_log,
-                                                               alpha = 0.05,
-                                                               what = "Lower")
-                                        p_tbl$lower_ci <- Lower_ci
-                                        
-                                        Upper_ci <- Student_CI(x_bar = mean_log,
-                                                               n = nrow(p_tbl),
-                                                               sigma = sd_log,
-                                                               alpha = 0.05,
-                                                               what = "Upper")
-                                        p_tbl$upper_ci <- Upper_ci
-                                      }
-                                    
-                                      else{
-                                        # Add mean and CI from table
-                                        sumtbl <- assign_sumtbl_to_metric(metric = metric, what = what, dist_std = dist_std)
-                                        
-                                        p_tbl$mean <- sumtbl[which(sumtbl$Ori == paste0(start, " America") & 
-                                                                     sumtbl$Model == mdl),2] # second column is for the mean estimate, unstandardised name
-                                        p_tbl$lower_ci <- sumtbl$Lower_CI[which(sumtbl$Ori == paste0(start, " America") & 
-                                                                                  sumtbl$Model == mdl)]
-                                        p_tbl$upper_ci <- sumtbl$Upper_CI[which(sumtbl$Ori == paste0(start, " America") & 
-                                                                                  sumtbl$Model == mdl)]
-                                      }
+                                      # Add mean and CI from table
+                                      sumtbl <- assign_sumtbl_to_metric(metric = metric, what = what, dist_std = dist_std)
+                                      
+                                      p_tbl$mean <- sumtbl[which(sumtbl$Ori == paste0(start, " America") & 
+                                                                   sumtbl$Model == mdl),2] # second column is for the mean estimate, unstandardised name
+                                      p_tbl$lower_ci <- sumtbl$Lower_CI[which(sumtbl$Ori == paste0(start, " America") & 
+                                                                                sumtbl$Model == mdl)]
+                                      p_tbl$upper_ci <- sumtbl$Upper_CI[which(sumtbl$Ori == paste0(start, " America") & 
+                                                                                sumtbl$Model == mdl)]
                                     }
                                     # Concatenate dfs
                                     param_tbl <- rbind.data.frame(param_tbl, p_tbl)

@@ -21,10 +21,14 @@ plot_df_prop_col_area <- plot_df_prop_col_area %>%
   rename(value = "prop_col_area")
 # Colonised alpha-diversity
 plot_df_div_col_area <- summarise_distrib(metric = "div_col",
-                                          what = "exchanged",
-                                          Log_transform = T)
+                                          what = "exchanged")
 plot_df_div_col_area <- plot_df_div_col_area %>% 
+  # Log-transform the data for plotting
   mutate(metric = "Log(Colonised \u03b1 diversity)") %>% 
+  mutate(div_col = log(div_col, base = 10),
+         mean = log(mean, base = 10),
+         lower_ci = log(lower_ci, base = 10),
+         upper_ci = log(upper_ci, base = 10)) %>% 
   rename(value = "div_col")
 # Distance to isthmus
 plot_df_dist_isthmus <- summarise_distrib(metric = "dist_to_isthmus",
@@ -47,7 +51,7 @@ full_panel <- PLOT_DF %>%
   scale_fill_manual(values = c("#fcbba1", "#ccece6")) +
   labs(x = NULL, y = NULL) +
   facet_grid(metric~model, scale = "free_y") +
-  labs(x = "Ancestral area", y = NULL) +
+  labs(x = "Ancestral continent", y = NULL) +
   theme(axis.title = element_text(size = 7.5),
         axis.text = element_text(size = 5),
         axis.line = element_line(linewidth = 0.3, color = "black"),

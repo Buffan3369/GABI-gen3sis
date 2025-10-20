@@ -33,12 +33,6 @@ prop_plot2bis <- plot_df_prop_success_std %>%
         plot.margin = unit(c(0.5,0.5,0.5,0.5), "cm"),
         strip.background = element_rect(fill = "#DDE6F5"))
 
-# ggsave("./Figures/prop_successful_exch/Panel_point_CI-DIST_STD.pdf", 
-#        plot = prop_plot2bis, height = 80, width = 170, units = "mm")
-# 
-# ggsave("./Figures/prop_successful_exch/Panel_point_CI-DIST_STD.png", 
-#        plot = prop_plot2bis, height = 80, width = 170, dpi = 600, units = "mm")
-
 ggsave("./Figures/MS/Supp/metrics_std/prop_successful_col_STD.png", 
        plot = prop_plot2bis, height = 70, width = 170, dpi = 600, units = "mm")
 
@@ -57,10 +51,14 @@ plot_df_prop_col_area_std <- plot_df_prop_col_area_std %>%
 # Diversity in the colonised area
 plot_df_div_col_area_std <- summarise_distrib(metric = "div_col",
                                               what = "exchanged",
-                                              Log_transform = T,
                                               dist_std = T)
-plot_df_div_col_area_std <- plot_df_div_col_area_std %>% 
-  mutate(metric = "Log(Diversty in the colonised area)") %>% 
+# Log-transform for plotting
+plot_df_div_col_area_std <- plot_df_div_col_area_std  %>% 
+  mutate(div_col = log(div_col, base = 10),
+         mean = log(mean, base = 10),
+         lower_ci = log(lower_ci, base = 10),
+         upper_ci = log(upper_ci, base = 10)) %>% 
+  mutate(metric = "Log(Colonised \u03b1 diversity)") %>% 
   rename(value = "div_col")
 # Distance to isthmus
 plot_df_dist_isthmus_std <- summarise_distrib(metric = "dist_to_isthmus",
@@ -75,7 +73,7 @@ PLOT_DF_STD <- rbind.data.frame(plot_df_prop_col_area_std,
                                 plot_df_div_col_area_std,
                                 plot_df_dist_isthmus_std)
 PLOT_DF_STD$metric <- factor(PLOT_DF_STD$metric, levels = c("Proportion of colonised area",
-                                                            "Log(Diversty in the colonised area)",
+                                                            "Log(Colonised \u03b1 diversity)",
                                                             "Distance to isthmus (km)"))
 
 full_panel_STD <- PLOT_DF_STD %>% 
