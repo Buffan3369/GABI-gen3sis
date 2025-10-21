@@ -26,9 +26,8 @@ start_biome_all <- P_tbl_all_std %>%
   scale_fill_manual(values = c("1" = "#f9d14a", "2" = "#ab3329", "3" = "#ed968c", "4" = "#7c4b73", "5" = "#88a0dc")) +
   labs(x = "Ancestral biome", y = "Nb. simulations") +
   scale_x_discrete(labels = c("1" = "Tropical", "2" = "Arid", "3" = "Temperate", "4" = "Cold", "5" = "Polar")) +
-  ylim(0, 315) +
   facet_grid(.~model) +
-  theme(axis.text = element_text(size = 7),
+  theme(axis.text = element_text(size = 6),
         axis.title = element_text(size = 10),
         axis.line = element_line(linewidth = 0.3, color = "black"),
         legend.position = "none",
