@@ -76,7 +76,11 @@ PLOT_DF_STD$metric <- factor(PLOT_DF_STD$metric, levels = c("Proportion of colon
                                                             "Log(Colonised \u03b1 diversity)",
                                                             "Distance to isthmus (km)"))
 
-full_panel_STD <- PLOT_DF_STD %>% 
+full_panel_STD <- PLOT_DF_STD %>%
+  mutate(start = sapply(X = start,
+                        FUN = function(x){
+                          paste0(x, " America")
+                        })) %>% 
   ggplot(aes(x = start, y = value)) +
   geom_violin(adjust = .75, scale = "width", linewidth = 0.1, alpha = 0.5, aes(fill = factor(start))) +
   geom_errorbar(aes(ymin = lower_ci, ymax = upper_ci), width = 0.1, linewidth = 0.2) +

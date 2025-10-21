@@ -11,7 +11,6 @@
 library(tidyverse)
 source("./R/PostProcessing/4-Extract_distribs_with_moments.R")
 
-
 ## Load plot dataframes for the three metrics ----------------------------------
 # Proportion of colonised area
 plot_df_prop_col_area <- summarise_distrib(metric = "prop_col_area",
@@ -44,6 +43,10 @@ PLOT_DF$metric <- factor(PLOT_DF$metric, levels = c("Proportion of colonised are
                                                     "Distance to isthmus (km)"))
 
 full_panel <- PLOT_DF %>% 
+  mutate(start = sapply(X = start,
+                        FUN = function(x){
+                          paste0(x, " America")
+                        })) %>% 
   ggplot(aes(x = start, y = value)) +
   geom_violin(adjust = .75, scale = "width", linewidth = 0.1, alpha = 0.5, aes(fill = factor(start))) +
   geom_errorbar(aes(ymin = lower_ci, ymax = upper_ci), width = 0.1, linewidth = 0.2) +
