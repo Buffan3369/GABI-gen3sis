@@ -45,6 +45,7 @@ init_maps <- U_TBL %>%
         legend.title = element_text(size = 7, hjust = 0.5),
         legend.text = element_text(size = 5),
         legend.key.size = unit(4, "mm"),
+        strip.background = element_rect(fill = "#DDE6F5"),
         strip.text = element_text(size = 9))
 
 ggsave("./Figures/MS/Supp/starting_ranges/Initial_ranges_All_runs.png", 
@@ -135,6 +136,7 @@ init_maps_success <- u_tbl_success %>%
         legend.title = element_text(size = 7, hjust = 0.5),
         legend.text = element_text(size = 5),
         legend.key.size = unit(4, "mm"),
+        strip.background = element_rect(fill = "#DDE6F5"),
         strip.text = element_text(size = 9))
 
 ggsave("./Figures/MS/Supp/starting_ranges/Initial_ranges_successful_runs.png", 

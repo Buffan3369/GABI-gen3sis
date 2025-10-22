@@ -51,11 +51,25 @@ Affiliations:
 ² Centro de Investigación Mariña, Departamento de Ecoloxía e Bioloxía Animal, Universidade de Vigo, Campus Lagoas-Marcosende, 36310 Vigo, Spain
 
 \newpage
+
 # STAR METHODS
 
-## Key resources table
+## KEY RESOURCES TABLE
 
-## Method details {#sec-methods}
+| **REAGENTS OR RESOURCE** | **SOURCE** | **IDENTIFIER** |
+|----------------------|----------------|----------------------------------|
+| **Deposited data** |  |  |
+| Biodiversity simulations | This study | *Link to be produced* |
+| **Software and algortithms** |  |  |
+| R scripts for all the analyses | This study | <https://github.com/Buffan3369/GABI-gen3sis.git> |
+| R package gen3sis V 1.5.11 | Hagen et al. @hagen2021 | <https://github.com/project-gen3sis/R-package> |
+| R package tidyverse V 2.0.0 | Wickham et al. @wickham2019 | <https://CRAN.R-project.org/package=tidyverse> |
+| R package raster V 3.6.31 | Hijmans et al. @hijmans2025 | <https://CRAN.R-project.org/package=raster> |
+| R package terra V 1.8-15 | Hijmans et al. @hijmans_terra_2025 | <https://CRAN.R-project.org/package=terra> |
+| R package spaths V 1.2.0 | Düben et al. @duben_spaths_2025 | <https://CRAN.R-project.org/package=spaths> |
+| R package randtoolbox V 2.0.5 | Dutang et al. @dutang_randtoolbox_2024 | <https://CRAN.R-project.org/package=randtoolbox> |
+
+## METHOD DETAILS {#sec-methods}
 
 Beforehand, it has to be noticed that, across the entire study, "North America" actually refers to the current North and Central American continents. The delimitation between North and South America was arbitrarily set as a straight line connecting two points located along the eastern and western coasts of present Panama ($-82.882°$lon, $7.138°$lat and $-81.369°$lon and $9.008°$lat) (see main text, Figure 1).
 
@@ -65,7 +79,7 @@ We used the spatio-temporal terrestrial palaeoclimate series from the PALEO-PGEM
 
 Additionally, in order to discriminate simulations based on the biome where the initial species originates, we reclassified monthly palaeoclimate layers for our starting time ($t=5$ Myrs) according to Köppen-Geiger broad climate types [@beck2018; @galván2023]. This classification divides the world into five broad climatic regions: Polar, Cold, Temperate, Arid and Tropical, following the criteria proposed by Köppen [@köppen1900].
 
-## Simulation model and modelling schemes
+### Simulation model and modelling schemes
 
 We performed spatially-explicit simulations of biodiversity using the General Engine for Eco-Evolutionary SImulationS, gen3sis, v1.5.11 [@hagen2021]. Simulations, moving forward-in-time with a 10ky time step, tracked the radiation of a clade arising from a single ancestral population, either originating in North or in South America, throughout the last 5 Myr. In gen3sis, virtual species are modelled with individual populations evolving independently, following a set of four rules: dispersal, speciation, environmental filtering and trait evolution. All simulation scenarios that we implemented only differed on the last rule (trait evolution), the first three being common to all models (or at least partly).
 
@@ -88,7 +102,7 @@ We implemented various simulation scenarios where we modulated the ability of sp
 
 Last, it is important to notice that, since the palaeoclimate reconstructions that we used ignored tectonic plate motion -- a reasonable assumption for a 5-Myr time frame -- continental position in our landscapes was held constant across simulations. Therefore, in that framework, changes in connectivity between North and South America could only arise from the environment.
 
-### Postprocessing and quantifications
+## QUANTIFICATIONS AND STATISTICAL ANALYSIS
 
 At every time step, for each run of each simulation, we used a function released by Skeels et al. @skeels2023b to save presence-absence matrices. Given a time $t$, those matrices stored on their columns the presence of each simulated species that have existed from the onset of the simulation to $t$ within each cell of the landscape (rows of the matrix) as a binary variable -- $1$: the species inhabits that cell, $0$: it does not.
 
@@ -149,36 +163,22 @@ knitr::include_graphics("../Figures/MS/Supp/starting_ranges/Initial_ranges_succe
 ```
 
 ```{r, echo=FALSE}
-#| label: fig-s3
-#| out-height: 7cm
-#| out-width: 14cm
-#| fig-cap: Distance to the isthmus for non-successful simulations -- *i*.*e*., that did not result in a significant interchange. Dashed lines on top and bottom of the distribution represent the 25% and 75% quantiles whereas the thicker full line in the middle shows the median (50% quantile).
-
-
-knitr::include_graphics("../Figures/dist_to_isthm/comparative_distances_UNSUCCESSFUL.png")
-
-```
-
-```{r, echo=FALSE}
-#| label: fig-s4
-#| out-height: 7cm
-#| out-width: 14cm
+#| label: fig-InitDist
+#| out-height: 8cm
+#| out-width: 16cm
 #| fig-cap: Comparison of the initial distance to the isthmus between successful and unsuccessful simulations of each of our four models, either starting from North (top) or South (bottom) America. Successful simulations ($Exchange$ $Sucess=1$) are displayed in green, whereas unsuccessful simulations ($Exchange$ $Sucess=0$) are displayed in yellow. Dashed lines on top and bottom of the distribution represent the 25% and 75% quantiles whereas the thicker full line in the middle shows the median (50% quantile).
 
 knitr::include_graphics("../Figures/dist_to_isthm/distance_violin_panel_NoCRASH.png")
 ```
 
 ```{r, echo=FALSE}
-#| label: fig-s5
+#| label: fig-InitDistCrash
 #| out-height: 8cm
 #| out-width: 16cm
 #| fig-cap: Comparison of the initial distance to the isthmus between successful and unsuccessful simulations of each of our four models including simulations that crashed (*i*.*e*., resulted in no living representative at the final time step), either starting from North (top) or South (bottom) America.  Successful simulations ($Exchange$ $Sucess=1$) are displayed in green, unsuccessful simulations ($Exchange$ $Sucess=0$) in yellow and simulation that crashed ($Exchange$ $Sucess=-1$) in grey. Dashed lines on top and bottom of the distribution represent the 25% and 75% quantiles whereas the thicker full line in the middle shows the median (50% quantile).
 
 knitr::include_graphics("../Figures/dist_to_isthm/distance_violin_panel_CRASH.png")
 ```
-
-|
-|
 
 ```{r, echo=FALSE}
 #| label: fig-ExchBiomeProp
@@ -189,7 +189,8 @@ knitr::include_graphics("../Figures/dist_to_isthm/distance_violin_panel_CRASH.pn
 knitr::include_graphics("../Figures/MS/Supp/biomes/starting_biome_EXCH_PROP_STD.png")
 ```
 
-{{< pagebreak >}}
+| 
+| 
 
 ```{r, echo=FALSE}
 #| label: fig-StdBiomeCount
@@ -206,7 +207,7 @@ knitr::include_graphics("../Figures/MS/Supp/biomes/starting_biome_STD.png")
 #| label: fig-ExchBiomeCount
 #| out-height: 17cm
 #| out-width: 23cm
-#| fig-cap: Biome where the ancestral species of each simulation leading to a successful exchange originated, for each continent and each scenario.  "North America standardised" refer to simulations starting from North America after standardising initial distance to isthmus with that of simulations starting from South America (see @sec-methods and @fig-alldist).
+#| fig-cap: Biome where the ancestral species of each simulation leading to a successful exchange originated, for each continent and each scenario.  "North America standardised" refers to simulations starting from North America after standardising initial distance to isthmus with that of simulations starting from South America (see @sec-methods and @fig-alldist).
 
 knitr::include_graphics("../Figures/MS/Supp/biomes/starting_biome_EXCH.png")
 ```
@@ -254,7 +255,6 @@ knitr::kable(prop_crash_unstd, align = "c")
 ```
 
 {{< pagebreak >}}
-
 
 # Supplementary references
 
