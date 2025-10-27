@@ -1,5 +1,5 @@
 ################################################################################
-# Name: 5b_ColAssessor.R
+# Name: 2b_ColAssessor.R
 # Author: Lucas Buffan
 # E-mail: lucas.l.buffan@gmail.com
 # Goal: This function assesses whether a simulation led to successful interchange.
