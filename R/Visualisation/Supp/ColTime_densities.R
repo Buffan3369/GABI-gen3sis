@@ -30,6 +30,8 @@ for(mdl in c("M0", "M1", "M2", "M3")){
   }
 }
 
-plot_df %>% ggplot(aes(x = x, y = y)) +
+plot_df %>%
+  filter(x < 500 & x > 0) %>% 
+  ggplot(aes(x = x, y = y)) +
   geom_line() +
   facet_grid(model~start)
