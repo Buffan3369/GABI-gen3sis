@@ -9,29 +9,35 @@
 library(raster)
 library(tidyverse)
 
-model <- "M0" # model
-start <- "North" # starting landmass
+args <- commandArgs(trailingOnly=TRUE)
+
+model <- args[1] # model
+start <- args[2] # starting landmass
+run <- args[3]
 
 ## Open corresponding shapefile mask
 if(start == "North"){
-  mask <- shapefile("./Data/Shapefile_masks/South_America_cut.shp")
+  mask <- shapefile("../Data/Shapefile_masks/South_America_cut.shp")
 }
 if(start == "South"){
-  mask <- shapefile("./Data/Shapefile_masks/North_America_cut.shp")
+  mask <- shapefile("../Data/Shapefile_masks/North_America_cut.shp")
 }
 
 # Get the final time step of the simulation
-LF <- list.files("~/Bureau/config_16/")
+dir <- paste0("../Outputs/", model, "/", start, "_America_start/config_",
+              model, "_", start, "_America_run_", run)
+LF <- list.files(paste0(dir, "/pa_matrices"))
 t_end <- 500-length(LF)
 
 # Coordinates of the cells of any PA matrix falling within the mask
-pa_end <- readRDS(paste0("~/Bureau/config_16/pa_t_", t_end, ".rds"))
+pa_end <- readRDS(paste0(dir, "/pa_matrices/pa_t_", t_end, ".rds"))
 r_last <- rasterFromXYZ(pa_end[,1:3], crs = crs(mask))
 extracted <- raster::extract(r_last, mask, df = TRUE, cellnumbers = TRUE)
 xy_mask <- xyFromCell(r_last, extracted$cell)
 
 # Retrieve origination times of each simulated species
-phy <- read.table("~/Bureau/phy.txt", sep = "\t", header = T)
+phy <- read.table(paste0(dir, "/phy.txt"),
+                  sep = "\t", header = T)
 ori_times <- sort(unique(phy$Speciation.Time))
 ori_times <- ori_times[which(ori_times != t_end)] # those originating at t=0 (end) are not informative
 
@@ -43,7 +49,7 @@ for(t_ori in ori_times){
   yaki_t_ori <- phy$Descendent[phy$Speciation.Time == t_ori]
   # Loop across those species to potentially identify colonisers
   for(sp in yaki_t_ori){
-    pa_sp <- readRDS(paste0("~/Bureau/pa_per_sp/Species_", sp, ".RDS"))
+    pa_sp <- readRDS(paste0(dir, "/pa_per_sp/Species_", sp, ".RDS"))
     # Add longitude and latitude
     pa_sp <- pa_sp %>% 
       add_column(x = pa_mat[,1], y = pa_mat[,2], .before = "t_0")
@@ -75,11 +81,11 @@ for(t_ori in ori_times){
   }
 }
 
-if(dir.exists("~/Bureau/col_df/") == F){
-  dir.create("~/Bureau/col_df/")
+if(dir.exists(paste0(dir, "/col_df/")) == F){
+  dir.create(paste0(dir, "/col_df/"))
 }
 
 df_run <- data.frame(time = t_col,
                      species = sp_col)
 
-saveRDS(df_run, "~/Bureau/col_df/col_df_run_16.rds")
+saveRDS(df_run, paste0(dir, "/col_df/col_df_run_", run, ".rds"))
