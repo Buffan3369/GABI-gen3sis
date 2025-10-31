@@ -57,7 +57,7 @@ Affiliations:
 ## KEY RESOURCES TABLE
 
 | **REAGENTS OR RESOURCE** | **SOURCE** | **IDENTIFIER** |
-|---------------|--------|------------------------|
+|----|----|----|
 | **Deposited data** |  |  |
 | Biodiversity simulations | This study | *Link to be produced* |
 | **Software and algortithms** |  |  |
