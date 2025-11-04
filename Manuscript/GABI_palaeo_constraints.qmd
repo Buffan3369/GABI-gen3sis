@@ -94,6 +94,8 @@ One of the predictions of Vrba's resource-use hypotheses formulated in the frame
 
 Our results highlight that successful simulations, either starting from North or South America, exhibit a strong tropical niche conservatism.
 
+We failed at related simulated exchange pulses to temperature fluctuations, yet postulated in the literature (Figure S11).
+
 Southwards dispersals generated under $M0$ are less frequent but result in a greater colonising ability -- larger proportion of colonised area and colonised $\alpha$-diversity -- than northwards dispersals @fig-metrics.
 
 "In contrast to mammals, direction of traffic across land bridge was primarily South to North" @weir2009
