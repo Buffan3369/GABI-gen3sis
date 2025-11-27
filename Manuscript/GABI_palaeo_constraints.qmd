@@ -86,7 +86,7 @@ Regarding biome generalists (models $M1-3$), simulations starting from North Ame
 
 Throughout this work, we investigated the role of palaeoclimate in the asymmetry of the Great American Biotic Interchange (GABI) through the use of eco-evolutionary simulations. Based on empirical evidence, we hypothesised our virtual experiments to result in (i) a higher likelihood of southwards dispersal events (*i*.*e*., from North to South America) compared to northwards ones; (ii) more diverse and spatially spread radiations in the foreign continent following successful southwards exchanges compared to northwards ones; and (iii) successful exchanges to be more frequently achieved among simulated biome generalists, temperate and arid specialists than tropical specialists.
 
-Probably one of our most striking findings is that, under climatic constraints alone, simulated South American lineages dispersed to the North with a significantly greater probability than the other way around (@fig-propsuccess). This therefore clearly contrasts with the long-recognised imbalanced success of North American mammal taxa compared to South Americans in the aftermath of the GABI @simpson1980, suggesting that filters other than climatic must have been at play to build this asymmetry. 
+Probably one of our most striking findings is that, under climatic constraints alone, simulated South American lineages dispersed to the North with a significantly greater probability than the other way around (@fig-propsuccess). This therefore clearly contrasts with the long-recognised imbalanced success of North American mammal taxa compared to South Americans in the aftermath of the GABI @simpson1980, suggesting that filters other than climatic must have been at play to build this asymmetry.
 
 Climate cooling associated to enhanced dispersal (FO 2024, 2025)
 
@@ -94,53 +94,50 @@ Seminal works primarily interpreted the empirically-derived asymmetry of the GAB
 
 Nonetheless, following such a reasoning, the probability for a given taxon to cross the Panamanian landbridge is assumed to be independent from the side of the isthmus where it came from, which, interestingly, is not supported by our findings (@fig-propsuccess). In addition, this theory fails at explaining the actual imbalance in extant mammal species-level diversity between the Americas, being way larger in South than in North America [@willig2003; @raven2020].
 
-Although our characterised inverse asymmetry in the likelihood of climate-driven successful dispersal across both sides of the Isthmus goes in contradiction with the mammal fossil record @marshall1982, it actually echoes what occurred in other groups of vertebrates. For instance, tropical North American ichtyofauna has long been recognised as mainly composed of groups that originated in South America and further dispersed to the North, although most likely multiple dispersal events occurred, some of which predating the closure of the isthmus @chakrabarty2011. In addition, phylogenetic evidence suggest symmetrical avifaunal exchanges between the Americas since the closure of the panamannian seaway, with higher prevalence of northwards dispersal events around the Plio-Pleistocene boundary [@weir2009; @tilstonsmith2010].
+Although the inverse asymmetry in climate-driven exchange across both sides of the Isthmus suggested by our findings goes in contradiction with the mammal fossil record @marshall1982, it actually echoes inter-American exchange mechanisms proposed for other groups of vertebrates. For instance, the extant amphibian fauna of South America is almost entirely made up with endemic taxa. By contrast, North American frog fauna is composed of four families of southern origin, and only three of northern origin [@lomolino2006]. Also, tropical North American ichtyofauna has long been recognised as mainly composed of groups that originated in South America and further dispersed to the North, although most likely multiple dispersal events occurred, some of which predating the closure of the isthmus [*e*.*g*., @lomolino2006; @chakrabarty2011; @smith2012]. It should be noted that, due to the requirement for connected freshwater networks, the magnitude of the faunal admixture among freshwater fishes has been greatly limited compared to land groups. Next, despite the enhanced dispersal abilities suggested by the mode of locomotion of birds, phylogenetic evidence have shown a significant influence of the closure of the panamanian seaway in the rates of exchange between both continent's avifaunas [@weir2009; @smith2010]. In particular, transcontinental exchanges occurred symmetrically among clades inhabting tropical regions, but interestingly, diversification of extra-tropical groups to tropical regions and further dispersal to the other landmass were strongly asymmetrical in favour of North American taxa [@smith2010; @smith2012]. That being said, notable exceptions of South American groups that successfully diversified in North America (including within temperate regions) exist, such as hummingbirds.
 
-One of the predictions of Vrba's resource-use hypotheses formulated in the framework of the habitat theory applied to the GABI is that tropical specialists, in the aftermath of the global cooling occurring at the Plio-Pleistocene boundary (decreasing trend visible on the temperature plots displayed in @fig-framework, from *c.* 3 Ma), would have been naturally attracted towards the equator following tropical belt's contraction, in turn actively promoting some North American mammal's establishment in South America @vrba1992. On the other hand, fewer mammals -- only biome generalists or open-habitat specialists -- from South America would be expected to roam the other way around. These predictions meet those of the 'tropical refugia' hypothesis formulated by Haffer [@haffer1969] a few decades earlier. The latter views the high diversity in the (Neo)tropics as a result of past climatic fragmentation of the tropical climatic region, generating discontinuities within populations of tropical specialists. In case of climatic disruption, tropical specialists would therefore follow the contraction-expansion of their habitat, in turn driving speciation by vicariance on evolutionary timescales [@haffer1969]. Here, our virtual experiments partially corroborate these historical predictions. Indeed, simulated tropical-adapted taxa of North American origin -- coming from simulations starting in the North American tropical biome and of which climatic niche could not evolve, model $M0$ -- have a higher prevalence of crossing the isthmus than other biome specialists of North American origin (@fig-biome C, model $M0$).
+However, the lack of fossil record for these groups greatly hampers our understanding of the processes behind their biogeographical history.
 
-Our results highlight that successful simulations, either starting from North or South America, exhibit a strong tropical niche conservatism.
 
-We failed at related simulated exchange pulses to temperature fluctuations, yet postulated in the literature (Figure S11).
-
-Southwards dispersals generated under $M0$ are less frequent but result in a greater colonising ability -- larger proportion of colonised area and colonised diversity -- than northwards dispersals @fig-metrics.
-
-"In contrast to mammals, direction of traffic across land bridge was primarily South to North" @weir2009
-
-"mammal record is derived almost entirely from temperate-latitude fossils and includes few fossils from tropical forests, which may bias estimates of the direction of traffic between the continents" @weir2009 Could the apparent abiotic selectivity that facilitated the dispersal of temperate-adapted mammals be in fact a taphonomic bias? Could the empirically-derived migration imbalance be altered by the tropical niche conservatism of south-to-north migrants?
-
-"Again, the predominant direction of dispersal was from south to north." (Lomolino et al. 2006 =\> find this ref)
-
-Asymmetry of success postulated as a contributor to the LBG
-
-Success in South America for temperate-adapted species, posited as the most successful , not recovered, with tropical meeting the highest success. "major overland dispersal of terrestrial mammalian taxa apparently did not take place until the climate was conducive to support the temperate-adapted taxa that experienced the changes in their respective home ranges" @woodburne2010
-
-Biome pattern (Figure S6) directly reflects the diffential amount of surface that each biome represents in the two continents.
-
-Precipitation niche @skeels2023b. Result of Figure 2C for $M3$ can be related to tropical biome
-
-North American taxa exhibit strong Tropical Niche Conservatism (TNC), but not South Americans, except for M0. TNC relaxed in M3.
-
-Effect of climate change to keep in mind for megafaunal extinctions @cruz2025
+## Fate of lineages, niche evolution and geographic lottery
 
 Is it just about **reaching** or more about **reaching & surviving**?
 
-## Implications : what may have driven the asymmetry of the GABI?
-
-### Biotic
-
-Our study indicates that climate alone is not sufficient to reproduce the asymmetry of the GABI. This suggests that other factors, unaccounted here, might have been at work to shape the uneven faunal exchange that occured across the America. Among them, one can think about biotic interactions. In fact, in the first studies investigating the GABI, competition involving clades of similar ecology appeared as a likely first-order explanation to the recent demise of South American endemic mammalian clades such as native ungulates [@croft2020] or sparassodonts -- metatherian predators [@pino2022] -- that followed the establishment of northern lineages [@simpson1980]. Hypotheses invoking competition mostly relied on striking morphological convergences between the clades assumed to have competed -- *e*.*g*., sabertooth among predators, high-crowned and ever-growing cheek teeth among herbivores. In addition, evidence from stable isotope analyses of mammalian herbivore ennamel from Southern South America suggested that North American clades had broader trophic niches than their South American counterparts, this dietary flexibility therefore offering a larger adaptative power to North American herbivores in South America [@domingo2020]. Moreover, using phylogenetic regressions, Faurby et al. [@faurby2016] found support for another biotic interaction that could have played a role in shaping GABI's asymmetry: predation. They indeed characterised a higher prevalence of traits increasing prey susceptibility among the endemic South American mammals. However, several process-based analyses of the fossil record provided no evidence for biotic interactions involving native South American mammals and their northern counterparts [@prevosti2013; @tarquini2022]. Incorporating biotic compounds in mechanistic frameworks such as the one we have implemented here would be a nice way-to-go for future studies tackling the asymmetry behind the GABI.
-
-Faunistic uniqueness (ccl Tilson Smith et al. 2012 + discu Gilles)
-
-### Geography and randomness
-
 One consistent pattern, however, is the fact that the prevalence of an intercontinental interchange gets higher as the ancestral species' coordinates get closer to the isthmus, which mirrors the results of Motta & Quental [@motta2025].
+
+Southwards dispersals generated under $M0$ are less frequent but result in a greater colonising ability -- larger proportion of colonised area and colonised diversity -- than northwards dispersals @fig-metrics.
 
 Imbalance in colonised area btwn SA and NA comes from the difference in pixel nb between both continents in our framework @fig-framework,
 
 "Too far to be exchanged": example of caprins raised by @webb1991
 
 Fortuitous experiment and neutral/random effect?
+
+## Climatic filtering
+
+One of the predictions of Vrba's resource-use hypotheses formulated in the framework of the habitat theory applied to the GABI is that tropical specialists, in the aftermath of the global cooling occurring at the Plio-Pleistocene boundary (decreasing trend visible on the temperature plots displayed in @fig-framework, from *c.* 3 Ma), would have been naturally attracted towards the equator following tropical belt's contraction, in turn actively promoting North American tropical specialist's establishment in South America @vrba1992. This prediction meets the 'tropical refugia' hypothesis formulated a few decades earlier [@haffer1969]. The latter hypothesis views the high diversity in the (Neo)tropics as a result of past climatic fragmentation of the tropical climatic region, generating discontinuities within populations of tropical specialists. In case of climatic disruption, tropical specialists would therefore follow the contraction-expansion of their habitat, in turn driving speciation by vicariance on evolutionary timescales [@haffer1969]. Here, our virtual experiments partially corroborate these historical predictions. Indeed, simulated tropical-adapted taxa of North American origin -- coming from simulations starting in the North American tropical biome and of which climatic niche could not evolve, model $M0$ -- were found to have a high prevalence of crossing the isthmus (@fig-biome C, model $M0$). However, the prevalence of tropical specialists from South America to disperse to the North was found to be almost equally-high, largely exceeding that of other biome specialists (@fig-biome C, model $M0$). This goes against Vrba's seminal hypothesis, instead predicting that fewer mammals -- only biome generalists or open-habitat specialists -- from South America would be expected to roam the other way around in case of tropical contraction towards the equator. This finding may in fact reflect an attenuated magnitude of the climatic fragmentation of the isthmian region when compared to historical biome reconstructions [*e*.*g*., @webb1991], with the persistence of a tropical corridor in turn promoting the exchange of tropical specialists between both landmasses.
+
+On average, one simulated radiation of open biome -- *i*.*e*., arid or temperate -- specialists out of four resulted in a successful exchange, irrespective of its ancestral continent (@fig-biome C, model $M0$). This proportion is significantly lower than that obtained for tropical specialists. Yet, it has long been acknowledged that the migrant fossil record across both sides of the isthmus was essentially made up with species showing affinity with open biomes [*e*.*g*., @vrba1992]. Among the most emblematic, we find equids, proboscids or camelids on the South American side; ground sloths, toxodontids or glyptodontids on the North American. The co-occurrence of distinct taxa in temporally well-delimited fossil assemblages lead palaeontologists to postulate that the GABI was in fact a succession of exchange pulses punctuated by phases of interruption, related to the climate-driven oscillations between savannah and rainforest in Central America [@webb1991]. The majority of exchanged taxa therefore had ecologies suited to open habitats, and preferentially dispersed during cold and dry climate intervals [@woodburne2010]. That being said, as mentioned by Weir @weir2009, the mammal fossil record in the Americas is highly biased, with few occurrences coming from low-latitude tropical regions, which is particularly striking in the case of South America [*e*.*g*., @ugarte2025]. Furthermore, evidence from extant taxa suggest tropical niche conservatism
+
+Also, across simulations, exchange pulses manifestly don't relate to temperature fluctuations (Figure S11), which has yet been postulated many times (*e*.*g*., Woorburne et al. @woodburne2010 and literature therein.
+
+Biome pattern (Figure S6) directly reflects the diffential amount of surface that each biome represents in the two continents.
+
+Precipitation niche @skeels2023b. Result of Figure 2C for $M3$ can be related to tropical biome
+
+Effect of climate change to keep in mind for megafaunal extinctions @cruz2025
+
+## Notes about tropical niche conservatism
+
+"mammal record is derived almost entirely from temperate-latitude fossils and includes few fossils from tropical forests, which may bias estimates of the direction of traffic between the continents" @weir2009 Could the apparent abiotic selectivity that facilitated the dispersal of temperate-adapted mammals be in fact a taphonomic bias? Could the empirically-derived migration imbalance be altered by the tropical niche conservatism of south-to-north migrants?
+
+Asymmetry of success postulated as a contributor to the LBG
+
+Our results highlight that successful simulations, either starting from North or South America, exhibit a strong tropical niche conservatism.
+
+North American taxa exhibit strong Tropical Niche Conservatism (TNC), but not South Americans, except for M0. TNC relaxed in M3.
+
+Faunistic uniqueness (ccl Tilson Smith et al. 2012 + discu Gilles)
 
 ## Limitations and perspectives
 
@@ -168,7 +165,11 @@ Timeline of the simulation (last 5Myrs). Some claim for an onset of the intercha
 
 We thank Céline Devaux for her useful comments on the present work.
 
-\newpage
+{{< pagebreak >}}
+
+# Thrash
+
+Our study indicates that climate alone is not sufficient to reproduce the asymmetry of the GABI. This suggests that other factors, unaccounted here, might have been at work to shape the uneven faunal exchange that occured across the America. Among them, one can think about biotic interactions. In fact, in the first studies investigating the GABI, competition involving clades of similar ecology appeared as a likely first-order explanation to the recent demise of South American endemic mammalian clades such as native ungulates [@croft2020] or sparassodonts -- metatherian predators [@pino2022] -- that followed the establishment of northern lineages [@simpson1980]. Hypotheses invoking competition mostly relied on striking morphological convergences between the clades assumed to have competed -- *e*.*g*., sabertooth among predators, high-crowned and ever-growing cheek teeth among herbivores. In addition, evidence from stable isotope analyses of mammalian herbivore ennamel from Southern South America suggested that North American clades had broader trophic niches than their South American counterparts, this dietary flexibility therefore offering a larger adaptative power to North American herbivores in South America [@domingo2020]. Moreover, using phylogenetic regressions, Faurby et al. [@faurby2016] found support for another biotic interaction that could have played a role in shaping GABI's asymmetry: predation. They indeed characterised a higher prevalence of traits increasing prey susceptibility among the endemic South American mammals. However, several process-based analyses of the fossil record provided no evidence for biotic interactions involving native South American mammals and their northern counterparts [@prevosti2013; @tarquini2022]. Incorporating biotic compounds in mechanistic frameworks such as the one we have implemented here would be a nice way-to-go for future studies tackling the asymmetry behind the GABI.
 
 # References
 
