@@ -88,7 +88,7 @@ start_biome_success <- P_tbl_win %>%
 # ggsave(paste0("./Figures/starting_biome/starting_biome_EXCH.png"), 
 #        plot = start_biome_success, height = 170, width = 170, dpi = 600, units = "mm")
 
-ggsave(paste0("./Figures/MS/Supp/biomes/starting_biome_EXCH.png"), 
+ggsave("./Figures/MS/Supp/biomes/starting_biome_EXCH.png", 
        plot = start_biome_success, height = 200, width = 200, dpi = 600, units = "mm")
 
 

@@ -224,6 +224,15 @@ knitr::include_graphics("../Figures/MS/Supp/colonisation_timing/full_plot.png")
 
 ```
 
+```{r, echo=FALSE}
+#| label: fig-PropFinalAreaBiome
+#| out-height: 17cm
+#| out-width: 23cm
+#| fig-cap: Proportion of the final area occupied within each biome after each successful simulation.
+
+knitr::include_graphics("../Figures/MS/Supp/biomes/final_area_occupied_per_biome.png")
+```
+
 
 {{< pagebreak >}}
 
