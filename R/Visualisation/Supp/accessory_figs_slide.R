@@ -105,6 +105,24 @@ p_plot <- prec_1k %>% ggplot(aes(x = Long, y = Lat, fill = T_1003)) +
 rm(MAP)
 ggsave("../Presentations/GABI/meeting_25-03/p_clim/prec_1003.pdf", plot = p_plot, height = 100, width = 200, units = "mm")
 
+  # Global averaged temperature
+mean_MAT <- apply(X = MAT[, 1000:ncol(MAT)], FUN = mean, MARGIN = 2)
+mean_MAT <- (mean_MAT - mean(mean_MAT)) # center for plotting issues
+
+df <- data.frame(t = seq(from = 3, to = 0, by = -1e-3), MAT = mean_MAT)
+temp_plt <- df %>% 
+  ggplot(aes(x = t, y = MAT)) +
+  geom_line(colour = "#4eb3e3", linewidth = 0.5) +
+  labs(x = "Time (Ma)", y = "Temperature") +
+  theme(panel.grid = element_blank(),
+        panel.background = element_rect(fill = "transparent"),
+        axis.text = element_text(size = 8),
+        axis.title = element_text(size = 11)) +
+  coord_geo(dat = "epochs", height = unit(1, "line"), center_end_labels = T, abbr = F, size = "auto")
+
+ggsave("../Workshops_Conferences/2025/PalAss_2025/temp_plot.png", temp_plt, height = 100, width = 150, units = "mm")
+
+
   # Regionally-subsampled ones
 subsample <- function(xyz){
   mask <- shapefile("./Data/Shapefile_masks/raw_mask.shp")
@@ -208,3 +226,4 @@ par(mfrow = c(1,2))
 plot(df_unif$x, df_unif$y, main = "Uniform", xlab = "x", ylab = "y")
 plot(df_sobol$X1, df_sobol$X2, main = "Sobol'", xlab = "x", ylab = "y")
 dev.off()
+

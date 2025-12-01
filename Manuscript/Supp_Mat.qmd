@@ -228,7 +228,7 @@ knitr::include_graphics("../Figures/MS/Supp/colonisation_timing/full_plot.png")
 #| label: fig-PropFinalAreaBiome
 #| out-height: 17cm
 #| out-width: 23cm
-#| fig-cap: Proportion of the final area occupied within each biome after each successful simulation.
+#| fig-cap: Proportion of the final area occupied within each biome after each successful simulation. Rows discriminate the model that generated simulations (from $M0$ to $M3$), and columns the continent where the simualtion started (either North or South America).
 
 knitr::include_graphics("../Figures/MS/Supp/biomes/final_area_occupied_per_biome.png")
 ```
