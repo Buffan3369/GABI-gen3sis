@@ -58,6 +58,7 @@ source("./2c-AreaDiv.R")
 success_runs <- c(1:nrow(params))[which(params$exchanged == 1)]
   # Add target metric columns and fill them
 params$prop_col_area <- -1
+params$abs_col_area <- -1
 params$div_col <- -1
   # Loop across successful runs
 for(sr in success_runs){
@@ -72,6 +73,16 @@ for(sr in success_runs){
                        ancestral_area = args[6],
                        eq_dist = as.logical(args[7]))
   params$prop_col_area[sr] <- ifelse(length(area) == 0, -1, area)
+  # -------------------------- #
+  # Absolute colonised area
+  # -------------------------- #
+  abs_area <- get_area_div(run = sr,
+                           model = args[5],
+                           what = "absolute_area",
+                           last_step = params$final_timestep[sr],
+                           ancestral_area = args[6],
+                           eq_dist = as.logical(args[7]))
+  params$abs_col_area[sr] <- ifelse(length(abs_area) == 0, -1, abs_area)
   # ----------------------------- #
   # Diversity in the colonised area
   # ----------------------------- #
@@ -83,7 +94,7 @@ for(sr in success_runs){
                       eq_dist = as.logical(args[7]))
   params$div_col[sr] <- div
 }
-cat("\nAdding Colonised Area Surface and Diversity within this Area : DONE\n\n")
+cat("\nAdding Propotion and Absolute Colonised Area and Diversity within this Area : DONE\n\n")
 
 
 ## --------------------------------------------------------------------- ##

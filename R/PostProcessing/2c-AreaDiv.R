@@ -22,12 +22,13 @@ cell_occupied <- function(row, df){ # df is the clipped occupancy dataframe
 #          /!\ APPLY TO SUCCESSFUL RUNS /!\ 
 get_area_div <- function(run,
                          model,
-                         what = c("area", "diversity"),
+                         what = c("area", "absolute_area", "diversity"),
                          last_step, # last step of the simulation (if set to zero, simulation went until the end)
                          ancestral_area = c("North", "South"), # where the ancestral species started (either North or South America)
                          eq_dist = FALSE){ 
   # -----------------
   # if `what` = "area", returns the proportion of colonised area occupied
+  # if `what` = "absolute_area", returns the absolute size of the colonised area (in number of pixels)
   # if `what` = "diversity", returns the number of species in the colonised area
   # -----------------
   if(ancestral_area == "North"){
@@ -60,9 +61,8 @@ get_area_div <- function(run,
                   ncol(grid_clipped_df[, sp_occ]), # does not work in case `grid_clipped_df` is unidimensional (meaning diversity in the foreign continent = 1 species)
                   1) # obviously, as this function is meant to be applied to successful runs
     return(div)
-  } 
-  # Proportion of area colonised (in pixels)
-  if(what == "area"){
+  }
+  else{
     avail_area <- nrow(grid_clipped_df)
     cell_occ <- sapply(1:nrow(grid_clipped_df), FUN = cell_occupied, df = grid_clipped_df)
     grid_clipped_df_occ <- grid_clipped_df[cell_occ, ]
@@ -72,7 +72,14 @@ get_area_div <- function(run,
     else{
       occ_area <- length(grid_clipped_df_occ)
     }
-    prop_col_area <- occ_area / avail_area
-    return(prop_col_area)
+    # Proportion of area colonised (in pixels)
+    if(what == "area"){
+      prop_col_area <- occ_area / avail_area
+      return(prop_col_area)
+    }
+    # Absolute colonised area
+    if(what == "absolute_area"){
+      return(occ_area)
+    }
   }
 }
