@@ -23,7 +23,7 @@ plot_df_div_col_area <- summarise_distrib(metric = "div_col",
                                           what = "exchanged")
 plot_df_div_col_area <- plot_df_div_col_area %>% 
   # Log-transform the data for plotting
-  mutate(metric = "Log(Colonised \u03b1 diversity)") %>% 
+  mutate(metric = "Log(Colonised diversity)") %>% 
   mutate(div_col = log(div_col, base = 10),
          mean = log(mean, base = 10),
          lower_ci = log(lower_ci, base = 10),
@@ -39,7 +39,7 @@ plot_df_dist_isthmus <- plot_df_dist_isthmus %>%
 ## Merge them ------------------------------------------------------------------
 PLOT_DF <- rbind.data.frame(plot_df_prop_col_area, plot_df_div_col_area, plot_df_dist_isthmus)
 PLOT_DF$metric <- factor(PLOT_DF$metric, levels = c("Proportion of colonised area",
-                                                    "Log(Colonised \u03b1 diversity)",
+                                                    "Log(Colonised diversity)",
                                                     "Distance to isthmus (km)"))
 
 full_panel <- PLOT_DF %>% 
