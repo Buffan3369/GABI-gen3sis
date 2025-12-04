@@ -57,7 +57,7 @@ Affiliations:
 ## KEY RESOURCES TABLE
 
 | **REAGENTS OR RESOURCE** | **SOURCE** | **IDENTIFIER** |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | **Deposited data** |  |  |
 | Biodiversity simulations | This study | *Link to be produced* |
 | **Software and algortithms** |  |  |
@@ -232,7 +232,6 @@ knitr::include_graphics("../Figures/MS/Supp/colonisation_timing/full_plot.png")
 
 knitr::include_graphics("../Figures/MS/Supp/biomes/final_area_occupied_per_biome.png")
 ```
-
 
 {{< pagebreak >}}
 
