@@ -8,6 +8,7 @@ library(raster)
 library(terra)
 library(h3jsr)
 library(tidyverse)
+library(deeptime)
 
 ## Equal-area plots ------------------------------------------------------------
 landscape <- readRDS("./Results/M0/try_north/landscapes/landscape_t_4683.rds")
@@ -106,14 +107,17 @@ rm(MAP)
 ggsave("../Presentations/GABI/meeting_25-03/p_clim/prec_1003.pdf", plot = p_plot, height = 100, width = 200, units = "mm")
 
   # Global averaged temperature
-mean_MAT <- apply(X = MAT[, 1000:ncol(MAT)], FUN = mean, MARGIN = 2)
+mean_MAT <- apply(X = MAT[, 2003:ncol(MAT)], FUN = mean, MARGIN = 2)
 mean_MAT <- (mean_MAT - mean(mean_MAT)) # center for plotting issues
 
 df <- data.frame(t = seq(from = 3, to = 0, by = -1e-3), MAT = mean_MAT)
 temp_plt <- df %>% 
+  
+  filter(t < 0.6 & t > 0.3) %>% 
   ggplot(aes(x = t, y = MAT)) +
-  geom_line(colour = "#4eb3e3", linewidth = 0.5) +
-  labs(x = "Time (Ma)", y = "Temperature") +
+  scale_x_reverse() +
+  geom_line(colour = "black", linewidth = 0.5) +
+  labs(x = "Time (Ma)", y = "Temperature anomaly (°C)") +
   theme(panel.grid = element_blank(),
         panel.background = element_rect(fill = "transparent"),
         axis.text = element_text(size = 8),
@@ -225,5 +229,22 @@ pdf("../Presentations/GABI/meeting_25-03/param_space_sobol_unif.pdf", height = 7
 par(mfrow = c(1,2))
 plot(df_unif$x, df_unif$y, main = "Uniform", xlab = "x", ylab = "y")
 plot(df_sobol$X1, df_sobol$X2, main = "Sobol'", xlab = "x", ylab = "y")
+dev.off()
+
+
+## Map to illustrate proportion of colonised area ------------------------------
+paf <- readRDS("~/Bureau/config_M0_North_America_run_16/pa_matrices/pa_t_0.rds")
+paf <- data.frame(paf)
+
+comp <- apply(X = paf[, 3:ncol(paf)], 
+              FUN = function(x){
+                S <- sum(x)
+                ifelse(S > 0, return(1), return(0))
+              },
+              MARGIN = 1)
+
+r <- rasterFromXYZ(cbind(paf[, 1:2], comp))
+png("../Workshops_Conferences/2025/PalAss_2025/area_plot.png")
+plot(r, col = c("bisque3", "darkgreen"))
 dev.off()
 
