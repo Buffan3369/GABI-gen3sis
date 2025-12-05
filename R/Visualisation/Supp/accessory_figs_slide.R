@@ -218,6 +218,25 @@ p <- plt_df %>%
 
 ggsave("../Presentations/GABI/meeting_25-03/gaussian.pdf", plot = p, height = 30, width = 80, units = "mm")
 
+## Créneau ---------------------------------------------------------------------
+y <- sapply(x, FUN = function(x){ifelse(abs(x)<2, return(1), return(0))})
+plt_df2 <- data.frame(x, y)
+p2 <- plt_df2 %>% 
+  ggplot(aes(x = x, y = y)) +
+  geom_line(colour = "#fec44f", linewidth = 2) +
+  scale_x_continuous(limits = c(-5,5)) +
+  ylim(c(0, 2)) +
+  theme(axis.line = element_line(colour = "white"),
+        axis.ticks = element_blank(),
+        axis.text = element_blank(),
+        axis.title = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.background = element_blank(),
+        panel.grid.minor = element_blank(),
+        plot.background = element_blank())
+ggsave("../Workshops_Conferences/2025/PalAss_2025/creneau.png", plot = p2,
+       dpi = 600, height = 100, width = 80, units = "mm")
+
 ## Sobol' sequences ------------------------------------------------------------
 library(randtoolbox)
 df_unif <- data.frame(x = runif(n = 600, min = 0, max = 1),

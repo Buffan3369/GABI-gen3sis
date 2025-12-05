@@ -26,6 +26,9 @@ assign_sumtbl_to_metric <- function(metric,
   else if(metric == "prop_col_area"){
     sumtbl <- readRDS(paste0("./Results/Exchanged_metrics/Prop_colonised_area", all, std, ".RDS"))
   }
+  else if(metric == "absolute_area"){
+    sumtbl <- readRDS(paste0("./Results/Exchanged_metrics/Absolute_colonised_area.RDS", all, std, ".RDS"))
+  }
   else if(metric == "div_col"){
     sumtbl <- readRDS(paste0("./Results/Exchanged_metrics/Div_col_area", all, std, ".RDS"))
   }
@@ -34,7 +37,7 @@ assign_sumtbl_to_metric <- function(metric,
   }
 }
 
-summarise_distrib <- function(metric = c("dist_to_isthmus", "prop_col_area", 
+summarise_distrib <- function(metric = c("dist_to_isthmus", "prop_col_area", "absolute_area",
                                          "div_col", "start_biome"), # Metric we want to summarise
                               what = c("all", "no_crash", "exchanged)"), # Shall we keep all the runs, only those that didn't crash or those that resulted in a success
                               dist_std = F){

@@ -112,8 +112,8 @@ for(std in c(TRUE, FALSE)){
       
     ## 3. Absolute colonised area (and associated CI) --------------------------
     plot_df_abs_col_area <- data.frame(Ori = c("North America", "South America"),
-                                        Prop_col_area = c(na_abs_col_area, sa_abs_col_area),
-                                        Lower_CI = c(Student_CI(x_bar = na_abs_col_area,
+                                       Abs_col_area = c(na_abs_col_area, sa_abs_col_area),
+                                       Lower_CI = c(Student_CI(x_bar = na_abs_col_area,
                                                                 n = nrow(NA_recap_tbl),
                                                                 sigma = na_sd_abs_area,
                                                                 alpha = 0.05,
@@ -123,7 +123,7 @@ for(std in c(TRUE, FALSE)){
                                                                 sigma = sa_sd_abs_area,
                                                                 alpha = 0.05,
                                                                 what = "Lower")),
-                                        Upper_CI = c(Student_CI(x_bar = na_abs_col_area,
+                                       Upper_CI = c(Student_CI(x_bar = na_abs_col_area,
                                                                 n = nrow(NA_recap_tbl),
                                                                 sigma = na_sd_abs_area,
                                                                 alpha = 0.05,
@@ -237,7 +237,7 @@ for(std in c(TRUE, FALSE)){
       ## 3. Absolute colonised area --------------------------------------------
       plot_df_abs_col_area <- plot_df_abs_col_area %>% 
         add_row(Ori = c("North America", "South America"),
-                Prop_col_area = c(na_abs_col_area, sa_abs_col_area),
+                Abs_col_area = c(na_abs_col_area, sa_abs_col_area),
                 Lower_CI = c(Student_CI(x_bar = na_abs_col_area,
                                         n = nrow(NA_recap_tbl),
                                         sigma = na_sd_abs_area,
