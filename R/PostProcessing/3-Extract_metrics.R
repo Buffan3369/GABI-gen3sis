@@ -21,11 +21,9 @@ for(std in c(TRUE, FALSE)){
                                  header = T, sep = "\t")
     }
     else{
-      NA_recap_tbl <- read.table(paste0("./Data/Gen3sis_parameter_tables/", mdl, "/North_America_parameters_EXTENDED_EXCH_AREA_DIV_DIST_biome.txt"),
-                                 header = T, sep = "\t")
+      NA_recap_tbl <- readRDS(paste0("./Data/Gen3sis_parameter_tables/", mdl, "/North_America_parameters_EXTENDED_EXCH_ABS_AREA_DIV_DIST_biome_time.RDS"))
     }
-    SA_recap_tbl <- read.table(paste0("./Data/Gen3sis_parameter_tables/", mdl, "/South_America_parameters_EXTENDED_EXCH_AREA_DIV_DIST_biome.txt"),
-                               header = T, sep = "\t")
+    SA_recap_tbl <- readRDS(paste0("./Data/Gen3sis_parameter_tables/", mdl, "/South_America_parameters_EXTENDED_EXCH_ABS_AREA_DIV_DIST_biome_time.RDS"))
     
     ## Filter out simulations that crashed -------------------------------------
     cat("Number of simulations that crashed for ", mdl, " with North American ancestor: ", length(which(NA_recap_tbl$exchanged == -1)), "\n")
@@ -47,13 +45,19 @@ for(std in c(TRUE, FALSE)){
     sa_prop_col_area <- mean(SA_success_tbl$prop_col_area)
     sa_sd_area <- sd(SA_success_tbl$prop_col_area)
     
-    ## 3. Diversity in colonised area ------------------------------------------
+    ## 3. Absolute colonised area ----------------------------------------------
+    na_abs_col_area <- mean(NA_success_tbl$abs_col_area)
+    na_sd_abs_area <- sd(NA_success_tbl$abs_col_area)
+    sa_abs_col_area <- mean(SA_success_tbl$abs_col_area)
+    sa_sd_abs_area <- sd(SA_success_tbl$abs_col_area)
+    
+    ## 4. Diversity in colonised area ------------------------------------------
     na_mean_div <- mean(NA_success_tbl$div_col)
     na_sd_div <- sd(NA_success_tbl$div_col)
     sa_mean_div <- mean(SA_success_tbl$div_col)
     sa_sd_div <- sd(SA_success_tbl$div_col)
     
-    ## 4. Distance to the Isthmus ----------------------------------------------
+    ## 5. Distance to the Isthmus ----------------------------------------------
     na_mean_dist <- mean(NA_success_tbl$dist_to_isthmus)
     na_sd_dist <- sd(NA_success_tbl$dist_to_isthmus)
     sa_mean_dist <- mean(SA_success_tbl$dist_to_isthmus)
@@ -106,7 +110,31 @@ for(std in c(TRUE, FALSE)){
                                                                   what = "Upper")),
                                           Model = c(mdl, mdl))
       
-      ## 3. Diversity in colonised area (and associated CI) --------------------
+    ## 3. Absolute colonised area (and associated CI) --------------------------
+    plot_df_abs_col_area <- data.frame(Ori = c("North America", "South America"),
+                                        Prop_col_area = c(na_abs_col_area, sa_abs_col_area),
+                                        Lower_CI = c(Student_CI(x_bar = na_abs_col_area,
+                                                                n = nrow(NA_recap_tbl),
+                                                                sigma = na_sd_abs_area,
+                                                                alpha = 0.05,
+                                                                what = "Lower"),
+                                                     Student_CI(x_bar = sa_abs_col_area,
+                                                                n = nrow(SA_recap_tbl),
+                                                                sigma = sa_sd_abs_area,
+                                                                alpha = 0.05,
+                                                                what = "Lower")),
+                                        Upper_CI = c(Student_CI(x_bar = na_abs_col_area,
+                                                                n = nrow(NA_recap_tbl),
+                                                                sigma = na_sd_abs_area,
+                                                                alpha = 0.05,
+                                                                what = "Upper"),
+                                                     Student_CI(x_bar = sa_abs_col_area,
+                                                                n = nrow(SA_recap_tbl),
+                                                                sigma = sa_sd_abs_area,
+                                                                alpha = 0.05,
+                                                                what = "Upper")),
+                                        Model = c(mdl, mdl))      
+      ## 4. Diversity in colonised area (and associated CI) --------------------
       plot_df_div_col_area <- data.frame(Ori = c("North America", "South America"),
                                          Div_col_area = c(na_mean_div, sa_mean_div),
                                          Lower_CI = c(Student_CI(x_bar = na_mean_div,
@@ -131,7 +159,7 @@ for(std in c(TRUE, FALSE)){
                                                                  what = "Upper")),
                                          Model = c(mdl, mdl))
       
-      ## 4. Distance of the starting species to the Isthmus --------------------
+      ## 5. Distance of the starting species to the Isthmus --------------------
       plot_df_dist_isthmus <- data.frame(Ori = c("North America", "South America"),
                                          Dist = c(na_mean_dist, sa_mean_dist),
                                          Lower_CI = c(Student_CI(x_bar = na_mean_dist,
@@ -206,8 +234,33 @@ for(std in c(TRUE, FALSE)){
                                         what = "Upper")),
                 Model = c(mdl, mdl))
       
+      ## 3. Absolute colonised area --------------------------------------------
+      plot_df_abs_col_area <- plot_df_abs_col_area %>% 
+        add_row(Ori = c("North America", "South America"),
+                Prop_col_area = c(na_abs_col_area, sa_abs_col_area),
+                Lower_CI = c(Student_CI(x_bar = na_abs_col_area,
+                                        n = nrow(NA_recap_tbl),
+                                        sigma = na_sd_abs_area,
+                                        alpha = 0.05,
+                                        what = "Lower"),
+                             Student_CI(x_bar = sa_abs_col_area,
+                                        n = nrow(SA_recap_tbl),
+                                        sigma = sa_sd_abs_area,
+                                        alpha = 0.05,
+                                        what = "Lower")),
+                Upper_CI = c(Student_CI(x_bar = na_abs_col_area,
+                                        n = nrow(NA_recap_tbl),
+                                        sigma = na_sd_abs_area,
+                                        alpha = 0.05,
+                                        what = "Upper"),
+                             Student_CI(x_bar = sa_abs_col_area,
+                                        n = nrow(SA_recap_tbl),
+                                        sigma = sa_sd_abs_area,
+                                        alpha = 0.05,
+                                        what = "Upper")),
+                Model = c(mdl, mdl))
       
-      ## 3. Diversity in the colonised area ------------------------------------
+      ## 4. Diversity in the colonised area ------------------------------------
       plot_df_div_col_area <- plot_df_div_col_area %>% 
         add_row(Ori = c("North America", "South America"),
                 Div_col_area = c(na_mean_div, sa_mean_div),
@@ -232,7 +285,8 @@ for(std in c(TRUE, FALSE)){
                                         alpha = 0.05,
                                         what = "Upper")),
                 Model = c(mdl, mdl))
-      ## 4. Distance to the Isthmus --------------------------------------------
+      
+      ## 5. Distance to the Isthmus --------------------------------------------
       plot_df_dist_isthmus <- plot_df_dist_isthmus %>% 
         add_row(Ori = c("North America", "South America"),
                 Dist = c(na_mean_dist, sa_mean_dist),
@@ -276,6 +330,8 @@ for(std in c(TRUE, FALSE)){
     saveRDS(plot_df_prop_success, "./Results/Exchanged_metrics/Prop_successful_exchange.RDS")
     # Proportion of colonised area
     saveRDS(plot_df_prop_col_area, "./Results/Exchanged_metrics/Prop_colonised_area.RDS")
+    # Absolute colonised area
+    saveRDS(plot_df_abs_col_area, "./Results/Exchanged_metrics/Absolute_colonised_area.RDS")
     # Diversity in the colonised area
     saveRDS(plot_df_div_col_area, "./Results/Exchanged_metrics/Div_col_area.RDS")
     # Distance to the isthmus

@@ -1,7 +1,7 @@
 ---
 title: "Palaeoclimatic constraints behind the Great American Biotic Interchange: insights from eco-evolutionary simulations"
 author:  
-  - Lucas Buffan¹, Adrián Castro Insua², Fabien L. Condamine¹, Sara Varela²
+  - Lucas Buffan¹, Fabien L. Condamine¹, Sara Varela²
 format:
   docx:
       number-sections: false
@@ -31,6 +31,8 @@ Affiliations:
 ¹ Institut des Sciences de l’Evolution de Montpellier, Université de Montpellier, CNRS, IRD, Place Eugène Bataillon, 34095 Montpellier cedex 5, France.
 
 ² Centro de Investigación Mariña, Departamento de Ecoloxía e Bioloxía Animal, Universidade de Vigo, Campus Lagoas-Marcosende, 36310 Vigo, Spain
+
+* Corresponding author: lucas.l.buffan@gmail.com
 
 # Abstract
 
@@ -160,7 +162,7 @@ Timeline of the simulation (last 5Myrs). Some claim for an onset of the intercha
 
 # Acknowledgements
 
-We thank Céline Devaux for her useful comments on the present work.
+We thank Adrián Castro Insua for his useful guidelines and recommendations at the onset of the project. We thank Céline Devaux for her useful comments on the present work.
 
 {{< pagebreak >}}
 
