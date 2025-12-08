@@ -17,7 +17,7 @@ for(mdl in c("M0", "M1")){
       tmp <- readRDS(paste0("./Results/col_times/", mdl, "_", start, "Col_times_df.rds"))
       tmp$model <- mdl
       tmp$start <- paste0(start, " America")
-      time_df <- rbind.data.frame(tmp, time_df)
+      time_df <- rbind.data.frame(time_df, tmp)
     }
   }
 }
