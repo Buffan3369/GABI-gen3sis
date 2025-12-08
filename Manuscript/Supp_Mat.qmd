@@ -1,7 +1,7 @@
 ---
 title: "*Supplemental Informations for:* Palaeoclimatic constraints behind the Great American Biotic Interchange: insights from eco-evolutionary simulations"
 author:  
-  - Lucas Buffan¹, Adrián Castro Insua², Fabien L. Condamine¹, Sara Varela²
+  - Lucas Buffan¹, Fabien L. Condamine¹, Sara Varela²
 format:
     pdf:
       documentclass: article
@@ -232,6 +232,16 @@ knitr::include_graphics("../Figures/MS/Supp/colonisation_timing/full_plot.png")
 
 knitr::include_graphics("../Figures/MS/Supp/biomes/final_area_occupied_per_biome.png")
 ```
+
+```{r, echo=FALSE}
+#| label: fig-AbsColArea
+#| out-height: 8cm
+#| out-width: 17.5cm
+#| fig-cap: Absolute colonised area, expressed as the number of foreign continent's occupied cells for each successful simulation generated under each model ($M0$--$M3$).
+
+knitr::include_graphics("../Figures/MS/Supp/abs_col_area.png")
+```
+
 
 {{< pagebreak >}}
 

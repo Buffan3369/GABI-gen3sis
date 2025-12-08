@@ -26,8 +26,8 @@ assign_sumtbl_to_metric <- function(metric,
   else if(metric == "prop_col_area"){
     sumtbl <- readRDS(paste0("./Results/Exchanged_metrics/Prop_colonised_area", all, std, ".RDS"))
   }
-  else if(metric == "absolute_area"){
-    sumtbl <- readRDS(paste0("./Results/Exchanged_metrics/Absolute_colonised_area.RDS", all, std, ".RDS"))
+  else if(metric == "abs_col_area"){
+    sumtbl <- readRDS(paste0("./Results/Exchanged_metrics/Absolute_colonised_area", all, std, ".RDS"))
   }
   else if(metric == "div_col"){
     sumtbl <- readRDS(paste0("./Results/Exchanged_metrics/Div_col_area", all, std, ".RDS"))
@@ -37,7 +37,7 @@ assign_sumtbl_to_metric <- function(metric,
   }
 }
 
-summarise_distrib <- function(metric = c("dist_to_isthmus", "prop_col_area", "absolute_area",
+summarise_distrib <- function(metric = c("dist_to_isthmus", "prop_col_area", "abs_col_area",
                                          "div_col", "start_biome"), # Metric we want to summarise
                               what = c("all", "no_crash", "exchanged)"), # Shall we keep all the runs, only those that didn't crash or those that resulted in a success
                               dist_std = F){
@@ -60,9 +60,8 @@ summarise_distrib <- function(metric = c("dist_to_isthmus", "prop_col_area", "ab
                                 for(mdl in c("M0", "M1", "M2", "M3")){
                                   for(start in c("North","South")){
                                     # Get metric distribution along the runs
-                                    p_tbl <- read.table(paste0("./Data/Gen3sis_parameter_tables/", mdl, "/", start,
-                                                               "_America_parameters_EXTENDED_EXCH_AREA_DIV_DIST_biome.txt"),
-                                                        sep = "\t", header = TRUE)
+                                    p_tbl <- readRDS(paste0("./Data/Gen3sis_parameter_tables/", mdl, "/", start,
+                                                            "_America_parameters_EXTENDED_EXCH_ABS_AREA_DIV_DIST_biome_time.RDS"))
                                     
                                     if(dist_std & start == "North"){
                                       p_tbl <- read.table(paste0("./Data/Gen3sis_parameter_tables/Equal_dist/", mdl, "/", start,
