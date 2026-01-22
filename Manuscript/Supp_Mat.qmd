@@ -71,7 +71,7 @@ Affiliations:
 
 ## METHOD DETAILS {#sec-methods}
 
-Beforehand, it has to be noticed that, across the entire study, "North America" actually refers to the current North and Central American continents. The delimitation between North and South America was arbitrarily set as a straight line connecting two points located along the eastern and western coasts of present Panama ($-82.882°$lon, $7.138°$lat and $-81.369°$lon and $9.008°$lat) (see main text, Figure 1).
+Beforehand, it has to be noticed that, across the entire study, "North America" actually refers to the current North and Central American continents. The delimitation between North and South America was arbitrarily set as a straight line connecting two points located along the eastern and western coasts of present Panama ($-82.882°$lon, $7.138°$lat and $-81.369°$lon and $9.008°$lat) (see main text, Figure 2).
 
 ### Palaeoclimate data
 
@@ -251,7 +251,6 @@ knitr::include_graphics("../Figures/MS/Supp/abs_col_area.png")
 knitr::include_graphics("../Figures/MS/Supp/PropSuccess_TNC_thresholds/Panel_PropSuccess_TNC.png")
 ```
 
-
 {{< pagebreak >}}
 
 # Supplementary tables
@@ -293,6 +292,26 @@ prop_crash_unstd <- readRDS("../Results/Exchanged_metrics/Crash_counter.RDS")
 
 knitr::kable(prop_crash_unstd, align = "c")
 ```
+
+|
+|
+
+```{r, echo=FALSE}
+#| label: tbl-RefSilhouettes
+#| tbl-cap: References for the silhouettes used in Figure 1, from Phylopic.
+
+library(readxl)
+tbl <- read_xlsx("./phylopic_ID_table.xlsx")
+# Italicise species names
+tbl$Silhouette <- sapply(X = tbl$Silhouette, FUN = function(x){paste0("*", x, "*")})
+# Header in bold
+colnames(tbl) <- sapply(X = colnames(tbl), FUN = function(x){paste0("**", x, "**")})
+
+# Display
+knitr::kable(tbl, align = "c")
+```
+
+
 
 {{< pagebreak >}}
 
