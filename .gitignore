@@ -3,6 +3,7 @@ Data/Gen3sis_landscapes/
 Data/Gen3sis_configs/
 Data/PALEO_PGEM-bioclim/
 Data/World_elevation/
+./.Rhistory
 .Rproj.user
 Results/
 Manuscript/
