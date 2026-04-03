@@ -1,5 +1,5 @@
 ################################################################################
-# Name: Figure1.R
+# Name: Figure_framework.R
 # Author: Lucas Buffan
 # E-mail: lucas.l.buffan@gmail.com
 # Goal: Plot average climate estimates across space for North and South America
