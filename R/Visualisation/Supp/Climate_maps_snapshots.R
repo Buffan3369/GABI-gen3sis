@@ -21,13 +21,29 @@ broad <- function(class_vect){
   # Tropical
   class_vect[which(class_vect %in% c(1,2,3))] <- "Tropical"
   # Arid
-  class_vect[which(class_vect %in% c(4,5,6))] <- "Arid"
+  class_vect[which(class_vect %in% 4:7)] <- "Arid"
   # Temperate
-  class_vect[which(class_vect %in% 7:15)] <- "Temperate"
+  class_vect[which(class_vect %in% 8:16)] <- "Temperate"
   # Cold
-  class_vect[which(class_vect %in% 16:27)] <- "Cold"
+  class_vect[which(class_vect %in% 17:28)] <- "Cold"
   # Polar
-  class_vect[which(class_vect %in% c(28,29,30))] <- "Polar"
+  class_vect[which(class_vect %in% c(29,30))] <- "Polar"
+  return(class_vect)
+}
+
+# Function to turn fine- to broadclasses by preserving tropical savannah
+broad_savannah <- function(class_vect){
+  # Tropical
+  class_vect[which(class_vect %in% c(1,2))] <- "Tropical \nforest" # Rainforest or monsoon
+  class_vect[which(class_vect == 3)] <- "Tropical \nsavannah" # Tropical savannah
+  # Arid
+  class_vect[which(class_vect %in% 4:7)] <- "Arid"
+  # Temperate
+  class_vect[which(class_vect %in% 8:16)] <- "Temperate"
+  # Cold
+  class_vect[which(class_vect %in% 17:28)] <- "Cold"
+  # Polar
+  class_vect[which(class_vect %in% c(29,30))] <- "Polar"
   return(class_vect)
 }
 
@@ -37,10 +53,11 @@ int_names <- hash("5 Ma" = 5000, "3 Ma" = 3000, "2.58 Ma" = 2580, "1 Ma" = 1000,
 Temp_DF <- data.frame(lon = NA, lat = NA, Temp = NA, t = NA)
 Prec_DF <- data.frame(lon = NA, lat = NA, Prec = NA, t = NA)
 Biome_DF <- data.frame(lon = NA, lat = NA, Biome = NA, t = NA)
+Biome_DF_sav <- data.frame(lon = NA, lat = NA, Biome = NA, t = NA)
 
 for(i in keys(int_names)){
   yr <- values(int_names[i])
-  # Subset temperature estimates for the Americas
+  ## Subset temperature estimates for the Americas
   tmp_Temp <- Temp_sub[, c("Long", "Lat", paste0("T_", yr))]
   r_Temp <- rasterFromXYZ(tmp_Temp)
   r_Temp_Am <- raster::extract(r_Temp, Americas, cellnumbers = TRUE, df = TRUE)
@@ -49,7 +66,7 @@ for(i in keys(int_names)){
   colnames(xyz_extracted_Temp) <- c("lon", "lat", "Temp")
   xyz_extracted_Temp$t <- i
   Temp_DF <- rbind(Temp_DF, xyz_extracted_Temp)
-  # Same for precipitations
+  ## Same for precipitations
   tmp_Prec <- Prec_sub[, c("Long", "Lat", paste0("T_", yr))]
   r_Prec <- rasterFromXYZ(tmp_Prec)
   r_Prec_Am <- raster::extract(r_Prec, Americas, cellnumbers = TRUE, df = TRUE)
@@ -58,7 +75,7 @@ for(i in keys(int_names)){
   colnames(xyz_extracted_Prec) <- c("lon", "lat", "Prec")
   xyz_extracted_Prec$t <- i
   Prec_DF <- rbind(Prec_DF, xyz_extracted_Prec)
-  # Subset corresponding biome
+  ## Subset corresponding biome
   corr_biome <- biomes[[(yr+1)]]
   corr_biome@data@values <- broad(corr_biome@data@values) # Switch to broad classes
   corr_biome_df <- xyFromCell(corr_biome, cell = 1:ncell(corr_biome))
@@ -67,6 +84,15 @@ for(i in keys(int_names)){
     rename(lon = "x", lat = "y") %>% 
     mutate(Biome = corr_biome@data@values, t = i)
   Biome_DF <- rbind(Biome_DF, corr_biome_df)
+  ## Same by preserving savannah
+  corr_biome <- biomes[[(yr+1)]]
+  corr_biome@data@values <- broad_savannah(corr_biome@data@values) # Switch to broad classes
+  corr_biome_df_sav <- xyFromCell(corr_biome, cell = 1:ncell(corr_biome))
+  corr_biome_df_sav <- corr_biome_df_sav %>% 
+    as.data.frame() %>% 
+    rename(lon = "x", lat = "y") %>% 
+    mutate(Biome = corr_biome@data@values, t = i)
+  Biome_DF_sav <- rbind(Biome_DF_sav, corr_biome_df_sav)
 }
 
 # Temperature plot
@@ -105,7 +131,8 @@ Prec_plot <- Prec_DF %>%
         axis.line = element_blank(),
         axis.ticks = element_blank(),
         axis.text = element_blank(),
-        strip.background = element_rect(fill = "bisque2"),
+        strip.background = element_blank(),
+        strip.text = element_blank(),
         legend.title = element_text(size = 8, hjust = 0.5),
         legend.text = element_text(size = 6))
 
@@ -126,11 +153,33 @@ Biome_plot <- Biome_DF %>%
         axis.line = element_blank(),
         axis.ticks = element_blank(),
         axis.text = element_blank(),
-        strip.background = element_rect(fill = "bisque2"),
+        strip.background = element_blank(),
+        strip.text = element_blank(),
+        legend.title = element_text(size = 8),
+        legend.text = element_text(size = 6))
+# Biome plot (savannah distinct from rainforest/monsoon)
+Biome_plot_sav <- Biome_DF_sav %>% 
+  filter(!is.na(Biome)) %>% 
+  mutate(t = factor(t, levels = c("5 Ma", "3 Ma", "2.58 Ma", "1 Ma","Last Interglacial", "Last Glacial Maximum", "Present")),
+         Biome = factor(Biome, levels = c("Tropical \nforest", "Tropical \nsavannah", "Arid", "Temperate", "Cold", "Polar"))) %>% 
+  ggplot(aes(x = lon, y = lat, fill = Biome)) +
+  geom_tile() +
+  scale_fill_manual(values = c("#238b45", "#fec44f", "#ab3329", "#ed968c", "#7c4b73", "#88a0dc")) +
+  labs(x = NULL, y = NULL, fill = "Biome") +
+  facet_grid(.~t) +
+  theme(panel.background = element_rect(fill = "transparent",
+                                        colour = "black",
+                                        linewidth = 0.1),
+        panel.grid = element_blank(),
+        axis.line = element_blank(),
+        axis.ticks = element_blank(),
+        axis.text = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_blank(),
         legend.title = element_text(size = 8),
         legend.text = element_text(size = 6))
 # Assemble and save
-comb <- ggarrange(Temp_plot, Prec_plot, Biome_plot, nrow = 3)
-ggsave("./Figures/MS/Supp/Climatic_snapshots_panel.pdf", plot = comb, height = 150,
+comb <- ggarrange(Temp_plot, Prec_plot, Biome_plot, Biome_plot_sav, nrow = 4, heights = c(1.1, 1, 1, 1))
+ggsave("./Figures/MS/Supp/Climatic_snapshots_panel_savannah.pdf", plot = comb, height = 250,
        width = 300, units = "mm")
   
