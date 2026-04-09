@@ -180,6 +180,6 @@ Biome_plot_sav <- Biome_DF_sav %>%
         legend.text = element_text(size = 6))
 # Assemble and save
 comb <- ggarrange(Temp_plot, Prec_plot, Biome_plot, Biome_plot_sav, nrow = 4, heights = c(1.1, 1, 1, 1))
-ggsave("./Figures/MS/Supp/Climatic_snapshots_panel_savannah.pdf", plot = comb, height = 250,
+ggsave("./Figures/MS/Supp/Climatic_snapshots_panel_savannah.pdf", plot = comb, height = 200,
        width = 300, units = "mm")
   
