@@ -1,5 +1,5 @@
 ################################################################################
-# Name: 2-Generate_Landscape_Oscillayers.R
+# Name: 1-Generate_Landscape_Oscillayers.R
 # Author: Lucas Buffan
 # E-mail: lucas.l.buffan@gmail.com
 # Goal: Genrate gen3sis landscapes based on upscaled MAT and MAP from Oscillayers 

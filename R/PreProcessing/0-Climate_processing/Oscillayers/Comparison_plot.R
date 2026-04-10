@@ -1,3 +1,10 @@
+################################################################################
+# Name: Comparison_plot.R
+# Author: Lucas Buffan
+# E-mail: lucas.l.buffan@gmail.com
+# Goal: Illustrate spatial upscaling of Oscillayers
+################################################################################
+
 library(raster)
 library(scico)
 library(tidyverse)

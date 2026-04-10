@@ -1,3 +1,11 @@
+################################################################################
+# Name: Climate_maps_snappshots_PALEO-PGEM.R
+# Author: Lucas Buffan
+# E-mail: lucas.l.buffan@gmail.com
+# Goal: Plot snapshots of BIO1, BIO12 extracted from the PALEO-PGEM series 
+#       and associated biome reconstructions
+################################################################################
+
 library(tidyverse)
 library(scico)
 library(ggpubr)
@@ -122,7 +130,7 @@ Prec_plot <- Prec_DF %>%
   ggplot(aes(x = lon, y = lat, fill = Prec)) +
   geom_tile() +
   scale_fill_scico(palette = "bamO") +
-  labs(x = NULL, y = NULL, fill = "Precipitations \n(mm/yr)") +
+  labs(x = NULL, y = NULL, fill = "Precipitation \n(mm/yr)") +
   facet_grid(.~t) +
   theme(panel.background = element_rect(fill = "grey60",
                                         colour = "black",
@@ -178,8 +186,17 @@ Biome_plot_sav <- Biome_DF_sav %>%
         strip.text = element_blank(),
         legend.title = element_text(size = 8),
         legend.text = element_text(size = 6))
-# Assemble and save
+## Assemble and save -----------------------------------------------------------
+# Only bioclimatic variables
+comb_bioclim <- ggarrange(Temp_plot, Prec_plot, nrow = 2, heights = c(1.1, 1))
+ggsave("./Figures/MS/Supp/Clim_snapshots/Climatic_snapshots_panel_PALEO-PGEM_bioclim.pdf", 
+       plot = comb_bioclim, height = 120, width = 300, units = "mm")
+# Bioclim + biomes
+comb_biome <- ggarrange(Temp_plot, Prec_plot, Biome_plot, nrow = 3, heights = c(1.1, 1, 1))
+ggsave("./Figures/MS/Supp/Clim_snapshots/Climatic_snapshots_panel_PALEO-PGEM_biomes.pdf", 
+       plot = comb_biome, height = 160, width = 300, units = "mm")
+# Bioclim + biomes + savannah
 comb <- ggarrange(Temp_plot, Prec_plot, Biome_plot, Biome_plot_sav, nrow = 4, heights = c(1.1, 1, 1, 1))
-ggsave("./Figures/MS/Supp/Climatic_snapshots_panel_savannah.pdf", plot = comb, height = 200,
-       width = 300, units = "mm")
+ggsave("./Figures/MS/Supp/Clim_snapshots/Climatic_snapshots_panel_PALEO-PGEM_biomes_savannah.pdf", 
+       plot = comb, height = 200, width = 300, units = "mm")
   
