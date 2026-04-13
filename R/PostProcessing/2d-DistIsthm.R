@@ -11,7 +11,7 @@ library(sp)
 library(spaths)
 
 # Open a mask to get CRS
-SA_mask <- shapefile("../Data/Shapefile_masks/South_America_cut.shp")
+SA_mask <- shapefile("../../Data/Shapefile_masks/South_America_cut.shp")
 
 # Function to assess the distance between sim° starting point & isthmus -------- 
 get_dist_start <- function(i, start, model, n_sim, eq_dist = FALSE, oscill = FALSE){
@@ -24,8 +24,8 @@ get_dist_start <- function(i, start, model, n_sim, eq_dist = FALSE, oscill = FAL
   else if(oscill){
     suff <- "_Oscillayers"
   }
-  init_mat <- readRDS(paste0("../Outputs", suff, "/", model, "/", start, "_America_start/Config_", i,
-                             "config_", model, "_", start, "_America_run_", i, "/pa_matrices/pa_t_", 
+  init_mat <- readRDS(paste0("../../Outputs", suff, "/", model, "/", start, "_America_start/Config_", i,
+                             "/config_", model, "_", start, "_America_run_", i, "/pa_matrices/pa_t_", 
                              t_start, ".rds"))
   # Check whether starting species existed
   if(length(which(init_mat[,3] == 1)) > 0){

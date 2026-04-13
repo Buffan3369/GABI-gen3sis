@@ -19,9 +19,6 @@ Add_new_params <- function(param_tbl,        # Pre-simulation parameter table
   param_tbl[, c("finished", "final_timestep", "initial_nb_species", 
              "final_nb_species", "sp_events", "ex_events")] <- 0
   
-  n_gen <- as.numeric(n_gen)
-  n_sim <- as.numeric(n_sim)
-  
   ## Loop across all simulations -------------------------------------------------
   for(i in 1:n_sim){
     # Simulation recap file
@@ -35,7 +32,7 @@ Add_new_params <- function(param_tbl,        # Pre-simulation parameter table
     }
     #  print(simdir)
     if(file.exists(simdir)){
-      #    print("Queue")
+ #     print("Queue")
       sim <- readRDS(simdir)
       phylo_sum <- as.data.frame(sim$summary[[1]])
       # Precise whether the simulation finished and the final timestep reached

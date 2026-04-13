@@ -30,8 +30,8 @@ init_params <- read.table(args[1],
 ## ------------------------------------------- ##
 source("./2a-NewParams.R")
 params <- Add_new_params(param_tbl       = init_params,
-                         n_gen           = args[2],
-                         n_sim           = args[3],
+                         n_gen           = as.numeric(args[2]),
+                         n_sim           = as.numeric(args[3]),
                          sim_dir         = args[4],
                          mdl             = args[5],
                          start_continent = args[6],

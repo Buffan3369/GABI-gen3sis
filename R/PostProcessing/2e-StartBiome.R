@@ -23,7 +23,7 @@ get_biome_start <- function(i, start, n_sim, model, eq_dist = FALSE, oscill = FA
     suff <- "_Oscillayers"
   }
   init_mat <- readRDS(paste0("../Outputs", suff, "/", model, "/", start, "_America_start/Config_", i,
-                             "config_", model, "_", start, "_America_run_", i, "/pa_matrices/pa_t_",
+                             "/config_", model, "_", start, "_America_run_", i, "/pa_matrices/pa_t_",
                              t_start, ".rds"))
   # Check whether starting species existed
   if(length(which(init_mat[,3] == 1)) > 0){

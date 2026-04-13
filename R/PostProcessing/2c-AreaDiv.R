@@ -49,8 +49,8 @@ get_area_div <- function(run,
   else if(oscill){
     suff <- "_Oscillayers"
   }
-  of <- readRDS(paste0("../../Outputs", suff, "/", model, "/", ancestral_area, "_America_start/Config_", i,
-                       "config_", model, "_", ancestral_area, "_America_run_", run, "/pa_matrices/pa_t_", 
+  of <- readRDS(paste0("../../Outputs", suff, "/", model, "/", ancestral_area, "_America_start/Config_", run,
+                       "/config_", model, "_", ancestral_area, "_America_run_", run, "/pa_matrices/pa_t_", 
                        last_step, ".rds"))
   of <- data.frame(of)
   grid_vect <- vect(of, geom = c("x", "y"), crs = crs(mask))
