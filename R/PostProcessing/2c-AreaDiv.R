@@ -25,30 +25,33 @@ get_area_div <- function(run,
                          what = c("area", "absolute_area", "diversity"),
                          last_step, # last step of the simulation (if set to zero, simulation went until the end)
                          ancestral_area = c("North", "South"), # where the ancestral species started (either North or South America)
-                         eq_dist = FALSE){ 
+                         eq_dist = FALSE,
+                         oscill = FALSE){ 
   # -----------------
   # if `what` = "area", returns the proportion of colonised area occupied
   # if `what` = "absolute_area", returns the absolute size of the colonised area (in number of pixels)
   # if `what` = "diversity", returns the number of species in the colonised area
   # -----------------
   if(ancestral_area == "North"){
-    mask <- vect("../Data/Shapefile_masks/South_America_cut.shp")
+    mask <- vect("../../Data/Shapefile_masks/South_America_cut.shp")
   }
   if(ancestral_area == "South"){
-    mask <- vect("../Data/Shapefile_masks/North_America_cut.shp")
+    mask <- vect("../../Data/Shapefile_masks/North_America_cut.shp")
   }
   # -----------------
   # Open gridded pa mat of the final step as an sf object
   # Differential path whether considering equal distances or not
   # -----------------
+  suff <- ""
   if(eq_dist){
-    of <- readRDS(paste0("../Outputs_Eq_Dist/", model, "/", ancestral_area, "_America_start/Config_", run, "/config_", model, 
-                         "_", ancestral_area, "_America_run_", run, "/pa_matrices/pa_t_", last_step, ".rds"))
+    suff <- "_Eq_Dist"
   }
-  else{
-    of <- readRDS(paste0("../Outputs/", model, "/", ancestral_area, "_America_start/config_", model, 
-                         "_", ancestral_area, "_America_run_", run, "/pa_matrices/pa_t_", last_step, ".rds"))
+  else if(oscill){
+    suff <- "_Oscillayers"
   }
+  of <- readRDS(paste0("../../Outputs", suff, "/", model, "/", ancestral_area, "_America_start/Config_", i,
+                       "config_", model, "_", ancestral_area, "_America_run_", run, "/pa_matrices/pa_t_", 
+                       last_step, ".rds"))
   of <- data.frame(of)
   grid_vect <- vect(of, geom = c("x", "y"), crs = crs(mask))
   # Intersect with mask

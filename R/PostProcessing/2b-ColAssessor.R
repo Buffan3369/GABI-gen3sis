@@ -18,29 +18,32 @@ source("helper_functions.R")
 
 transfert <- function(i,     # Run index
                       mdl,   # Scenario (M0, M1, ..)
+                      n_sim,
                       from,  # Ancestral area ("North" or "South")
-                      eq_dist){
+                      eq_dist, # are we treating outputs from simulations generated after standardising initial distances to isthmus
+                      oscill){ # are we treating outputs from Oscillayers-based simulations
   E <- 0 # exchange metric
   # Define mask
   if(from == "North"){
-    mask <- shapefile("../Data/Shapefile_masks/South_America_cut.shp")
+    mask <- shapefile("../../Data/Shapefile_masks/South_America_cut.shp")
   }
   if(from == "South"){
-    mask <- shapefile("../Data/Shapefile_masks/North_America_cut.shp")
+    mask <- shapefile("../../Data/Shapefile_masks/North_America_cut.shp")
   }
   # Define directory
+  suff <- ""
   if(eq_dist){
-    dir <- paste0("../Outputs_Eq_Dist/", mdl, "/", from, "_America_start/Config_", i, "/config_", mdl, 
-                  "_", from, "_America_run_", i, "/pa_matrices/")
+    suff <- "_Eq_Dist"
   }
-  else{
-    dir <- paste0("../Outputs/", mdl, "/", from, "_America_start/config_", mdl, "_", from, "_America_run_",
-                  i, "/pa_matrices")
+  else if(oscill){
+    suff <- "_Oscillayers"
   }
+  dir <- paste0("../../Outputs", suff, "/", mdl, "/", from, "_America_start/Config_", i,
+                "/config_", mdl, "_", from, "_America_run_", i, "/pa_matrices")
   
   if(dir.exists(dir)){
     # Open the presence/absence matrix of the last time step and ratserise it (1 ancestor => perfect xyz table)
-    t_end <- 500 - length(list.files(paste0(dir)))
+    t_end <- n_sim - length(list.files(paste0(dir)))
     pa_last <- readRDS(paste0(dir, "/pa_t_", t_end, ".rds"))
     r_last <- rasterFromXYZ(pa_last[,1:3])
     # Extract coordinates of the cells falling within the mask

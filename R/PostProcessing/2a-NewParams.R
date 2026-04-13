@@ -12,7 +12,9 @@ Add_new_params <- function(param_tbl,        # Pre-simulation parameter table
                            sim_dir,          # Where simulation outputs are stored
                            mdl,              # Simulation scenario (M0, M1, ..)
                            start_continent,  # Starting continent ("North" or "South") 
-                           eq_dist){         # Whether we're working on simulations with standardised distance to isthmus or not
+                           eq_dist,          # Whether we're working on simulations with standardised distance to isthmus or not
+                           oscill            # Whether we're working with oscillayer-based simulations
+                           ){
   ## Initialise new parameters ---------------------------------------------------
   param_tbl[, c("finished", "final_timestep", "initial_nb_species", 
              "final_nb_species", "sp_events", "ex_events")] <- 0
@@ -23,7 +25,7 @@ Add_new_params <- function(param_tbl,        # Pre-simulation parameter table
   ## Loop across all simulations -------------------------------------------------
   for(i in 1:n_sim){
     # Simulation recap file
-    if(eq_dist){
+    if(eq_dist | oscill){
       simdir <- paste0(sim_dir, "/Config_", i, "/config_", 
                        mdl, "_", start_continent, "_America_run_", i, "/sgen3sis.rds")
     }

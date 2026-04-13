@@ -8,20 +8,23 @@
 library(raster)
 
 ## Open kg_biome map for t0 (5 Myr ago) ----------------------------------------
-biome_5M <- readRDS("../Data/pClimate/KG_biomes/KG_5Ma_broadclass.RDS")
+biome_5M <- readRDS("../../Data/pClimate/KG_biomes/KG_5Ma_broadclass.RDS")
 biome_5M <- biome_5M[[1]]
 
 ## Assess the biome to which the starting species of run i belongs -------------
-get_biome_start <- function(i, start, model, eq_dist = FALSE){
+get_biome_start <- function(i, start, n_sim, model, eq_dist = FALSE, oscill = FALSE){
   # Open initial presence-absence matrix
+  t_start <- n_sim-1
+  suff <- ""
   if(eq_dist){
-    init_mat <- readRDS(paste0("../Outputs_Eq_Dist/", model, "/", start, "_America_start/Config_", i, "/config_", model, 
-                         "_", start, "_America_run_", i, "/pa_matrices/pa_t_499.rds"))
+    suff <- "_Eq_Dist"
   }
-  else{
-    init_mat <- readRDS(paste0("../Outputs/", model, "/", start, "_America_start/config_", model,
-                               "_", start, "_America_run_", i, "/pa_matrices/pa_t_499.rds"))
+  else if(oscill){
+    suff <- "_Oscillayers"
   }
+  init_mat <- readRDS(paste0("../Outputs", suff, "/", model, "/", start, "_America_start/Config_", i,
+                             "config_", model, "_", start, "_America_run_", i, "/pa_matrices/pa_t_",
+                             t_start, ".rds"))
   # Check whether starting species existed
   if(length(which(init_mat[,3] == 1)) > 0){
     

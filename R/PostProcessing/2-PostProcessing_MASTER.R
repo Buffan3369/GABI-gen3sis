@@ -15,7 +15,8 @@ args <- commandArgs(trailingOnly=TRUE)
 # args[5] : model (e.g. M0, M1)
 # args[6] : region (North or South)
 # args[7] : standardised distances to isthmus? (set to TRUE if yes)
-# args[8] : path to and name of the extended parameter table
+# args[8] : Oscillayers-based simulations? (set to TRUE if yes)
+# args[9] : path to and name of the extended parameter table
 # -------------------------------------------------------- #
 
 source("./helper_functions.R")
@@ -34,21 +35,22 @@ params <- Add_new_params(param_tbl       = init_params,
                          sim_dir         = args[4],
                          mdl             = args[5],
                          start_continent = args[6],
-                         eq_dist         = as.logical(args[7]))
+                         eq_dist         = as.logical(args[7]),
+                         oscill          = as.logical(args[8]))
 cat("\nAdding New Descriptive Parameters: DONE\n\n")
 
 ## ------------------------------------------------------------------ ##
 ## 2. Indicate whether each run resulted in a successful colonisation ##
 ## ------------------------------------------------------------------ ##
 source("./2b-ColAssessor.R")
-params$exchanged <- sapply(X = 1:as.numeric(args[2]),
-                           FUN = transfert,
-                           mdl = args[5],
-                           from = args[6],
-                           eq_dist = as.logical(args[7]))
+params$exchanged <- sapply(X       = 1:as.numeric(args[3]),
+                           FUN     = transfert,
+                           n_sim   = as.numeric(args[2]),
+                           mdl     = args[5],
+                           from    = args[6],
+                           eq_dist = as.logical(args[7]),
+                           oscill  = as.logical(args[8]))
 cat("\nAdding Successful Colonisations: DONE\n\n")
-
-saveRDS(params, "intermediary_table.RDS")
 
 ## ------------------------------------------------------------------------------- ##
 ## 3. Assessing the area occupied by colonisers and the diversity within this area ##
@@ -66,32 +68,35 @@ for(sr in success_runs){
   # -------------------------- #
   # Proportion of colonised area
   # -------------------------- #
-  area <- get_area_div(run = sr,
-                       model = args[5],
-                       what = "area",
-                       last_step = params$final_timestep[sr],
+  area <- get_area_div(run            = sr,
+                       model          = args[5],
+                       what           = "area",
+                       last_step      = params$final_timestep[sr],
                        ancestral_area = args[6],
-                       eq_dist = as.logical(args[7]))
+                       eq_dist        = as.logical(args[7]),
+                       oscill         = as.logical(args[8]))
   params$prop_col_area[sr] <- ifelse(length(area) == 0, -1, area)
   # -------------------------- #
   # Absolute colonised area
   # -------------------------- #
-  abs_area <- get_area_div(run = sr,
-                           model = args[5],
-                           what = "absolute_area",
-                           last_step = params$final_timestep[sr],
+  abs_area <- get_area_div(run            = sr,
+                           model          = args[5],
+                           what           = "absolute_area",
+                           last_step      = params$final_timestep[sr],
                            ancestral_area = args[6],
-                           eq_dist = as.logical(args[7]))
+                           eq_dist        = as.logical(args[7]),
+                           oscill         = as.logical(args[8]))
   params$abs_col_area[sr] <- ifelse(length(abs_area) == 0, -1, abs_area)
   # ----------------------------- #
   # Diversity in the colonised area
   # ----------------------------- #
-  div <- get_area_div(run = sr,
-                      model = args[5],
-                      what = "diversity",
-                      last_step = params$final_timestep[sr],
+  div <- get_area_div(run            = sr,
+                      model          = args[5],
+                      what           = "diversity",
+                      last_step      = params$final_timestep[sr],
                       ancestral_area = args[6],
-                      eq_dist = as.logical(args[7]))
+                      eq_dist        = as.logical(args[7]),
+                      oscill         = as.logical(args[8]))
   params$div_col[sr] <- div
 }
 cat("\nAdding Propotion and Absolute Colonised Area and Diversity within this Area : DONE\n\n")
@@ -102,11 +107,13 @@ cat("\nAdding Propotion and Absolute Colonised Area and Diversity within this Ar
 ## --------------------------------------------------------------------- ##
 source("./2d-DistIsthm.R")
 # Assess distance between simulation starting point and isthmus
-dists <- sapply(X     = 1:as.numeric(args[3]),
-                FUN   = get_dist_start,
-                model = args[5],
-                start = args[6],
-                eq_dist = as.logical(args[7]))
+dists <- sapply(X       = 1:as.numeric(args[3]),
+                FUN     = get_dist_start,
+                model   = args[5],
+                start   = args[6],
+                n_sim   = as.numeric(args[2]),
+                eq_dist = as.logical(args[7]),
+                oscill  = as.logical(args[8]))
 params$dist_to_isthmus <- dists
 cat("\nAdding distance of ancestral species to Isthmus: DONE\n\n")
 
@@ -116,14 +123,16 @@ cat("\nAdding distance of ancestral species to Isthmus: DONE\n\n")
 ## -------------------------------------------------------------- ##
 source("./2e-StartBiome.R")
 # Assess distance between simulation starting point and isthmus
-biomes <- sapply(X     = 1:as.numeric(args[3]),
-                 FUN   = get_biome_start,
-                 model = args[5],
-                 start = args[6],
-                 eq_dist = as.logical(args[7]))
+biomes <- sapply(X       = 1:as.numeric(args[3]),
+                 FUN     = get_biome_start,
+                 model   = args[5],
+                 n_sim   = as.numeric(args[2]),
+                 start   = args[6],
+                 eq_dist = as.logical(args[7]),
+                 oscill  = as.logical(args[8]))
 params$start_biome <- biomes
 cat("\nAdding Starting Biome: DONE\n\n")
 
 
 ## Save ------------------------------------------------------------------------
-write_tbl_std(params, args[8])
+write_tbl_std(params, args[9])
