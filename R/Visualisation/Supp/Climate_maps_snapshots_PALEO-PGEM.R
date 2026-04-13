@@ -58,13 +58,13 @@ broad_savannah <- function(class_vect){
 int_names <- hash("5 Ma" = 5000, "3 Ma" = 3000, "2.58 Ma" = 2580, "1 Ma" = 1000, 
                   "Last Interglacial" = 120, "Last Glacial Maximum" = 21, "Present" = 0)
 
-Temp_DF <- data.frame(lon = NA, lat = NA, Temp = NA, t = NA)
-Prec_DF <- data.frame(lon = NA, lat = NA, Prec = NA, t = NA)
-Biome_DF <- data.frame(lon = NA, lat = NA, Biome = NA, t = NA)
-Biome_DF_sav <- data.frame(lon = NA, lat = NA, Biome = NA, t = NA)
+Temp_DF_PPGEM <- data.frame(lon = NA, lat = NA, Temp = NA, t = NA)
+Prec_DF_PPGEM <- data.frame(lon = NA, lat = NA, Prec = NA, t = NA)
+Biome_DF_PPGEM <- data.frame(lon = NA, lat = NA, Biome = NA, t = NA)
+Biome_DF_PPGEM_sav <- data.frame(lon = NA, lat = NA, Biome = NA, t = NA)
 
 for(i in keys(int_names)){
-  yr <- values(int_names[i])
+  yr <- hash::values(int_names[i])
   ## Subset temperature estimates for the Americas
   tmp_Temp <- Temp_sub[, c("Long", "Lat", paste0("T_", yr))]
   r_Temp <- rasterFromXYZ(tmp_Temp)
@@ -73,7 +73,7 @@ for(i in keys(int_names)){
   xyz_extracted_Temp <- data.frame(cbind(xy_extracted_Temp, r_Temp_Am[,3]))
   colnames(xyz_extracted_Temp) <- c("lon", "lat", "Temp")
   xyz_extracted_Temp$t <- i
-  Temp_DF <- rbind(Temp_DF, xyz_extracted_Temp)
+  Temp_DF_PPGEM <- rbind(Temp_DF_PPGEM, xyz_extracted_Temp)
   ## Same for precipitations
   tmp_Prec <- Prec_sub[, c("Long", "Lat", paste0("T_", yr))]
   r_Prec <- rasterFromXYZ(tmp_Prec)
@@ -82,34 +82,34 @@ for(i in keys(int_names)){
   xyz_extracted_Prec <- data.frame(cbind(xy_extracted_Prec, r_Prec_Am[,3]))
   colnames(xyz_extracted_Prec) <- c("lon", "lat", "Prec")
   xyz_extracted_Prec$t <- i
-  Prec_DF <- rbind(Prec_DF, xyz_extracted_Prec)
+  Prec_DF_PPGEM <- rbind(Prec_DF_PPGEM, xyz_extracted_Prec)
   ## Subset corresponding biome
   corr_biome <- biomes[[(yr+1)]]
   corr_biome@data@values <- broad(corr_biome@data@values) # Switch to broad classes
-  corr_biome_df <- xyFromCell(corr_biome, cell = 1:ncell(corr_biome))
-  corr_biome_df <- corr_biome_df %>% 
+  corr_biome_DF_PPGEM <- xyFromCell(corr_biome, cell = 1:ncell(corr_biome))
+  corr_biome_DF_PPGEM <- corr_biome_DF_PPGEM %>% 
     as.data.frame() %>% 
     rename(lon = "x", lat = "y") %>% 
     mutate(Biome = corr_biome@data@values, t = i)
-  Biome_DF <- rbind(Biome_DF, corr_biome_df)
+  Biome_DF_PPGEM <- rbind(Biome_DF_PPGEM, corr_biome_DF_PPGEM)
   ## Same by preserving savannah
   corr_biome <- biomes[[(yr+1)]]
   corr_biome@data@values <- broad_savannah(corr_biome@data@values) # Switch to broad classes
-  corr_biome_df_sav <- xyFromCell(corr_biome, cell = 1:ncell(corr_biome))
-  corr_biome_df_sav <- corr_biome_df_sav %>% 
+  corr_biome_DF_PPGEM_sav <- xyFromCell(corr_biome, cell = 1:ncell(corr_biome))
+  corr_biome_DF_PPGEM_sav <- corr_biome_DF_PPGEM_sav %>% 
     as.data.frame() %>% 
     rename(lon = "x", lat = "y") %>% 
     mutate(Biome = corr_biome@data@values, t = i)
-  Biome_DF_sav <- rbind(Biome_DF_sav, corr_biome_df_sav)
+  Biome_DF_PPGEM_sav <- rbind(Biome_DF_PPGEM_sav, corr_biome_DF_PPGEM_sav)
 }
 
 # Temperature plot
-Temp_plot <- Temp_DF %>% 
+Temp_plot <- Temp_DF_PPGEM %>% 
   filter(!is.na(Temp)) %>% 
   mutate(t = factor(t, levels = c("5 Ma", "3 Ma", "2.58 Ma", "1 Ma","Last Interglacial", "Last Glacial Maximum", "Present"))) %>% 
   ggplot(aes(x = lon, y = lat, fill = Temp)) +
   geom_tile() +
-  scale_fill_scico(palette = "vik", midpoint = median(Temp_DF$Temp, na.rm = T)) +
+  scale_fill_scico(palette = "vik", midpoint = median(Temp_DF_PPGEM$Temp, na.rm = T)) +
   labs(x = NULL, y = NULL, fill = "Temperature \n(°C)") +
   facet_grid(.~t) +
   theme(panel.background = element_rect(fill = "grey60",
@@ -124,7 +124,7 @@ Temp_plot <- Temp_DF %>%
         legend.text = element_text(size = 6))
 
 # Precipitations plot
-Prec_plot <- Prec_DF %>% 
+Prec_plot <- Prec_DF_PPGEM %>% 
   filter(!is.na(Prec)) %>% 
   mutate(t = factor(t, levels = c("5 Ma", "3 Ma", "2.58 Ma", "1 Ma","Last Interglacial", "Last Glacial Maximum", "Present"))) %>% 
   ggplot(aes(x = lon, y = lat, fill = Prec)) +
@@ -145,7 +145,7 @@ Prec_plot <- Prec_DF %>%
         legend.text = element_text(size = 6))
 
 # Biome plot
-Biome_plot <- Biome_DF %>% 
+Biome_plot <- Biome_DF_PPGEM %>% 
   filter(!is.na(Biome)) %>% 
   mutate(t = factor(t, levels = c("5 Ma", "3 Ma", "2.58 Ma", "1 Ma","Last Interglacial", "Last Glacial Maximum", "Present")),
          Biome = factor(Biome, levels = c("Tropical", "Arid", "Temperate", "Cold", "Polar"))) %>% 
@@ -166,7 +166,7 @@ Biome_plot <- Biome_DF %>%
         legend.title = element_text(size = 8),
         legend.text = element_text(size = 6))
 # Biome plot (savannah distinct from rainforest/monsoon)
-Biome_plot_sav <- Biome_DF_sav %>% 
+Biome_plot_sav <- Biome_DF_PPGEM_sav %>% 
   filter(!is.na(Biome)) %>% 
   mutate(t = factor(t, levels = c("5 Ma", "3 Ma", "2.58 Ma", "1 Ma","Last Interglacial", "Last Glacial Maximum", "Present")),
          Biome = factor(Biome, levels = c("Tropical \nforest", "Tropical \nsavannah", "Arid", "Temperate", "Cold", "Polar"))) %>% 
@@ -200,3 +200,68 @@ comb <- ggarrange(Temp_plot, Prec_plot, Biome_plot, Biome_plot_sav, nrow = 4, he
 ggsave("./Figures/MS/Supp/Clim_snapshots/Climatic_snapshots_panel_PALEO-PGEM_biomes_savannah.pdf", 
        plot = comb, height = 200, width = 300, units = "mm")
   
+
+##########################################################
+## Comparative plot with Oscillayers for BIO1 and BIO12 ##
+##########################################################
+source("./R/Visualisation/Supp/Climate_maps_snapshots_Oscillayers.R")
+
+## Temperature -----------------------------------------------------------------
+Temp_DF_PPGEM$model <- "PALEO-PGEM"
+Temp_DF_Oscill$model <- "Oscillayers"
+Temp_DF <- rbind(Temp_DF_PPGEM, Temp_DF_Oscill)
+
+comparative_temp_plot <- Temp_DF %>% 
+  filter(!is.na(Temp), t != "Present") %>% 
+  mutate(t = factor(t, levels = c("5 Ma", "3 Ma", "2.58 Ma", "1 Ma","Last Interglacial", "Last Glacial Maximum")),
+         model = factor(model, levels = c("PALEO-PGEM", "Oscillayers"))) %>% 
+  ggplot(aes(x = lon, y = lat, fill = Temp)) +
+  geom_tile() +
+  scale_fill_scico(palette = "vik") +
+  labs(x = NULL, y = NULL, fill = "Temperature \n(°C)") +
+  facet_grid(model~t) +
+  theme(panel.background = element_rect(fill = "grey60",
+                                        colour = "black",
+                                        linewidth = 0.1),
+        panel.grid = element_blank(),
+        axis.line = element_blank(),
+        axis.ticks = element_blank(),
+        axis.text = element_blank(),
+        strip.background = element_rect(fill = "bisque2"),
+        legend.title = element_text(size = 8, hjust = 0.5),
+        legend.text = element_text(size = 6))
+
+ggsave("./Figures/MS/Supp/Clim_snapshots/Comparative_temp_PPGEM_Oscillayers.pdf",
+       plot = comparative_temp_plot, height = 110, width = 260, units = "mm")
+ggsave("./Figures/MS/Supp/Clim_snapshots/Comparative_temp_PPGEM_Oscillayers.png",
+       plot = comparative_temp_plot, height = 110, width = 260, units = "mm", dpi = 600)
+
+## Precipitation ---------------------------------------------------------------
+Prec_DF_PPGEM$model <- "PALEO-PGEM"
+Prec_DF_Oscill$model <- "Oscillayers"
+Prec_DF <- rbind(Prec_DF_PPGEM, Prec_DF_Oscill)
+
+comparative_prec_plot <- Prec_DF %>% 
+  filter(!is.na(Prec), t != "Present") %>% 
+  mutate(t = factor(t, levels = c("5 Ma", "3 Ma", "2.58 Ma", "1 Ma","Last Interglacial", "Last Glacial Maximum")),
+         model = factor(model, levels = c("PALEO-PGEM", "Oscillayers"))) %>% 
+  ggplot(aes(x = lon, y = lat, fill = Prec)) +
+  geom_tile() +
+  scale_fill_scico(palette = "bamO") +
+  labs(x = NULL, y = NULL, fill = "Precipitation \n(mm/yr)") +
+  facet_grid(model~t) +
+  theme(panel.background = element_rect(fill = "grey60",
+                                        colour = "black",
+                                        linewidth = 0.1),
+        panel.grid = element_blank(),
+        axis.line = element_blank(),
+        axis.ticks = element_blank(),
+        axis.text = element_blank(),
+        strip.background = element_rect(fill = "bisque2"),
+        legend.title = element_text(size = 8, hjust = 0.5),
+        legend.text = element_text(size = 6))
+
+ggsave("./Figures/MS/Supp/Clim_snapshots/Comparative_prec_PPGEM_Oscillayers.pdf",
+       plot = comparative_prec_plot, height = 110, width = 260, units = "mm")
+ggsave("./Figures/MS/Supp/Clim_snapshots/Comparative_prec_PPGEM_Oscillayers.png",
+       plot = comparative_prec_plot, height = 110, width = 260, units = "mm", dpi = 600)

@@ -6,6 +6,7 @@
 ################################################################################
 
 library(tidyverse)
+library(raster)
 library(scico)
 library(ggpubr)
 library(hash)
@@ -18,34 +19,34 @@ Prec <- readRDS("./Data/Oscillayers/upscaled_precipitation_snapshots_Americas.RD
 int_names <- hash("5 Ma" = 6, "3 Ma" = 5, "2.58 Ma" = 4, "1 Ma" = 3, 
                   "Last Interglacial" = 2, "Last Glacial Maximum" = 1)
 
-Temp_DF <- data.frame(lon = NA, lat = NA, Temp = NA, t = NA)
-Prec_DF <- data.frame(lon = NA, lat = NA, Prec = NA, t = NA)
+Temp_DF_Oscill <- data.frame(lon = NA, lat = NA, Temp = NA, t = NA)
+Prec_DF_Oscill <- data.frame(lon = NA, lat = NA, Prec = NA, t = NA)
 
 for(i in keys(int_names)){
-  yr <- values(int_names[i])
+  yr <- hash::values(int_names[i])
   ## Subset temperature estimates for the Americas
   r_Temp <- Temp[[yr]]
   xy_Temp <- xyFromCell(r_Temp, cell = 1:ncell(r_Temp))
   xyz_Temp <- cbind(xy_Temp, r_Temp@data@values) %>% as.data.frame()
   colnames(xyz_Temp) <- c("lon", "lat", "Temp")
   xyz_Temp$t <- i
-  Temp_DF <- rbind(Temp_DF, xyz_Temp %>% mutate(Temp = Temp/10))
+  Temp_DF_Oscill <- rbind(Temp_DF_Oscill, xyz_Temp %>% mutate(Temp = Temp/10))
   ## Same for precipitations
   r_Prec <- Prec[[yr]]
   xy_Prec <- xyFromCell(r_Prec, cell = 1:ncell(r_Prec))
   xyz_Prec <- cbind(xy_Prec, r_Prec@data@values) %>% as.data.frame()
   colnames(xyz_Prec) <- c("lon", "lat", "Prec")
   xyz_Prec$t <- i
-  Prec_DF <- rbind(Prec_DF, xyz_Prec)
+  Prec_DF_Oscill <- rbind(Prec_DF_Oscill, xyz_Prec)
 }
 
 # Temperature plot
-Temp_plot <- Temp_DF %>% 
+Temp_plot <- Temp_DF_Oscill %>% 
   filter(!is.na(Temp)) %>% 
   mutate(t = factor(t, levels = c("5 Ma", "3 Ma", "2.58 Ma", "1 Ma","Last Interglacial", "Last Glacial Maximum"))) %>% 
   ggplot(aes(x = lon, y = lat, fill = Temp)) +
   geom_tile() +
-  scale_fill_scico(palette = "vik", midpoint = median(Temp_DF$Temp, na.rm = T)) +
+  scale_fill_scico(palette = "vik", midpoint = median(Temp_DF_Oscill$Temp, na.rm = T)) +
   labs(x = NULL, y = NULL, fill = "Temperature \n(°C)") +
   facet_grid(.~t) +
   theme(panel.background = element_rect(fill = "grey60",
@@ -60,7 +61,7 @@ Temp_plot <- Temp_DF %>%
         legend.text = element_text(size = 6))
 
 # Precipitations plot
-Prec_plot <- Prec_DF %>% 
+Prec_plot <- Prec_DF_Oscill %>% 
   filter(!is.na(Prec)) %>% 
   mutate(t = factor(t, levels = c("5 Ma", "3 Ma", "2.58 Ma", "1 Ma","Last Interglacial", "Last Glacial Maximum"))) %>% 
   ggplot(aes(x = lon, y = lat, fill = Prec)) +
@@ -84,3 +85,4 @@ Prec_plot <- Prec_DF %>%
 comb_oscill <- ggarrange(Temp_plot, Prec_plot, nrow = 2, heights = c(1.1, 1))
 ggsave("./Figures/MS/Supp/Clim_snapshots/Climatic_snapshots_panel_Oscillayers.pdf", plot = comb_oscill, 
        height = 120, width = 260, units = "mm")
+
