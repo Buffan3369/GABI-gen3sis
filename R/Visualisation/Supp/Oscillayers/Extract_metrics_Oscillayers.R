@@ -35,6 +35,10 @@ for(mdl in c("M0", "M1")){
   ## 1. Success proportions --------------------------------------------------
   na_success <- nrow(NA_success_tbl) / nrow(NA_recap_tbl)
   sa_success <- nrow(SA_success_tbl) / nrow(SA_recap_tbl)
+
+  ## 1b. Success proportions accounting for simulations that crashed -----------
+  na_success_raw <- nrow(NA_success_tbl) / 500
+  sa_success_raw <- nrow(SA_success_tbl) / 500
   
   ## 2. Proportion of colonised area -----------------------------------------
   na_prop_col_area <- mean(NA_success_tbl$prop_col_area)
@@ -78,6 +82,27 @@ for(mdl in c("M0", "M1")){
                                                             what = "Upper"),
                                                     bino_CI(prop = sa_success,
                                                             n = nrow(SA_recap_tbl),
+                                                            alpha = 0.05,
+                                                            what = "Upper")),
+                                       Model = c(mdl, mdl)) 
+    
+    ## 1b. Raw proportion of success (associated CI from binomial) -------------
+    plot_df_prop_success_raw <- data.frame(Ori = c("North America", "South America"),
+                                       Prop_success = c(na_success_raw, sa_success_raw),
+                                       Lower_CI = c(bino_CI(prop = na_success_raw,
+                                                            n = 500,
+                                                            alpha = 0.05,
+                                                            what = "Lower"),
+                                                    bino_CI(prop = sa_success_raw,
+                                                            n = 500,
+                                                            alpha = 0.05,
+                                                            what = "Lower")),
+                                       Upper_CI = c(bino_CI(prop = na_success_raw,
+                                                            n = 500,
+                                                            alpha = 0.05,
+                                                            what = "Upper"),
+                                                    bino_CI(prop = sa_success_raw,
+                                                            n = 500,
                                                             alpha = 0.05,
                                                             what = "Upper")),
                                        Model = c(mdl, mdl))
@@ -205,6 +230,28 @@ for(mdl in c("M0", "M1")){
                                    what = "Upper")),
               Model = c(mdl, mdl))
     
+    ## 1b. Raw proportion of success (associated CI from binomial) -------------
+    plot_df_prop_success_raw <- plot_df_prop_success_raw %>% 
+      add_row(Ori = c("North America", "South America"),
+              Prop_success = c(na_success_raw, sa_success_raw),
+              Lower_CI = c(bino_CI(prop = na_success_raw,
+                                   n = 500,
+                                   alpha = 0.05,
+                                   what = "Lower"),
+                           bino_CI(prop = sa_success_raw,
+                                   n = 500,
+                                   alpha = 0.05,
+                                   what = "Lower")),
+              Upper_CI = c(bino_CI(prop = na_success_raw,
+                                   n = 500,
+                                   alpha = 0.05,
+                                   what = "Upper"),
+                           bino_CI(prop = sa_success_raw,
+                                   n = 500,
+                                   alpha = 0.05,
+                                   what = "Upper")),
+              Model = c(mdl, mdl))
+    
     ## 2. Proportion of colonised area ---------------------------------------
     plot_df_prop_col_area <- plot_df_prop_col_area %>% 
       add_row(Ori = c("North America", "South America"),
@@ -314,14 +361,16 @@ for(mdl in c("M0", "M1")){
 ## Save each dataset ---------------------------------------------------------
 
 # Proportion of succesful exchange
-saveRDS(plot_df_prop_success, "./Results/Exchanged_metrics/Oscillayers/Prop_successful_exchange.RDS")
-# Proportion of colonised area
-saveRDS(plot_df_prop_col_area, "./Results/Exchanged_metrics/Oscillayers/Prop_colonised_area.RDS")
-# Absolute colonised area
-saveRDS(plot_df_abs_col_area, "./Results/Exchanged_metrics/Oscillayers/Absolute_colonised_area.RDS")
-# Diversity in the colonised area
-saveRDS(plot_df_div_col_area, "./Results/Exchanged_metrics/Oscillayers/Div_col_area.RDS")
-# Distance to the isthmus
-saveRDS(plot_df_dist_isthmus, "./Results/Exchanged_metrics/Oscillayers/Dist_isthmus.RDS")
+# saveRDS(plot_df_prop_success, "./Results/Exchanged_metrics/Oscillayers/Prop_successful_exchange.RDS")
+# # Raw proportion of succesful exchange
+# saveRDS(plot_df_prop_success_raw, "./Results/Exchanged_metrics/Oscillayers/Raw_prop_successful_exchange.RDS")
+# # Proportion of colonised area
+# saveRDS(plot_df_prop_col_area, "./Results/Exchanged_metrics/Oscillayers/Prop_colonised_area.RDS")
+# # Absolute colonised area
+# saveRDS(plot_df_abs_col_area, "./Results/Exchanged_metrics/Oscillayers/Absolute_colonised_area.RDS")
+# # Diversity in the colonised area
+# saveRDS(plot_df_div_col_area, "./Results/Exchanged_metrics/Oscillayers/Div_col_area.RDS")
+# # Distance to the isthmus
+# saveRDS(plot_df_dist_isthmus, "./Results/Exchanged_metrics/Oscillayers/Dist_isthmus.RDS")
 
 
