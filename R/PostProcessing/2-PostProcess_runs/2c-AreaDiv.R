@@ -26,7 +26,8 @@ get_area_div <- function(run,
                          last_step, # last step of the simulation (if set to zero, simulation went until the end)
                          ancestral_area = c("North", "South"), # where the ancestral species started (either North or South America)
                          eq_dist = FALSE,
-                         oscill = FALSE){ 
+                         oscill = FALSE,
+                         expanded = FALSE){ 
   # -----------------
   # if `what` = "area", returns the proportion of colonised area occupied
   # if `what` = "absolute_area", returns the absolute size of the colonised area (in number of pixels)
@@ -48,6 +49,9 @@ get_area_div <- function(run,
   }
   else if(oscill){
     suff <- "_Oscillayers"
+  }
+  else if(expanded){
+    suff <- "_expanded"
   }
   of <- readRDS(paste0("../../Outputs", suff, "/", model, "/", ancestral_area, "_America_start/Config_", run,
                        "/config_", model, "_", ancestral_area, "_America_run_", run, "/pa_matrices/pa_t_", 

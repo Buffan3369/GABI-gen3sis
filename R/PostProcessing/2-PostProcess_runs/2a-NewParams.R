@@ -9,11 +9,11 @@
 Add_new_params <- function(param_tbl,        # Pre-simulation parameter table
                            n_gen,            # Number of generations
                            n_sim,            # Number of simulation per scenario
-                           sim_dir,          # Where simulation outputs are stored
                            mdl,              # Simulation scenario (M0, M1, ..)
                            start_continent,  # Starting continent ("North" or "South") 
                            eq_dist,          # Whether we're working on simulations with standardised distance to isthmus or not
-                           oscill            # Whether we're working with oscillayer-based simulations
+                           oscill,           # Whether we're working with oscillayer-based simulations
+                           expanded          # Whether we're working on expanded niche 
                            ){
   ## Initialise new parameters ---------------------------------------------------
   param_tbl[, c("finished", "final_timestep", "initial_nb_species", 
@@ -22,14 +22,18 @@ Add_new_params <- function(param_tbl,        # Pre-simulation parameter table
   ## Loop across all simulations -------------------------------------------------
   for(i in 1:n_sim){
     # Simulation recap file
-    if(eq_dist | oscill){
-      simdir <- paste0(sim_dir, "/Config_", i, "/config_", 
-                       mdl, "_", start_continent, "_America_run_", i, "/sgen3sis.rds")
+    suff <- ""
+    if(eq_dist){
+      suff <- "_Eq_Dist"
     }
-    else{
-      simdir <- paste0(sim_dir, "/config_", 
-                       mdl, "_", start_continent, "_America_run_", i, "/sgen3sis.rds")
+    else if(oscill){
+      suff <- "_Oscillayers"
     }
+    else if(expanded){
+      suff <- "_expanded"
+    }
+    simdir <- paste0("../../Outputs", suff, "/", mdl, "/", start_continent, "_America_start/Config_", i,
+                     "/config_", mdl, "_", start_continent, "_America_run_", i, "/sgen3sis.rds")
     #  print(simdir)
     if(file.exists(simdir)){
  #     print("Queue")

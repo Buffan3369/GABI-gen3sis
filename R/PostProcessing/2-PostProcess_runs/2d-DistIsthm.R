@@ -14,7 +14,13 @@ library(spaths)
 SA_mask <- shapefile("../../Data/Shapefile_masks/South_America_cut.shp")
 
 # Function to assess the distance between sim° starting point & isthmus -------- 
-get_dist_start <- function(i, start, model, n_sim, eq_dist = FALSE, oscill = FALSE){
+get_dist_start <- function(i,
+                           start,
+                           model,
+                           n_sim,
+                           eq_dist = FALSE,
+                           oscill = FALSE,
+                           expanded = FALSE){
   # Open initial presence-absence matrix
   t_start <- n_sim-1
   suff <- ""
@@ -23,6 +29,9 @@ get_dist_start <- function(i, start, model, n_sim, eq_dist = FALSE, oscill = FAL
   }
   else if(oscill){
     suff <- "_Oscillayers"
+  }
+  else if(expanded){
+    suff <- "_expanded"
   }
   init_mat <- readRDS(paste0("../../Outputs", suff, "/", model, "/", start, "_America_start/Config_", i,
                              "/config_", model, "_", start, "_America_run_", i, "/pa_matrices/pa_t_", 

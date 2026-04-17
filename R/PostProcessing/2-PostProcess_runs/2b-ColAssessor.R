@@ -16,12 +16,13 @@ source("helper_functions.R")
 # Returns 1 if run i resulted in a successful transfert #
 # ----------------------------------------------------- #
 
-transfert <- function(i,     # Run index
-                      mdl,   # Scenario (M0, M1, ..)
+transfert <- function(i,         # Run index
+                      mdl,       # Scenario (M0, M1, ..)
                       n_sim,
-                      from,  # Ancestral area ("North" or "South")
-                      eq_dist, # are we treating outputs from simulations generated after standardising initial distances to isthmus
-                      oscill){ # are we treating outputs from Oscillayers-based simulations
+                      from,      # Ancestral area ("North" or "South")
+                      eq_dist,   # are we treating outputs from simulations generated after standardising initial distances to isthmus?
+                      oscill,    # are we treating outputs from Oscillayers-based simulations?
+                      expanded){ # are we treating outputs from simulations with thermal niche expanded?
   E <- 0 # exchange metric
   # Define mask
   if(from == "North"){
@@ -37,6 +38,9 @@ transfert <- function(i,     # Run index
   }
   else if(oscill){
     suff <- "_Oscillayers"
+  }
+  else if(expanded){
+    suff <- "_expanded"
   }
   dir <- paste0("../../Outputs", suff, "/", mdl, "/", from, "_America_start/Config_", i,
                 "/config_", mdl, "_", from, "_America_run_", i, "/pa_matrices")
