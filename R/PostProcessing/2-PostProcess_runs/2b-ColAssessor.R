@@ -22,7 +22,8 @@ transfert <- function(i,         # Run index
                       from,      # Ancestral area ("North" or "South")
                       eq_dist,   # are we treating outputs from simulations generated after standardising initial distances to isthmus?
                       oscill,    # are we treating outputs from Oscillayers-based simulations?
-                      expanded){ # are we treating outputs from simulations with thermal niche expanded?
+                      expanded,  # are we treating outputs from simulations with thermal niche expanded?
+                      w){
   E <- 0 # exchange metric
   # Define mask
   if(from == "North"){
@@ -37,10 +38,15 @@ transfert <- function(i,         # Run index
     suff <- "_Eq_Dist"
   }
   else if(oscill){
-    suff <- "_Oscillayers"
+    if(expanded){
+      paste0("Oscillayers_expanded_w_", w)
+    }
+    else{
+      suff <- "_Oscillayers"
+    }
   }
-  else if(expanded){
-    suff <- "_expanded"
+  else if(oscill == FALSE & expanded){
+    suff <- paste0("_expanded_w_", w)
   }
   dir <- paste0("../../Outputs", suff, "/", mdl, "/", from, "_America_start/Config_", i,
                 "/config_", mdl, "_", from, "_America_run_", i, "/pa_matrices")

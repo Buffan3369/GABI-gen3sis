@@ -20,7 +20,8 @@ get_dist_start <- function(i,
                            n_sim,
                            eq_dist = FALSE,
                            oscill = FALSE,
-                           expanded = FALSE){
+                           expanded = FALSE,        
+                           w){
   # Open initial presence-absence matrix
   t_start <- n_sim-1
   suff <- ""
@@ -28,10 +29,15 @@ get_dist_start <- function(i,
     suff <- "_Eq_Dist"
   }
   else if(oscill){
-    suff <- "_Oscillayers"
+    if(expanded){
+      paste0("Oscillayers_expanded_w_", w)
+    }
+    else{
+      suff <- "_Oscillayers"
+    }
   }
-  else if(expanded){
-    suff <- "_expanded"
+  else if(oscill == FALSE & expanded){
+    suff <- paste0("_expanded_w_", w)
   }
   init_mat <- readRDS(paste0("../../Outputs", suff, "/", model, "/", start, "_America_start/Config_", i,
                              "/config_", model, "_", start, "_America_run_", i, "/pa_matrices/pa_t_", 

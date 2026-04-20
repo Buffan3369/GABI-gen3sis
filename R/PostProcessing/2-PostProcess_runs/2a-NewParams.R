@@ -13,7 +13,8 @@ Add_new_params <- function(param_tbl,        # Pre-simulation parameter table
                            start_continent,  # Starting continent ("North" or "South") 
                            eq_dist,          # Whether we're working on simulations with standardised distance to isthmus or not
                            oscill,           # Whether we're working with oscillayer-based simulations
-                           expanded          # Whether we're working on expanded niche 
+                           expanded,         # Whether we're working on expanded niche
+                           w                 # Omega value
                            ){
   ## Initialise new parameters ---------------------------------------------------
   param_tbl[, c("finished", "final_timestep", "initial_nb_species", 
@@ -27,10 +28,15 @@ Add_new_params <- function(param_tbl,        # Pre-simulation parameter table
       suff <- "_Eq_Dist"
     }
     else if(oscill){
-      suff <- "_Oscillayers"
+      if(expanded){
+        paste0("Oscillayers_expanded_w_", w)
+      }
+      else{
+        suff <- "_Oscillayers"
+      }
     }
-    else if(expanded){
-      suff <- "_expanded"
+    else if(oscill == FALSE & expanded){
+      suff <- paste0("_expanded_w_", w)
     }
     simdir <- paste0("../../Outputs", suff, "/", mdl, "/", start_continent, "_America_start/Config_", i,
                      "/config_", mdl, "_", start_continent, "_America_run_", i, "/sgen3sis.rds")

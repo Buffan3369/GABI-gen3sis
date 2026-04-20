@@ -16,7 +16,8 @@ args <- commandArgs(trailingOnly=TRUE)
 # args[6] : standardised distances to isthmus? (set to TRUE if yes)
 # args[7] : Oscillayers-based simulations? (set to TRUE if yes)
 # args[8] : Simulations with expanded thermal niche? (set to TRUE if yes)
-# args[9] : path to and name of the extended parameter table
+# args[9] : Thermal breadth (w) of the simulation (in case expanded, either 0.6 or 0.1)
+# args[10] : path to and name of the extended parameter table
 # -------------------------------------------------------- #
 
 source("./helper_functions.R")
@@ -36,7 +37,8 @@ params <- Add_new_params(param_tbl       = init_params,
                          start_continent = args[5],
                          eq_dist         = as.logical(args[6]),
                          oscill          = as.logical(args[7]),
-                         expanded        = as.logical(args[8]))
+                         expanded        = as.logical(args[8]),
+                         w               = as.numeric(args[9]))
 cat("\nAdding New Descriptive Parameters: DONE\n\n")
 
 ## ------------------------------------------------------------------ ##
@@ -50,7 +52,8 @@ params$exchanged <- sapply(X       = 1:as.numeric(args[3]),
                            from    = args[5],
                            eq_dist = as.logical(args[6]),
                            oscill  = as.logical(args[7]),
-                           expanded= as.logical(args[8]))
+                           expanded= as.logical(args[8]),
+                           w       = as.numeric(args[9]))
 cat("\nAdding Successful Colonisations: DONE\n\n")
 
 ## ------------------------------------------------------------------------------- ##
@@ -76,7 +79,8 @@ for(sr in success_runs){
                        ancestral_area = args[5],
                        eq_dist        = as.logical(args[6]),
                        oscill         = as.logical(args[7]),
-                       expanded       = as.logical(args[8]))
+                       expanded       = as.logical(args[8]),
+                       w              = as.numeric(args[9]))
   params$prop_col_area[sr] <- ifelse(length(area) == 0, -1, area)
   # -------------------------- #
   # Absolute colonised area
@@ -88,7 +92,8 @@ for(sr in success_runs){
                            ancestral_area = args[5],
                            eq_dist        = as.logical(args[6]),
                            oscill         = as.logical(args[7]),
-                           expanded       = as.logical(args[8]))
+                           expanded       = as.logical(args[8]),
+                           w              = as.numeric(args[9]))
   params$abs_col_area[sr] <- ifelse(length(abs_area) == 0, -1, abs_area)
   # ----------------------------- #
   # Diversity in the colonised area
@@ -100,7 +105,8 @@ for(sr in success_runs){
                       ancestral_area = args[5],
                       eq_dist        = as.logical(args[6]),
                       oscill         = as.logical(args[7]),
-                      expanded       = as.logical(args[8]))
+                      expanded       = as.logical(args[8]),
+                      w              = as.numeric(args[9]))
   params$div_col[sr] <- div
 }
 cat("\nAdding Propotion and Absolute Colonised Area and Diversity within this Area : DONE\n\n")
@@ -118,7 +124,8 @@ dists <- sapply(X       = 1:as.numeric(args[3]),
                 n_sim   = as.numeric(args[2]),
                 eq_dist = as.logical(args[6]),
                 oscill  = as.logical(args[7]),
-                expanded= as.logical(args[8]))
+                expanded= as.logical(args[8]),
+                w       = as.numeric(args[9]))
 params$dist_to_isthmus <- dists
 cat("\nAdding distance of ancestral species to Isthmus: DONE\n\n")
 
@@ -134,11 +141,10 @@ biomes <- sapply(X       = 1:as.numeric(args[3]),
                  n_sim   = as.numeric(args[2]),
                  start   = args[5],
                  eq_dist = as.logical(args[6]),
-                 oscill  = as.logical(args[7]),
-                 expanded= as.logical(args[8]))
+                 oscill  = as.logical(args[7]))
 params$start_biome <- biomes
 cat("\nAdding Starting Biome: DONE\n\n")
 
 
 ## Save ------------------------------------------------------------------------
-write_tbl_std(params, args[9])
+write_tbl_std(params, args[10])
