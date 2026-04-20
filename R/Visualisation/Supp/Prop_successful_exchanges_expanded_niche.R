@@ -1,15 +1,45 @@
 ################################################################################
-# Name: Figure_PropSuccess.R
+# Name: Prop_successful_exchanges_expanded_niche.R
 # Author: Lucas Buffan
 # E-mail: lucas.l.buffan@gmail.com
 # Goal: Plot proportion of successful exchanges across starting continents and
-#       models.
+#       models, and compare when expanding thermal niche.
 ################################################################################
 
 library(tidyverse)
 
-## Excluding simulations that crashed ------------------------------------------
+source("./R/useful/helper_functions.R")
+
+## Set up plotting dataset -----------------------------------------------------
 plot_df_prop_success <- readRDS("./Results/Exchanged_metrics/Prop_successful_exchange.RDS")
+plot_df_prop_success$w_max <- 0.1
+
+for(w in c(0.6, 1)){
+  for(model in c("M0", "M1")){
+    # Open summary param tables
+    path <- list.files(paste0("./Data/Gen3sis_parameter_tables/Niche_expanded/w_", w,
+                              "/", model),
+                       pattern = "North_America_parameters_EXTENDED_EXCH", full.names = T)[[1]]
+    param_tbl <- read.table(path, header = T)
+    # Process
+    param_tbl <- param_tbl %>% filter(exchanged != -1)
+    p_success <- length(which(param_tbl$exchanged == 1)) / nrow(param_tbl)
+    lwr_ci <- bino_CI(prop = p_success, n = nrow(param_tbl), what = "Lower")
+    upr_ci <- bino_CI(prop = p_success, n = nrow(param_tbl), what = "Upper")
+    # Extend plotting df
+    plot_df_prop_success <- plot_df_prop_success %>% 
+      add_row(Ori = "North America", Prop_success = p_success, Lower_CI = lwr_ci,
+              Upper_CI = upr_ci, Model = model, w_max = w)
+  }
+}
+
+ptbl_NA_0.6_M0 <- read.table("./Data/Gen3sis_parameter_tables/Niche_expanded/w_0.6/M0/North_America_parameters_EXTENDED_EXCH_AREA_DIV_DIST.txt",
+                             header = T)
+ptbl_NA_0.6_M1 <- read.table("./Data/Gen3sis_parameter_tables/Niche_expanded/w_0.6/M1/North_America_parameters_EXTENDED_EXCH_AREA_DIV_DIST.txt",
+                             header = T)
+
+# w in [0.01, 1]
+
 
 prop_plot <- plot_df_prop_success %>% 
   ggplot(aes(x = Ori, y = Prop_success)) +
