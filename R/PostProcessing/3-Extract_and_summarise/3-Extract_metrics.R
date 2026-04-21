@@ -70,6 +70,7 @@ for(std in c(TRUE, FALSE)){
     if(mdl == "M0"){
       ## 1. Proportion of success (associated CI from binomial) ----------------
       plot_df_prop_success <- data.frame(Ori = c("North America", "South America"),
+                                         Nb_success = c(nrow(NA_success_tbl), nrow(SA_success_tbl)),
                                          Prop_success = c(na_success, sa_success),
                                          Lower_CI = c(bino_CI(prop = na_success,
                                                               n = nrow(NA_recap_tbl),
@@ -214,6 +215,7 @@ for(std in c(TRUE, FALSE)){
       ## 1. Proportion of success (associated CI from binomial) ----------------
       plot_df_prop_success <- plot_df_prop_success %>%
         add_row(Ori = c("North America", "South America"),
+                Nb_success = c(nrow(NA_success_tbl), nrow(SA_success_tbl)),
                 Prop_success = c(na_success, sa_success),
                 Lower_CI = c(bino_CI(prop = na_success,
                                      n = nrow(NA_recap_tbl),
