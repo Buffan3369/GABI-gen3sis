@@ -29,7 +29,7 @@ Add_new_params <- function(param_tbl,        # Pre-simulation parameter table
     }
     else if(oscill){
       if(expanded){
-        paste0("Oscillayers_expanded_w_", w)
+        suff <- paste0("_Oscillayers_expanded_w_", w)
       }
       else{
         suff <- "_Oscillayers"
