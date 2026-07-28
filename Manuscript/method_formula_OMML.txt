@@ -1,0 +1,4 @@
+left lbrace stack {
+abs{{P} rsub {i} left (t right ) − {P} rsub {k , l}}  < {ω} rsub {P} # 
+abs{{T} rsub {i} left (t right ) − {T} rsub {k , l}} < {ω} rsub {T}}} 
+right none
