@@ -9,7 +9,7 @@ Data/World_elevation/
 .Rproj.user
 Results/
 Resources/
-R/3-Config_runner_Oscillayers/
+R/3-Config_runner_Oscillayers.R
 R/PostProcessing/Deprecated/
 R/PostProcessing/6-test.R
 .positai
