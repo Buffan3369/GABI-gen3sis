@@ -9,6 +9,9 @@ Data/World_elevation/
 .Rproj.user
 Results/
 Resources/
+R/3-Config_runner_Oscillayers/
+R/PostProcessing/Deprecated/
+R/PostProcessing/6-test.R
 .positai
 Figures/all_starting_ranges/
 Figures/dist_to_isthm/

@@ -51,7 +51,7 @@ Biotic Interchange; Eco-evolutionary simulations; Macroecology; Palaeoclimate
 - *running title* : Palaeoclimate and the Great American Interchange
 - *article type*: Letter
 - *abstract word count*: 150
-- *main text word count*: 4980
+- *main text word count*: 5000
 - *number of references*: 57
 - *number of figures*: 4
 
