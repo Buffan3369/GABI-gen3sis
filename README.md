@@ -11,4 +11,6 @@ Below is a brief outlook of what you may find within this repository:
 
 Additional data (simulation landscape and config files) are availalable here: <https://doi.org/10.6084/m9.figshare.31160704>.
 
+Raw palaeoclimate layers (annual temperature and precipitation, resp. BIO1 and BIO12) covering the last five million years from the PALEO-PGEM series were taken from Barreto et al. [2023](https://figshare.com/s/d45714f7212de7225fe2).
+
 For additional information, feel free to contact: lucas.l.buffan\@gmail.com
