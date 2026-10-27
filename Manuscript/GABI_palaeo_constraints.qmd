@@ -40,7 +40,7 @@ S.V. and L.B. designed the project. P.B.H. gave inputs on palaeoclimate data usa
 
 # Data availability statement
 
-R scripts for generating, analysing and visualising the data are available at <https://github.com/Buffan3369/GABI-gen3sis.git>. Simulation landscapes and config files are available at <https://doi.org/10.6084/m9.figshare.31160704>.
+R scripts for generating, analysing and visualising the data are available at <https://github.com/Buffan3369/GABI-gen3sis.git> and <https://doi.org/10.6084/m9.figshare.34484187>. Simulation landscapes and config files are available at <https://doi.org/10.6084/m9.figshare.31160704>.
 
 # Keywords
 
